@@ -17,17 +17,6 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 
-import Game from '../Game/Game';
-import GameLaunch from '../Game Launch/GameLaunch';
-import HowToPlay from '../How To Play/HowToPlay';
-import LeaderBoardCompany from '../LeaderBoardCompany/LeaderBoardCompany';
-import CompanyResults from '../Company Results/CompanyResults'
-import ResultsGuestPlayer from '../Results Guest Player';
-import SettingsItemMaintenance from '../SettingsItemMaintenance';
-import SettingsOrganization from '../SettingsOrganization';
-import SettingsUserMaintenance from '../SettingsUserMaintenance';
-
-
 import './App.css';
 
 class App extends Component {
