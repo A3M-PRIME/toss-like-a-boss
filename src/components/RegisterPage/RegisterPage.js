@@ -376,6 +376,65 @@ class RegisterPage extends Component {
                         )}
                       </TextField>
                     </div>
+                    <div>
+                      <TextField
+                        type="date"
+                        align="left"
+                        id="outlined-name"
+                        label="contest end date"
+                        className={classes.fieldMedium}
+                        value={this.state.contestEndDate}
+                        onChange={this.handleInputChangeFor('contestEndDate')}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                          className: classes.input,
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          }
+                        }}
+                        InputLabelProps={{
+                          className: classes.input,
+                          shrink: true
+                        }}
+                      />
+                      <TextField
+                        align="left"
+                        id="outlined-name"
+                        select
+                        label="contest end time"
+                        className={classes.fieldMedium}
+                        value={this.state.contestEndTime}
+                        onChange={this.handleInputChangeFor('contestEndTime')}
+                        SelectProps={{
+                          MenuProps: {
+                            className: classes.status,
+                          },
+                        }}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                          className: classes.input,
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          }
+                        }}
+                        InputLabelProps={{
+                          className: classes.input,
+                          shrink: true
+                        }}
+                      >
+                        {hourSelection.map((hour) =>
+                          <MenuItem key={hour.sqlValue} value={hour.sqlValue} className={classes.timeOptions}>
+                            {hour.displayValue}
+                          </MenuItem>
+                        )}
+                      </TextField>
+                    </div>
                     {/* <div>
                       <label htmlFor="username">
                         Username:
