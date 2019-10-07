@@ -42,4 +42,9 @@ class ResultsItemCard extends Component {
     }
 }
 
+const mapStateToProps = (reduxStore) => {
+    return {
+        wrongAnswers: reduxStore.gameWrongAnswerReducer
+    }
+}
 export default withStyles(styles)(ResultsItemCard);
