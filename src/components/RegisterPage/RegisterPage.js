@@ -78,8 +78,16 @@ class RegisterPage extends Component {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
           username: this.state.username,
           password: this.state.password,
+          organizationName: this.state.organizationName,
+          contestName: this.state.contestName,
+          compostBin: this.state.compostBin,
+          contestStartDate: this.state.contestStartDate,
+          contestEndDate: this.state.contestEndDate,
+          contestEndTime: this.state.contestEndTime
         },
       });
     } else {
