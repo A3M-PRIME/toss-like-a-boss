@@ -435,6 +435,12 @@ class RegisterPage extends Component {
                         )}
                       </TextField>
                     </div>
+                    <br/>
+                    <div>
+                      <Button variant="contained" color="primary" type="submit" name="submit" value="Register">
+                        Register
+                      </Button>
+                    </div>
                     {/* <div>
                       <label htmlFor="username">
                         Username:
@@ -466,15 +472,6 @@ class RegisterPage extends Component {
                       />
                     </div> */}
                   </form>
-                  <center>
-                    <button
-                      type="button"
-                      className="link-button"
-                      onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
-                    >
-                      Login
-          </button>
-                  </center>
                 </CardContent>
               </Card>
             </Grid>
