@@ -276,7 +276,7 @@ class RegisterPage extends Component {
                         }}
                       />
                     </div>
-                    <br/><br/>
+                    <br /><br />
                     <div>
                       <TextField
                         align="left"
@@ -452,11 +452,19 @@ class RegisterPage extends Component {
                         )}
                       </TextField>
                     </div>
-                    <br/>
+                    <br />
                     <div>
+                      <div>
                       <Button variant="contained" color="primary" type="submit" name="submit" value="Register">
                         Register
                       </Button>
+                      </div>
+                      <br/>
+                      <div>
+                      <Button variant="contained" color="primary" value="Login" onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}>
+                        Back to Login
+                      </Button>
+                      </div>
                     </div>
                     {/* <div>
                       <label htmlFor="username">
