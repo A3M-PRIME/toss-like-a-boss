@@ -24,20 +24,13 @@ class Game extends Component {
 - Receptacles - Trash/Garbage - Recycle - Compost
 </footer>
 
-
+  
 
 </div>
     )
   }
 }
 
-
-// mapping the state to props
-const mapStateToProps = reduxStore => {
-  return {
-    reduxStore
-  };
-};
 
 //exports the component
 export default connect(mapStateToProps)(Game);
