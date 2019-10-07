@@ -15,6 +15,17 @@ function* addCorrectAnswer(action) {
     }
 }
 
+function* addWrongAnswer(action) {
+    try {
+        yield put ({
+            type: 'UPDATE_WRONG_ANSWER_ARRAY'
+        })
+    }
+    catch (error) {
+        console.log('error with add wrong answer saga', error);
+    }
+}
+
 function* fetchGameItems(action) {
     try {
         const response = yield axios.get(`/api/item`)
@@ -31,6 +42,7 @@ function* fetchGameItems(action) {
 function* gameSaga() {
     yield takeEvery('ADD_CORRECT_ANSWER', addCorrectAnswer)
     yield takeEvery('FETCH_GAME_ITEMS', fetchGameItems)
+    yield takeEvery('ADD_WRONG_ANSWER', addWrongAnswer)
 }
 
 export default gameSaga;

@@ -25,7 +25,7 @@ class ResultsGuestPlayer extends Component {
                 </div>
                 <div>
                     <Typography variant="h5">
-                        SCORE: {this.props.game}/15 80%
+                        SCORE: {this.props.gameScore}/15 80%
                     </Typography>
                 </div>
                 <div>
@@ -47,7 +47,7 @@ class ResultsGuestPlayer extends Component {
 
 const mapStateToProps = (reduxStore) => {
     return {
-        game: reduxStore.game,
+        gameScore: reduxStore.gameScoreReducer,
     }
 }
 
