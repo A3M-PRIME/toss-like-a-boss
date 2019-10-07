@@ -11,31 +11,39 @@ const styles = theme => ({
   card: {
     textAlign: 'center',
     background: '#494A49',
-    color: 'white',
+    color: 'black',
     alignItems: 'center',
     justifyContent: 'center',
   },
   fieldMedium: {
-    width: 300,
+    margin: 5,
+    width: 240,
     '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
-      borderColor: "white"
+      borderColor: "black"
+    }
+  },
+  fieldLarge: {
+    margin: 5,
+    width: 490,
+    '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+      borderColor: "black"
     }
   },
   input: {
-    color: "white"
+    color: "black"
   },
   cssLabel: {
     '&$cssFocused': {
-      color: "white",
+      color: "black",
     },
   },
   cssOutlinedInput: {
     '&$cssFocused $notchedOutline': {
-      borderColor: "white",
+      borderColor: "black",
     },
   },
   cssFocused: {},
-  notchedOutline: { borderColor: "white" },
+  notchedOutline: { borderColor: "black" },
   h1: {
     color: "#55d685"
   }
@@ -108,10 +116,106 @@ class RegisterPage extends Component {
                       <TextField
                         align="left"
                         id="outlined-name"
-                        label="login"
-                        className={classes.login}
+                        label="first name"
+                        className={classes.fieldMedium}
+                        value={this.state.firstName}
+                        onChange={this.handleInputChangeFor('firstName')}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                          className: classes.input,
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          }
+                        }}
+                        InputLabelProps={{
+                          className: classes.input,
+                          shrink: true
+                        }}
+                      />
+                      <TextField
+                        align="left"
+                        id="outlined-name"
+                        label="last name"
+                        className={classes.fieldMedium}
+                        value={this.state.lastName}
+                        onChange={this.handleInputChangeFor('lastName')}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                          className: classes.input,
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          }
+                        }}
+                        InputLabelProps={{
+                          className: classes.input,
+                          shrink: true
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <TextField
+                        align="left"
+                        id="outlined-name"
+                        label="email address"
+                        className={classes.fieldLarge}
                         value={this.state.username}
                         onChange={this.handleInputChangeFor('username')}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                          className: classes.input,
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          }
+                        }}
+                        InputLabelProps={{
+                          className: classes.input,
+                          shrink: true
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <TextField
+                        type="password"
+                        align="left"
+                        id="outlined-name"
+                        label="password"
+                        className={classes.fieldMedium}
+                        value={this.state.password}
+                        onChange={this.handleInputChangeFor('password')}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                          className: classes.input,
+                          classes: {
+                            root: classes.cssOutlinedInput,
+                            focused: classes.cssFocused,
+                            notchedOutline: classes.notchedOutline,
+                          }
+                        }}
+                        InputLabelProps={{
+                          className: classes.input,
+                          shrink: true
+                        }}
+                      />
+                      <TextField
+                        type="password"
+                        align="left"
+                        id="outlined-name"
+                        label="confirm password"
+                        className={classes.fieldMedium}
+                        value={this.state.confirmPassword}
+                        onChange={this.handleInputChangeFor('confirmPassword')}
                         margin="normal"
                         variant="outlined"
                         InputProps={{
