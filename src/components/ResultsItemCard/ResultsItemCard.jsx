@@ -20,6 +20,7 @@ class ResultsItemCard extends Component {
         return (
             <div>
                 {/* Card to display incorrect item */}
+                {/* map over reducer here */}
                 <div>
                     <Card>
                         <CardHeader
@@ -32,7 +33,7 @@ class ResultsItemCard extends Component {
                             />
                             <Typography component="p">
                                 Aluminum should always be recycled after being rinsed
-                                    </Typography>
+                            </Typography>
                         </CardContent>
                     </Card>
                 </div>

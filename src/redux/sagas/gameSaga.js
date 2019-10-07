@@ -14,8 +14,22 @@ function* addCorrectAnswer(action) {
     }
 }
 
+function* fetchGameItems(action) {
+    try {
+        const response = yield axios.get(`/api/item`)
+        yield put ({
+            type: 'SET_GAME_ITEMS',
+            payload: response.data
+        })
+    }
+    catch (error) {
+        console.log('error with fetch game items', error);
+    }
+}
+
 function* gameSaga() {
     yield takeEvery('ADD_CORRECT_ANSWER', addCorrectAnswer)
+    yield takeEvery('FETCH_GAME_ITEMS', fetchGameItems)
 }
 
 export default gameSaga;
