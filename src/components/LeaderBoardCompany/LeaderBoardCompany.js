@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
@@ -21,6 +22,8 @@ const mapStateToProps = reduxStore => {
 //exports the component
 export default connect(mapStateToProps)(LeaderBoardCompany);
 =======
+=======
+>>>>>>> 3083ce97286c370dd7926f20d4407110a457f51e
 import React, {Component} from "react";
 
 class Leaderboard extends Component {
@@ -31,5 +34,9 @@ class Leaderboard extends Component {
     }
 }
 
+<<<<<<< HEAD
+export default Leaderboard;
+>>>>>>> 3083ce97286c370dd7926f20d4407110a457f51e
+=======
 export default Leaderboard;
 >>>>>>> 3083ce97286c370dd7926f20d4407110a457f51e
