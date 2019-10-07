@@ -5,20 +5,19 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 const styles = {
-    Button: {
-        backgroundColor: "green",
-        color: "white",
-        border: "2px solid black",
-        fontSize: "calc(10px + 2vmin)",
-    },
-    div: {
-        backgroundColor: "blue",
-        border: "5px solid black",
-    },
-    item: {
+  Button: {
+    backgroundColor: "green",
+    color: "white",
+    border: "2px solid black",
+    fontSize: "calc(10px + 2vmin)"
+  },
+  div: {
+    backgroundColor: "blue",
+    border: "5px solid black"
+  },
+  item: {
 
-    }
-    
+  },
 };
 
 class GameLaunch extends Component {
