@@ -67,19 +67,32 @@ class RegisterPage extends Component {
     contestStartDate: '',
     contestStartTime: '',
     contestEndDate: '',
-    contestEndTime: ''
+    contestEndTime: '',
+    accessCode: ''
   };
 
   registerUser = (event) => {
 
     event.preventDefault();
 
+    this.generateAccessId();
+
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
           username: this.state.username,
           password: this.state.password,
+          organizationName: this.state.organizationName,
+          contestName: this.state.contestName,
+          compostBin: this.state.compostBin,
+          contestStartDate: this.state.contestStartDate,
+          contestStartTime: this.state.contestStartTime,
+          contestEndDate: this.state.contestEndDate,
+          contestEndTime: this.state.contestEndTime,
+          accessCode: this.state.accessCode
         },
       });
     } else {
@@ -91,6 +104,10 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  }
+
+  generateAccessId() {
+    this.state.accessCode = Math.floor(Math.random() * 900000000) + 100000000;
   }
 
   render() {
