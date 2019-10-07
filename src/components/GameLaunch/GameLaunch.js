@@ -11,13 +11,20 @@ const styles = {
         border: "2px solid black",
         fontSize: "calc(10px + 2vmin)",
     },
+    div: {
+        backgroundColor: "blue",
+        border: "5px solid black",
+    },
+    item: {
+
+    }
     
 };
 
 class GameLaunch extends Component {
     render() {
         return (
-          <div>
+          <div className={this.props.classes.div}>
             <Grid
               container
               justify={"space-evenly"}
@@ -57,7 +64,19 @@ class GameLaunch extends Component {
                 </Button>
               </Grid>
             </body>
-            <footer>- Receptacles - Trash/Garbage - Recycle - Compost</footer>
+            <footer>
+              {" "}
+              <Grid
+                container
+                justify={"space-evenly"}
+                spacing={48}
+                alignItems={"center"}
+              >
+                <div className={this.props.classes.item}> Trash/Garbage </div>
+                <div className={this.props.classes.item}> Recycle </div>
+                <div className={this.props.classes.item}> Compost </div>
+              </Grid>
+            </footer>
           </div>
         );
     }
