@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
+//Material UI Components
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
@@ -15,6 +17,12 @@ const styles = {
 
 
 class Game extends Component {
+  componentDidMount() {
+    this.props.dispatch({
+      type: "FETCH_GAME_ITEMS"
+    });
+  }
+
   render() {
     return (
       <div>
@@ -43,14 +51,14 @@ class Game extends Component {
               {" "}
               Back To Home{" "}
             </Button>
-            </Grid>
-            <br></br>
-            <Grid
-              container
-              justify={"space-evenly"}
-              spacing={48}
-              alignItems={"center"}
-              >
+          </Grid>
+          <br></br>
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={48}
+            alignItems={"center"}
+          >
             <Button className={this.props.classes.Button} onClick>
               {" "}
               READY?!{" "}
