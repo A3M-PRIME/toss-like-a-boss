@@ -72,7 +72,7 @@ class App extends Component {
             <Route
               exact
               path="/game"
-              component={Game} 
+              component={Game}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

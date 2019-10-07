@@ -22,7 +22,9 @@ const styles = theme => ({
     justifyContent: "center"
   },
   button: {
-    width: '50%'
+    width: '50%',
+    backgroundColor: "green",
+    color: "white"
   }
 });
 class Leaderboard extends Component {
@@ -34,7 +36,10 @@ class Leaderboard extends Component {
           <Grid item xs></Grid>
           <Grid item xs={6}>
             <div className={classes.grid}>
-              <Button variant='outlined' color='primary' className={classes.button}>
+              <Button
+                variant='outlined'
+                color='primary'
+                className={classes.button}>
                 PLAY AGAIN
               </Button>
             </div>
@@ -51,6 +56,14 @@ class Leaderboard extends Component {
                     <TableCell>Department</TableCell>
                   </TableRow>
                 </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableBody>
               </Table>
             </Paper>
           </Grid>
