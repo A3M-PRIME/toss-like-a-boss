@@ -7,4 +7,4 @@ const leaderboard = (state = 0, action) => {
   }
 };
 
-export default game;
+export default leaderboard;
