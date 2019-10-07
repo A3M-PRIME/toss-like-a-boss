@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany'
 
 import './App.css';
+import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 
 class App extends Component {
   componentDidMount () {
@@ -32,11 +33,26 @@ class App extends Component {
           <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Route exact path='/leaderboard' component={Leaderboard} />
             <Redirect exact from='/' to='/home' />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
+
             <Route exact path='/about' component={AboutPage} />
+            <Route
+              exact
+              path="/about"
+              component={AboutPage}
+            />
+            <Route
+              exact
+              path="/results"
+              component={ResultsGuestPlayer}
+              />
+              <Route
+              exact
+              path="/leaderboard"
+              component={Leaderboard}
+              />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.

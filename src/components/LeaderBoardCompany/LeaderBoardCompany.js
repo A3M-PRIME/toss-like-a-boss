@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 
 //Material UI Components
@@ -17,7 +18,6 @@ const styles = theme => ({
     padding: theme.spacing.unit / 2
   }
 });
-
 class Leaderboard extends Component {
   render() {
           const { classes } = this.props;
@@ -51,4 +51,6 @@ class Leaderboard extends Component {
   }
 }
 
+
 export default withStyles(styles)(Leaderboard);
+
