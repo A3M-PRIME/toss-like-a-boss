@@ -13,7 +13,7 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-
+import GameLaunch from "../GameLaunch/GameLaunch";
 import Game from "../Game/Game";
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
@@ -73,6 +73,11 @@ class App extends Component {
               exact
               path="/game"
               component={Game}
+            />
+            <Route
+              exact
+              path="/gamelaunch"
+              component={GameLaunch}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
