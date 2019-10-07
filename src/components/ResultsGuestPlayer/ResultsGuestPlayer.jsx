@@ -19,17 +19,17 @@ class ResultsGuestPlayer extends Component {
         return (
             <div>
                 <div>
-                    <Typography component="h1">
+                    <Typography variant="h3">
                         GAME RESULTS
                     </Typography>
                 </div>
                 <div>
-                    <Typography component="h1">
-                        SCORE: 12/15 80%
+                    <Typography variant="h5">
+                        SCORE: {this.props.game}/15 80%
                     </Typography>
                 </div>
                 <div>
-                    <Typography component="body1">
+                    <Typography variant="h6">
                         These items were sorted incorrectly:
                     </Typography>
                     <ResultsItemCard />
@@ -47,7 +47,7 @@ class ResultsGuestPlayer extends Component {
 
 const mapStateToProps = (reduxStore) => {
     return {
-        reduxStore
+        game: reduxStore.game,
     }
 }
 

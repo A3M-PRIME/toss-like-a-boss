@@ -13,11 +13,11 @@ class Game extends Component {
 </header>
 
 <body>
-- How To Play Button - Navigates to How To Play Picture <Button onClick > How To Play </Button>
-{/* - How to Play Picture - return back to game page <onClick> */}
+<Button onClick > How To Play </Button>
+
 <h2>Score : 0</h2>
-- Back to Home Button - Navigates to Game Home / Play Page <Button onClick> Back To Home </Button>
-- Ready?! Button - Start the Game<Button onClick > READY?! </Button>
+<Button onClick> Back To Home </Button>
+<Button onClick > READY?! </Button>
 
 </body>
 <footer>
@@ -33,4 +33,4 @@ class Game extends Component {
 
 
 //exports the component
-export default connect(mapStateToProps)(Game);
+export default (Game);
