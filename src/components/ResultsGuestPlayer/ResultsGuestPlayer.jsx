@@ -16,6 +16,8 @@ const styles = {
 
 class ResultsGuestPlayer extends Component {
     render() {
+        const scorePercentage = parseInt((this.props.gameScore / 15) * 100);
+        console.log(scorePercentage);
         return (
             <div>
                 <div>
@@ -25,13 +27,10 @@ class ResultsGuestPlayer extends Component {
                 </div>
                 <div>
                     <Typography variant="h5">
-                        SCORE: {this.props.gameScore}/15 80%
+                        SCORE: {this.props.gameScore}/15 {scorePercentage}%
                     </Typography>
                 </div>
                 <div>
-                    <Typography variant="h6">
-                        These items were sorted incorrectly:
-                    </Typography>
                     <ResultsItemCard />
                 </div>
                 <div>
