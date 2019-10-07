@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 
 //Material UI Components
@@ -16,19 +15,37 @@ import Grid from "@material-ui/core/Grid";
 const styles = theme => ({
   close: {
     padding: theme.spacing.unit / 2
+  },
+  grid: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  button: {
+    width: '50%',
+    backgroundColor: "green",
+    color: "white"
   }
 });
 class Leaderboard extends Component {
   render() {
-          const { classes } = this.props;
+    const { classes } = this.props;
     return (
       <>
         <Grid container spacing={24}>
-          <Grid item xs>
-            <Paper className={classes.paper}></Paper>
-          </Grid>
+          <Grid item xs></Grid>
           <Grid item xs={6}>
-            <Button>PLAY AGAIN</Button>
+            <div className={classes.grid}>
+              <Button
+                variant='outlined'
+                color='primary'
+                className={classes.button}>
+                PLAY AGAIN
+              </Button>
+            </div>
+            <div className={classes.grid}>
+              <h1>"Company Name" Leaderboard</h1>
+            </div>
             <Paper>
               <Table>
                 <TableHead>
@@ -39,6 +56,14 @@ class Leaderboard extends Component {
                     <TableCell>Department</TableCell>
                   </TableRow>
                 </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                    <TableCell></TableCell>
+                  </TableRow>
+                </TableBody>
               </Table>
             </Paper>
           </Grid>
@@ -51,6 +76,4 @@ class Leaderboard extends Component {
   }
 }
 
-
 export default withStyles(styles)(Leaderboard);
-

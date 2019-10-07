@@ -16,22 +16,21 @@ const styles = {
 
 class ResultsGuestPlayer extends Component {
     render() {
+        const scorePercentage = parseInt((this.props.gameScore / 15) * 100);
+        console.log(scorePercentage);
         return (
             <div>
                 <div>
-                    <Typography component="h1">
+                    <Typography variant="h3">
                         GAME RESULTS
                     </Typography>
                 </div>
                 <div>
-                    <Typography component="h1">
-                        SCORE: 12/15 80%
+                    <Typography variant="h5">
+                        SCORE: {this.props.gameScore}/15 {scorePercentage}%
                     </Typography>
                 </div>
                 <div>
-                    <Typography component="body1">
-                        These items were sorted incorrectly:
-                    </Typography>
                     <ResultsItemCard />
                 </div>
                 <div>
@@ -47,7 +46,7 @@ class ResultsGuestPlayer extends Component {
 
 const mapStateToProps = (reduxStore) => {
     return {
-        reduxStore
+        gameScore: reduxStore.gameScoreReducer,
     }
 }
 
