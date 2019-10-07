@@ -13,8 +13,8 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import GameLaunch from '../GameLaunch/GameLaunch';
-import Game from '../Game/Game';
+import GameLaunch from "../GameLaunch/GameLaunch";
+import Game from "../Game/Game";
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
@@ -52,9 +52,21 @@ class App extends Component {
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
 
-            <ProtectedRoute exact path="/info" component={InfoPage} />
-            <Route exact path="/game" component={Game} />
-            <Route exact path="/gamelaunch" component={GameLaunch} />
+            <ProtectedRoute
+              exact
+              path="/info"
+              component={InfoPage}
+            />
+            <Route
+              exact
+              path="/game"
+              component={Game}
+            />
+            <Route
+              exact
+              path="/gamelaunch"
+              component={GameLaunch}
+            />
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

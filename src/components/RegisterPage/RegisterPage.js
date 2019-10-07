@@ -67,19 +67,32 @@ class RegisterPage extends Component {
     contestStartDate: '',
     contestStartTime: '',
     contestEndDate: '',
-    contestEndTime: ''
+    contestEndTime: '',
+    accessCode: ''
   };
 
   registerUser = (event) => {
 
     event.preventDefault();
 
+    this.generateAccessId();
+
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
           username: this.state.username,
           password: this.state.password,
+          organizationName: this.state.organizationName,
+          contestName: this.state.contestName,
+          compostBin: this.state.compostBin,
+          contestStartDate: this.state.contestStartDate,
+          contestStartTime: this.state.contestStartTime,
+          contestEndDate: this.state.contestEndDate,
+          contestEndTime: this.state.contestEndTime,
+          accessCode: this.state.accessCode
         },
       });
     } else {
@@ -91,6 +104,10 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  }
+
+  generateAccessId() {
+    this.state.accessCode = Math.floor(Math.random() * 900000000) + 100000000;
   }
 
   render() {
@@ -259,7 +276,7 @@ class RegisterPage extends Component {
                         }}
                       />
                     </div>
-                    <br/><br/>
+                    <br /><br />
                     <div>
                       <TextField
                         align="left"
@@ -435,11 +452,19 @@ class RegisterPage extends Component {
                         )}
                       </TextField>
                     </div>
-                    <br/>
+                    <br />
                     <div>
+                      <div>
                       <Button variant="contained" color="primary" type="submit" name="submit" value="Register">
                         Register
                       </Button>
+                      </div>
+                      <br/>
+                      <div>
+                      <Button variant="contained" color="primary" value="Login" onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}>
+                        Back to Login
+                      </Button>
+                      </div>
                     </div>
                     {/* <div>
                       <label htmlFor="username">
