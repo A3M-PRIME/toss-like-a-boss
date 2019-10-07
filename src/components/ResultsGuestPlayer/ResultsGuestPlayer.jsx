@@ -4,8 +4,14 @@ import { withStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-const styles = {
 
+import ResultsItemCard from '../ResultsItemCard/ResultsItemCard';
+
+const styles = {
+    media:{
+        width: '100px',
+        height: '100px'
+    }
 }
 
 class ResultsGuestPlayer extends Component {
@@ -26,9 +32,13 @@ class ResultsGuestPlayer extends Component {
                     <Typography component="body1">
                         These items were sorted incorrectly:
                     </Typography>
+                    <ResultsItemCard />
                 </div>
                 <div>
                     <Button variant="contained">CLICK HERE TO PLAY AGAIN</Button>
+                </div>
+                <div>
+                    <Button variant="contained">CHECK OUT THE LEADERBOARD</Button>
                 </div>
             </div>
         );
