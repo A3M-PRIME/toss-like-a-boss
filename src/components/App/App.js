@@ -12,7 +12,7 @@ import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
+import LoginPage from '../LoginPage/LoginPage';
 import GameLaunch from "../GameLaunch/GameLaunch";
 import Game from "../Game/Game";
 import AboutPage from '../AboutPage/AboutPage';
@@ -78,6 +78,11 @@ class App extends Component {
                     exact
                     path="/gamelaunch"
                     component={GameLaunch}
+                  />
+                  <Route
+                    exact
+                    path="/login"
+                    component={LoginPage}
                   />
                   <ProtectedRoute
                     exact
