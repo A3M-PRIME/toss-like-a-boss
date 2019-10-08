@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import LeaderboardList from "../LeaderboardList/LeaderboardList";
 
 //Material UI Components
 import { withStyles } from "@material-ui/core/styles";
@@ -14,9 +15,6 @@ import Grid from "@material-ui/core/Grid";
 
 //Material UI styles
 const styles = theme => ({
-  close: {
-    padding: theme.spacing.unit / 2
-  },
   grid: {
     display: "flex",
     alignItems: "center",
@@ -70,12 +68,9 @@ class Leaderboard extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  <TableRow>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                  </TableRow>
+                    {this.props.store.leaderboardReducer.map(player => {
+                      return <LeaderboardList player={player}/>;
+                    })}
                 </TableBody>
               </Table>
             </Paper>
