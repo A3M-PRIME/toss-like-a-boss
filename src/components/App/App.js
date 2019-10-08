@@ -18,7 +18,8 @@ import Game from "../Game/Game";
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany'
+import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany';
+import HowToPlay from '../HowToPlay/HowToPlay';
 
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
@@ -83,6 +84,11 @@ class App extends Component {
                     exact
                     path="/login"
                     component={LoginPage}
+                  />
+                  <Route
+                    exact
+                    path="/howtoplay"
+                    component={HowToPlay}
                   />
                   <ProtectedRoute
                     exact
