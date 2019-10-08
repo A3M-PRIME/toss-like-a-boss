@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 
 const styles = {
   Button: {
@@ -12,6 +13,20 @@ const styles = {
     color: "white",
     border: "2px solid black",
     fontSize: "calc(10px + 2vmin)",
+  },
+  bin: {
+    width: '100px',
+    height: '100px',
+    backgroundColor: 'red',
+    border: '1px solid black',
+    float: 'left',
+    margin: '5px'
+  },
+  item: {
+    width: '50px',
+    height: '50px',
+    backgroundColor: 'green',
+    border: '1px solid black'
   }
 };
 
@@ -64,9 +79,26 @@ class Game extends Component {
               READY?!{" "}
             </Button>
           </Grid>
+          <div>
+            <div className = { this.props.classes.item } >
+              {this.props.gameItems[0].name}
+            </div>
+          </div>
         </body>
-        {JSON.stringify(this.props.reduxStore)}
-        <footer>- Receptacles - Trash/Garbage - Recycle - Compost</footer>
+        <footer>
+          <div className={this.props.classes.bin}>
+            Receptacles
+          </div >
+          <div className={this.props.classes.bin}>
+            Garbage
+          </div>
+          <div className={this.props.classes.bin}>
+            Recycle
+          </div>
+          <div className={this.props.classes.bin}>
+            Compost
+          </div>
+        </footer>
       </div>
     );
   }
@@ -74,9 +106,10 @@ class Game extends Component {
 
 // mapping the state to props
 const mapStateToProps = reduxStore => {
-    return {
-        reduxStore
-    }
+  return {
+    reduxStore,
+    gameItems: reduxStore.gameItemsReducer
+  }
 }
 
 //exports the component
