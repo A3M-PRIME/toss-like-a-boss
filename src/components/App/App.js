@@ -33,6 +33,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import 'typeface-roboto';
 
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
@@ -40,6 +43,7 @@ class App extends Component {
 
   render() {
     return (
+      <DndProvider backend={HTML5Backend}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
@@ -105,6 +109,7 @@ class App extends Component {
           </div>
         </Router>
       </ThemeProvider>
+      </DndProvider>
     );
   }
 }
