@@ -1,10 +1,10 @@
-const orgSettingsReducer = (state = {}, action) => {
-    // switch (action.type) {
-    //     case 'UPDATE_WRONG_ANSWER_ARRAY':
-    //         return [...state, action.payload]
-    //     default:
-    //         return state;
-    // }
+const orgSettings = (state = {}, action) => {
+    switch (action.type) {
+        case 'SET_ORGANIZATION':
+            return action.payload;
+        default:
+            return state;
+    }
 }
 
-export default orgSettingsReducer;
+export default orgSettings;
