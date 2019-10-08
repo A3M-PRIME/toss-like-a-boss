@@ -14,8 +14,22 @@ function* fetchOrganization(action) {
     }
 }
 
+function* updateOrganizationName(action) {
+    try {
+        let response = yield axios.put('/api/organization/organizationName', action.payload);
+        console.log('Organization name update saga response:', action.payload);
+        yield put({
+            type: 'FETCH_ORGANIZATION',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in ORGANIZATION NAME PUT', err);
+    }
+}
+
 function* orgSettingsSaga() {
     yield takeEvery('FETCH_ORGANIZATION', fetchOrganization);
+    yield takeEvery('UPDATE_ORGANIZATION_NAME', updateOrganizationName);
 }
 
 export default orgSettingsSaga;
