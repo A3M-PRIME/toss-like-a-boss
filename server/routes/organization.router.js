@@ -16,4 +16,18 @@ router.get('/', (req, res) => {
     })
 });
 
+//ORGANIZATION NAME PUT
+router.put('/organizationName', (req, res) => {
+    const sqlText = `UPDATE organization
+    SET organization_name = $1
+    WHERE "id" = $2;`;
+    pool.query(sqlText, [req.body.organizationName, req.user.organization_id])
+    .then(result => {
+        res.sendStatus(200);
+    })
+    .catch(error => {
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;

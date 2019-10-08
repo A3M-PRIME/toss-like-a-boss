@@ -19,12 +19,12 @@ const styles = {
       color: "black"
     }
   },
-  h1: {
-    border: "2px solid black",
-    width: "100%",
-    margin: "20px",
-    padding: "40px"
-  },
+  // h1: {
+  //   border: "2px solid black",
+  //   width: "100%",
+  //   margin: "20px",
+  //   padding: "40px"
+  // },
   trash: {
     border: "2px solid black",
     width: "25%",
@@ -52,7 +52,7 @@ class GameLaunch extends Component {
   }
 
   toLogin = () => {
-    this.props.history.push('/')
+    this.props.history.push('/login')
   }
 
   // route the user back to the home page
@@ -72,7 +72,7 @@ class GameLaunch extends Component {
     render() {
         return (
           <div>
-            <Grid
+            {/* <Grid
               container
               justify={"space-evenly"}
               spacing={12}
@@ -90,7 +90,8 @@ class GameLaunch extends Component {
                   <h3>Elapsed Time showing : 0:00</h3>
                 </Grid>
               </div>
-            </Grid>
+            </Grid> */}
+            <br></br>
             <body>
               <Grid
                 container
@@ -98,19 +99,22 @@ class GameLaunch extends Component {
                 spacing={6}
                 alignItems={"center"}
               >
-                <Button
-                  className={this.props.classes.Button}
-                  onClick={this.howToPlay}
-                >
-                  How To Play
-                </Button>
-                <h2>Score : 0</h2>
-                <Button
-                  className={this.props.classes.Button}
-                  onClick={this.backToHome}
-                >
-                  Back To Home
-                </Button>
+                <Grid item xs={3}>
+                  <Button
+                    className={this.props.classes.Button}
+                    onClick={this.howToPlay}
+                  >
+                    How To Play
+                  </Button>
+                </Grid>
+                <Grid item xs={3}>
+                  <Button
+                    className={this.props.classes.Button}
+                    onClick={this.backToHome}
+                  >
+                    Back To Home
+                  </Button>
+                </Grid>
               </Grid>
               <br></br>
               <Grid
@@ -119,26 +123,38 @@ class GameLaunch extends Component {
                 spacing={48}
                 alignItems={"center"}
               >
+                <Grid item xs={2}>
                 <Button className={this.props.classes.Button} onClick>
-                  READY?!
+                  PLAY!
                 </Button>
+                </Grid>
               </Grid>
             </body>
-            {/* {JSON.stringify(this.props.reduxStore)} */}
+            <br></br>
             <Grid
               container
               justify={"space-evenly"}
               spacing={12}
               alignItems={"center"}
             >
-              <Button className={this.props.classes.Button} onClick>
-                HOST A CONTEST
-              </Button>
-              <Button className={this.props.classes.Button} onClick>
-                LOGIN TO YOUR ADMIN ACCOUNT
-              </Button>
+              <Grid item xs={3}>
+                <Button
+                  className={this.props.classes.Button}
+                  onClick={this.toContest}
+                >
+                  HOST A CONTEST
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  className={this.props.classes.Button}
+                  onClick={this.toLogin}
+                >
+                  LOGIN TO YOUR ADMIN ACCOUNT
+                </Button>
+              </Grid>
             </Grid>
-            <footer>
+            {/* <footer>
               <Grid
                 container
                 justify={"space-evenly"}
@@ -149,7 +165,7 @@ class GameLaunch extends Component {
                 <div className={this.props.classes.recycle}>Recycle</div>
                 <div className={this.props.classes.compost}>Compost</div>
               </Grid>
-            </footer>
+            </footer> */}
           </div>
         );
     }
