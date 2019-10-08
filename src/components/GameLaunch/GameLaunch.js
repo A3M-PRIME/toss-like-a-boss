@@ -5,34 +5,50 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 const styles = {
-    Button: {
-        backgroundColor: "green",
-        color: "white",
-        border: "2px solid black",
-        fontSize: "calc(10px + 2vmin)",
-    },
-    div: {
-        backgroundColor: "blue",
-        border: "5px solid black",
-    },
-    item: {
-
+  Button: {
+    backgroundColor: "green",
+    color: "white",
+    border: "2px solid black",
+    fontSize: "calc(10px + 2vmin)",
+    padding: "5px",
+    margin: "50px",
+    "&:hover": {
+      // change to both KEY and the
+      // textDecoration: "underline",
+      backgroundColor: "yellow",
+      color: "black"
     }
-    
+  },
+  h1: {
+    border: "2px solid black",
+    width: "100%",
+    margin: "20px",
+    padding: "40px"
+  },
 };
 
 class GameLaunch extends Component {
     render() {
         return (
-          <div className={this.props.classes.div}>
+          <div>
             <Grid
               container
               justify={"space-evenly"}
               spacing={12}
               alignItems={"center"}
             >
-              <h1>WASTE-WISE-R</h1> <h3>items remaining : 15</h3>{" "}
-              <h3>Elapsed Time showing : 0:00</h3>
+              <div className={this.props.classes.h1}>
+                <Grid
+                  container
+                  justify={"space-evenly"}
+                  spacing={10}
+                  alignItems={"center"}
+                >
+                  <h1>WASTE-WISE-R</h1>
+                  <h3>items remaining : 15</h3>{" "}
+                  <h3>Elapsed Time showing : 0:00</h3>
+                </Grid>
+              </div>
             </Grid>
             <body>
               <Grid
@@ -41,14 +57,18 @@ class GameLaunch extends Component {
                 spacing={6}
                 alignItems={"center"}
               >
-                <Button className={this.props.classes.Button} onClick>
-                  {" "}
-                  How To Play{" "}
+                <Button
+                  className={this.props.classes.Button}
+                  onClick={this.howToPlay}
+                >
+                  How To Play
                 </Button>
                 <h2>Score : 0</h2>
-                <Button className={this.props.classes.Button} onClick>
-                  {" "}
-                  Back To Home{" "}
+                <Button
+                  className={this.props.classes.Button}
+                  onClick={this.backToHome}
+                >
+                  Back To Home
                 </Button>
               </Grid>
               <br></br>
@@ -59,22 +79,21 @@ class GameLaunch extends Component {
                 alignItems={"center"}
               >
                 <Button className={this.props.classes.Button} onClick>
-                  {" "}
-                  READY?!{" "}
+                  READY?!
                 </Button>
               </Grid>
             </body>
+            {/* {JSON.stringify(this.props.reduxStore)} */}
             <footer>
-              {" "}
               <Grid
                 container
                 justify={"space-evenly"}
                 spacing={48}
                 alignItems={"center"}
               >
-                <div className={this.props.classes.item}> Trash/Garbage </div>
-                <div className={this.props.classes.item}> Recycle </div>
-                <div className={this.props.classes.item}> Compost </div>
+                <div className={this.props.classes.bin}>Trash/Garbage</div>
+                <div className={this.props.classes.bin}>Recycle</div>
+                <div className={this.props.classes.bin}>Compost</div>
               </Grid>
             </footer>
           </div>
