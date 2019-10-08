@@ -32,13 +32,26 @@ const styles = {
 
 
 class Game extends Component {
+
+  state={
+    score: 0,
+    time: 0
+  }
+
   componentDidMount() {
     this.props.dispatch({
       type: "FETCH_GAME_ITEMS"
     });
   }
+handleTimerStart = () => {
+  console.log('start a timer');
+  this.timer = setInterval(() => this.setState({
+    time: this.state.time + 1
+  }), 1000)
+}
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Grid
@@ -47,8 +60,14 @@ class Game extends Component {
           spacing={12}
           alignItems={"center"}
         >
-          <h1>WASTE-WISE-R</h1> <h3>items remaining : 15</h3>{" "}
-          <h3>Elapsed Time showing : 0:00</h3>
+          <h1>WASTE-WISE-R</h1> 
+          {/* conditionally render items remaining based on length of array, use 0 if no items */}
+          <h3>items remaining : 
+          {this.props.gameItems.length ? (
+            this.props.gameItems.length) : (
+              0)}
+              </h3>{" "}
+          <h3>Elapsed Time showing : {this.state.time}</h3>
         </Grid>
         <body>
           <Grid
@@ -61,7 +80,7 @@ class Game extends Component {
               {" "}
               How To Play{" "}
             </Button>
-            <h2>Score : 0</h2>
+            <h2>Score : {this.state.score}</h2>
             <Button className={this.props.classes.Button} onClick>
               {" "}
               Back To Home{" "}
@@ -74,7 +93,7 @@ class Game extends Component {
             spacing={48}
             alignItems={"center"}
           >
-            <Button className={this.props.classes.Button} onClick>
+            <Button className={this.props.classes.Button} onClick={() => this.handleTimerStart()}>
               {" "}
               READY?!{" "}
             </Button>
