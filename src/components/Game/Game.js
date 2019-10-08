@@ -47,7 +47,7 @@ const styles = {
 
 class Game extends Component {
 
-  state={
+  state = {
     score: 0,
     time: 0
   }
@@ -57,16 +57,17 @@ class Game extends Component {
       type: "FETCH_GAME_ITEMS"
     });
   }
-handleTimerStart = () => {
-  console.log('start a timer');
-  this.timer = setInterval(() => this.setState({
-    time: this.state.time + 1
-  }), 1000)
-}
+
+  handleTimerStart = () => {
+    console.log('start a timer');
+    this.timer = setInterval(() => this.setState({
+      time: this.state.time + 1
+    }), 1000)
+  }
 
   // route the user back to the home page
   backToHome = () => {
-    this.props.history.push('/'); 
+    this.props.history.push('/');
   };
 
   // route the user back to the how to play page
@@ -82,106 +83,112 @@ handleTimerStart = () => {
     console.log(this.state)
     return (
       <div>
+      <div>
+        <header>
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={12}
+            alignItems={"center"}
+          >
+            <h1>WASTE-WISE-R</h1>
+            {/* conditionally render items remaining based on length of array, use 0 if no items */}
+            <h3>items remaining :
+          {this.props.gameItems.length ? (
+                this.props.gameItems.length) : (
+                  0)}
+            </h3>{" "}
+            <h3>Elapsed Time showing : {this.state.time}</h3>
+            <div className={this.props.classes.h1}>
+              <Grid
+                container
+                justify={"space-evenly"}
+                spacing={10}
+                alignItems={"center"}
+              >
+                <h1>WASTE-WISE-R</h1>
+                <h3>items remaining : 15</h3> <h3>Elapsed Time showing : 0:00</h3>
+              </Grid>
+            </div>
+          </Grid>
+        </header>
+      </div>
+
+      <div>
         <Grid
           container
           justify={"space-evenly"}
-          spacing={12}
+          spacing={6}
           alignItems={"center"}
         >
-          <h1>WASTE-WISE-R</h1> 
-          {/* conditionally render items remaining based on length of array, use 0 if no items */}
-          <h3>items remaining : 
-          {this.props.gameItems.length ? (
-            this.props.gameItems.length) : (
-              0)}
-              </h3>{" "}
-          <h3>Elapsed Time showing : {this.state.time}</h3>
-          <div className={this.props.classes.h1}>
-            <Grid
-              container
-              justify={"space-evenly"}
-              spacing={10}
-              alignItems={"center"}
-            >
-              <h1>WASTE-WISE-R</h1>
-              <h3>items remaining : 15</h3> <h3>Elapsed Time showing : 0:00</h3>
-            </Grid>
-          </div>
-        </Grid>
-        <body>
-          <Grid
-            container
-            justify={"space-evenly"}
-            spacing={6}
-            alignItems={"center"}
+          <Button
+            className={this.props.classes.Button}
+            onClick={this.howToPlay}
           >
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.howToPlay}
-            >
-              How To Play
+            How To Play
             </Button>
-            <h2>Score : {this.state.score}</h2>
-            <Button className={this.props.classes.Button} onClick>
-              {" "}
-              Back To Home{" "}
+          <h2>Score : {this.state.score}</h2>
+          <Button className={this.props.classes.Button} onClick>
+            {" "}
+            Back To Home{" "}
             <h2>Score : 0</h2>
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.backToHome}
-            >
-              Back To Home
-            </Button>
-          </Grid>
-          <br></br>
-          <Grid
-            container
-            justify={"space-evenly"}
-            spacing={48}
-            alignItems={"center"}
+          </Button>
+          <Button
+            className={this.props.classes.Button}
+            onClick={this.backToHome}
           >
-
-            <Button className={this.props.classes.Button} onClick={() => this.handleTimerStart()}>
-              {" "}
-              READY?!{" "}
-            <Button className={this.props.classes.Button} onClick>
-              READY?!
+            Back To Home
             </Button>
-          </Grid>
+        </Grid>
+        <br />
+        <Grid
+          container
+          justify={"space-evenly"}
+          spacing={48}
+          alignItems={"center"}
+        >
+
+          <Button className={this.props.classes.Button} onClick={() => this.handleTimerStart()}>
+            {" "}
+            READY?!{" "}
+          </Button>
+        </Grid>
+        <Grid>
           <div>
-            <div className = { this.props.classes.item } >
+            <div className={this.props.classes.item} >
               {this.props.gameItems[0].name}
             </div>
           </div>
-        </body>
-        <footer>
-          <div className={this.props.classes.bin}>
-            Receptacles
+        </Grid>
+      </div>
+      <footer>
+        <div className={this.props.classes.bin}>
+          Receptacles
           </div >
-          <div className={this.props.classes.bin}>
-            Garbage
+        <div className={this.props.classes.bin}>
+          Garbage
           </div>
-          <div className={this.props.classes.bin}>
-            Recycle
+        <div className={this.props.classes.bin}>
+          Recycle
           </div>
-          <div className={this.props.classes.bin}>
-            Compost
+        <div className={this.props.classes.bin}>
+          Compost
           </div>
         {/* {JSON.stringify(this.props.reduxStore)} */}
-        <footer>
-          <Grid
-            container
-            justify={"space-evenly"}
-            spacing={48}
-            alignItems={"center"}
-          >
-            <div className={this.props.classes.bin}>Trash/Garbage</div>
-            <div className={this.props.classes.bin}>Recycle</div>
-            <div className={this.props.classes.bin}>Compost</div>
-          </Grid>
-        </footer>
-      </div>
-    );
+        <Grid
+          container
+          justify={"space-evenly"}
+          spacing={48}
+          alignItems={"center"}
+        >
+          <div className={this.props.classes.bin}>Trash/Garbage</div>
+          <div className={this.props.classes.bin}>Recycle</div>
+          <div className={this.props.classes.bin}>Compost</div>
+        </Grid>
+      </footer>
+      </div >
+
+          );
   }
 }
 
