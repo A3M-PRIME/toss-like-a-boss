@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-import { Card, Grid } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 import { Settings } from '@material-ui/icons';
+import OrganizationName from './SettingsOrganizationComponents/OrganizationName';
 
 const styles = theme => ({
   root: {
@@ -15,6 +16,13 @@ const styles = theme => ({
     color: 'black',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  cardHeader: {
+    fontSize: 28,
+    fontWeight: 'bold'
+  },
+  cardContent: {
+    fontSize: 24
   },
   h1: {
     textAlign: 'right'
@@ -33,16 +41,6 @@ class SettingsOrganization extends Component {
 
   }
 
-  componentDidMount() {
-    this.getOrganization();
-  }
-
-  getOrganization() {
-    this.props.dispatch({
-      type: 'FETCH_ORGANIZATION'
-    })
-  }
-
   render() {
 
     const { classes } = this.props
@@ -52,17 +50,7 @@ class SettingsOrganization extends Component {
       <div className={classes.root}>
         <h1 className={classes.h1}>Settings<Settings className={classes.icon} /></h1>
           <h2>Organization</h2>
-          <Grid container spacing={4} justify="center">
-          <Grid item sm={3}>
-          </Grid>
-          <Grid item sm={6}>
-            <Card className={classes.card}>
-              Organization Information
-          </Card>
-          </Grid>
-          <Grid item sm={3}>
-          </Grid>
-        </Grid>
+          <OrganizationName/>
       </div>
 
     )
@@ -74,7 +62,6 @@ class SettingsOrganization extends Component {
 const mapStateToProps = (reduxStore) => {
   return {
     user: reduxStore.user,
-    organization: reduxStore.organization,
   }
 }
 export default connect(mapStateToProps)(withStyles(styles)(SettingsOrganization));
