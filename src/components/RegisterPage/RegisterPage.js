@@ -29,6 +29,9 @@ const styles = theme => ({
       borderColor: "black"
     }
   },
+  question: {
+    fontSize: 20
+  },
   radio: {
     margin: theme.spacing(3)
   },
@@ -67,19 +70,34 @@ class RegisterPage extends Component {
     contestStartDate: '',
     contestStartTime: '',
     contestEndDate: '',
-    contestEndTime: ''
+    contestEndTime: '',
+    accessCode: ''
   };
 
   registerUser = (event) => {
 
     event.preventDefault();
 
+    this.passwordValidation();
+
+    this.generateAccessId();
+
     if (this.state.username && this.state.password) {
       this.props.dispatch({
         type: 'REGISTER',
         payload: {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
           username: this.state.username,
           password: this.state.password,
+          organizationName: this.state.organizationName,
+          contestName: this.state.contestName,
+          compostBin: this.state.compostBin,
+          contestStartDate: this.state.contestStartDate,
+          contestStartTime: this.state.contestStartTime,
+          contestEndDate: this.state.contestEndDate,
+          contestEndTime: this.state.contestEndTime,
+          accessCode: this.state.accessCode
         },
       });
     } else {
@@ -91,6 +109,21 @@ class RegisterPage extends Component {
     this.setState({
       [propertyName]: event.target.value,
     });
+  }
+
+  generateAccessId() {
+    this.state.accessCode = Math.floor(Math.random() * 900000000) + 100000000;
+  }
+
+  passwordValidation() {
+    if (this.state.password.length < 8) {
+      alert('Please ensure your password is at least eight characters.');
+      return false;
+    }
+    if (this.state.password !== this.state.confirmPassword) {
+      alert('The passwords do not match.  Please try again.');
+      return false;
+    }
   }
 
   render() {
@@ -123,11 +156,26 @@ class RegisterPage extends Component {
 
     return (
       <Box textAlign="center">
-        <div style={{ marginTop: 90, padding: 30 }}>
-          <Grid container spacing={2} justify="center" style={{ marginTop: 6 }}>
-            <Grid item sm={5}>
+        <div className={classes.root} style={{ marginTop: 25, padding: 30 }}>
+          <Grid container spacing={2} justify="center">
+            <Grid item sm={8}>
               <Card>
                 <CardContent>
+                  <span className={classes.question}><b>Invited to play?</b></span>
+                  <br/>
+                  There's no need to register!  Please use the link provided by your organization.
+                  <br/><br/>
+                  <span className={classes.question}><b>Represent an organization?</b></span>
+                  <br/>
+                  You're in the right place!  Register for an account to begin setting up your contest.
+                </CardContent>
+              </Card>
+            </Grid>   
+            </Grid>
+          <Grid container spacing={2} justify="center" style={{ marginTop: 10}}>
+            <Grid item sm={8}>
+              <Card>
+                <CardContent style={{ backgroundColor: "#EEF1F1"}}>
                   {this.props.errors.registrationMessage && (
                     <h2
                       className="alert"
@@ -137,8 +185,8 @@ class RegisterPage extends Component {
                     </h2>
                   )}
                   <form onSubmit={this.registerUser}>
-                    <h1>Registration</h1>
-
+                    <h1>Organization Registration</h1>
+                    <h3>Your Information</h3>
                     <div>
                       <TextField
                         align="left"
@@ -259,7 +307,6 @@ class RegisterPage extends Component {
                         }}
                       />
                     </div>
-                    <br/><br/>
                     <div>
                       <TextField
                         align="left"
@@ -284,6 +331,8 @@ class RegisterPage extends Component {
                         }}
                       />
                     </div>
+                    <br /><br />
+                      <h3>Contest Information</h3>
                     <div>
                       <TextField
                         align="left"
@@ -310,7 +359,7 @@ class RegisterPage extends Component {
                     </div>
                     <div>
                       <FormControl component="fieldset" className={classes.radio}>
-                        <FormLabel component="legend">Should your game include an option for a compost bin?</FormLabel>
+                        <FormLabel component="legend" style={{color: "black"}}>Should your game include an option for a compost bin?</FormLabel>
                         <RadioGroup aria-label="compost bin" name="compostBin" onChange={this.handleInputChangeFor('compostBin')}>
                           <FormControlLabel value="true" control={<Radio />} label="Yes" />
                           <FormControlLabel value="false" control={<Radio />} label="No" />
@@ -435,11 +484,19 @@ class RegisterPage extends Component {
                         )}
                       </TextField>
                     </div>
-                    <br/>
+                    <br />
                     <div>
+                      <div>
                       <Button variant="contained" color="primary" type="submit" name="submit" value="Register">
                         Register
                       </Button>
+                      </div>
+                      <br/>
+                      <div>
+                      <Button variant="contained" color="secondary" value="Login" onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}>
+                        Back to Login
+                      </Button>
+                      </div>
                     </div>
                     {/* <div>
                       <label htmlFor="username">

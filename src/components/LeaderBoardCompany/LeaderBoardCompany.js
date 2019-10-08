@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 //Material UI Components
 import { withStyles } from "@material-ui/core/styles";
@@ -27,7 +28,19 @@ const styles = theme => ({
     color: "white"
   }
 });
+
 class Leaderboard extends Component {
+
+  componentDidMount = () => {
+    this.getLeaderboardInfo();
+  }
+
+  getLeaderboardInfo()  {
+    this.props.dispatch({
+      type: "FETCH_LEADERBOARD",
+    });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -76,4 +89,8 @@ class Leaderboard extends Component {
   }
 }
 
-export default withStyles(styles)(Leaderboard);
+const mapStateToProps = store => ({
+  store
+});
+
+export default withStyles(styles)(connect(mapStateToProps)(Leaderboard));
