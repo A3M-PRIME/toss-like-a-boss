@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   gameWrongAnswerReducer, //array of wrong answers
   leaderboardReducer, //list of scores to display for organization leaderboard
   gameItemsReducer, //has list of items for game
-  orgSettingsReducer, //has data for the organization admin to edit on settings page
+  // orgSettingsReducer, //has data for the organization admin to edit on settings page
 });
 
 export default rootReducer;
