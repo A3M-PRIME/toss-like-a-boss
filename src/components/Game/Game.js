@@ -143,7 +143,7 @@ class Game extends Component {
         <Grid>
           <div>
             <div className={this.props.classes.item} >
-              {this.props.gameItems[0].name}
+              {/* {this.props.gameItems[0].name} */}
             </div>
           </div>
         </Grid>
