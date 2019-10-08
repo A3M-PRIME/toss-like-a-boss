@@ -33,6 +33,16 @@ class SettingsOrganization extends Component {
 
   }
 
+  componentDidMount() {
+    this.getOrganization();
+  }
+
+  getOrganization() {
+    this.props.dispatch({
+      type: 'FETCH_ORGANIZATION'
+    })
+  }
+
   render() {
 
     const { classes } = this.props
