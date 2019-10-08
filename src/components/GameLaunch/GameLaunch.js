@@ -25,9 +25,50 @@ const styles = {
     margin: "20px",
     padding: "40px"
   },
+  trash: {
+    border: "2px solid black",
+    width: "25%",
+    margin: "20px",
+    padding: "40px",
+  },
+  recycle: {
+    border: "2px solid black",
+    width: "25%",
+    margin: "20px",
+    padding: "40px"
+  },
+  compost: {
+    border: "2px solid black",
+    width: "25%",
+    margin: "20px",
+    padding: "40px"
+  },
 };
 
 class GameLaunch extends Component {
+
+  toContest = () => {
+    this.props.history.push('/')
+  }
+
+  toLogin = () => {
+    this.props.history.push('/')
+  }
+
+  // route the user back to the home page
+  backToHome = () => {
+    this.props.history.push('/'); 
+  };
+
+  // route the user back to the how to play page
+  howToPlay = () => {
+    this.props.history.push('/howtoplay')
+  }
+
+  toReady = () => {
+    this.props.history.push('/gamelaunch')
+  }
+
     render() {
         return (
           <div>
@@ -84,16 +125,29 @@ class GameLaunch extends Component {
               </Grid>
             </body>
             {/* {JSON.stringify(this.props.reduxStore)} */}
+            <Grid
+              container
+              justify={"space-evenly"}
+              spacing={12}
+              alignItems={"center"}
+            >
+              <Button className={this.props.classes.Button} onClick>
+                HOST A CONTEST
+              </Button>
+              <Button className={this.props.classes.Button} onClick>
+                LOGIN TO YOUR ADMIN ACCOUNT
+              </Button>
+            </Grid>
             <footer>
               <Grid
                 container
                 justify={"space-evenly"}
-                spacing={48}
+                spacing={12}
                 alignItems={"center"}
               >
-                <div className={this.props.classes.bin}>Trash/Garbage</div>
-                <div className={this.props.classes.bin}>Recycle</div>
-                <div className={this.props.classes.bin}>Compost</div>
+                <div className={this.props.classes.trash}>Trash/Garbage</div>
+                <div className={this.props.classes.recycle}>Recycle</div>
+                <div className={this.props.classes.compost}>Compost</div>
               </Grid>
             </footer>
           </div>
