@@ -29,6 +29,9 @@ const styles = theme => ({
       borderColor: "black"
     }
   },
+  question: {
+    fontSize: 20
+  },
   radio: {
     margin: theme.spacing(3)
   },
@@ -155,27 +158,22 @@ class RegisterPage extends Component {
       <Box textAlign="center">
         <div className={classes.root} style={{ marginTop: 25, padding: 30 }}>
           <Grid container spacing={2} justify="center">
-            <Grid item sm={3.5}>
-            </Grid>
-            <Grid item sm={2.5}>
+            <Grid item sm={8}>
               <Card>
                 <CardContent>
-                  <b>Were you invited to play from your organization?</b>  There's no need to register!  Please click the link that your organization sent you to get started!
+                  <span className={classes.question}><b>Invited to play?</b></span>
+                  <br/>
+                  There's no need to register!  Please use the link provided by your organization.
+                  <br/><br/>
+                  <span className={classes.question}><b>Represent an organization?</b></span>
+                  <br/>
+                  You're in the right place!  Register for an account to begin setting up your contest.
                 </CardContent>
               </Card>
+            </Grid>   
             </Grid>
-            <Grid item sm={2.5}>
-              <Card>
-                <CardContent>
-                  <b>Want to create a contest for your organization?</b>  You're in the right place!  Register for an account to begin setting up your contest!
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item sm={3.5}>
-            </Grid>
-            </Grid>
-          <Grid container spacing={2} justify="center">
-            <Grid item sm={5}>
+          <Grid container spacing={2} justify="center" style={{ marginTop: 10}}>
+            <Grid item sm={8}>
               <Card>
                 <CardContent style={{ backgroundColor: "#EEF1F1"}}>
                   {this.props.errors.registrationMessage && (
@@ -495,7 +493,7 @@ class RegisterPage extends Component {
                       </div>
                       <br/>
                       <div>
-                      <Button variant="contained" color="primary" value="Login" onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}>
+                      <Button variant="contained" color="secondary" value="Login" onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}>
                         Back to Login
                       </Button>
                       </div>
