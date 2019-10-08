@@ -65,6 +65,7 @@ class Game extends Component {
             </Button>
           </Grid>
         </body>
+        {JSON.stringify(this.props.reduxStore)}
         <footer>- Receptacles - Trash/Garbage - Recycle - Compost</footer>
       </div>
     );
