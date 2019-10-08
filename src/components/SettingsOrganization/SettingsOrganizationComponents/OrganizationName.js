@@ -17,7 +17,7 @@ const styles = theme => ({
         justifyContent: 'center',
     },
     cardHeader: {
-        fontSize: 28,
+        fontSize: 20,
         fontWeight: 'bold'
     },
     cardContent: {
