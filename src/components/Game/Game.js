@@ -36,12 +36,6 @@ const styles = {
       color: "black"
     }
   },
-  h1: {
-    border: "2px solid black",
-    width: "100%",
-    margin: "20px",
-    padding: "40px"
-  }
 };
 
 
@@ -106,8 +100,6 @@ class Game extends Component {
                 spacing={10}
                 alignItems={"center"}
               >
-                <h1>WASTE-WISE-R</h1>
-                <h3>items remaining : 15</h3> <h3>Elapsed Time showing : 0:00</h3>
               </Grid>
             </div>
           </Grid>
@@ -128,11 +120,6 @@ class Game extends Component {
             How To Play
             </Button>
           <h2>Score : {this.state.score}</h2>
-          <Button className={this.props.classes.Button} onClick>
-            {" "}
-            Back To Home{" "}
-            <h2>Score : 0</h2>
-          </Button>
           <Button
             className={this.props.classes.Button}
             onClick={this.backToHome}
@@ -162,26 +149,13 @@ class Game extends Component {
         </Grid>
       </div>
       <footer>
-        <div className={this.props.classes.bin}>
-          Receptacles
-          </div >
-        <div className={this.props.classes.bin}>
-          Garbage
-          </div>
-        <div className={this.props.classes.bin}>
-          Recycle
-          </div>
-        <div className={this.props.classes.bin}>
-          Compost
-          </div>
-        {/* {JSON.stringify(this.props.reduxStore)} */}
         <Grid
           container
           justify={"space-evenly"}
           spacing={48}
           alignItems={"center"}
         >
-          <div className={this.props.classes.bin}>Trash/Garbage</div>
+          <div className={this.props.classes.bin}>Garbage</div>
           <div className={this.props.classes.bin}>Recycle</div>
           <div className={this.props.classes.bin}>Compost</div>
         </Grid>
