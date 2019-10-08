@@ -21,6 +21,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany'
 
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
+import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
 
 //Styling
 import { ThemeProvider } from '@material-ui/styles';
@@ -77,6 +78,11 @@ class App extends Component {
                     exact
                     path="/gamelaunch"
                     component={GameLaunch}
+                  />
+                  <ProtectedRoute
+                    exact
+                    path="/settingsorg"
+                    component={SettingsOrganization}
                   />
 
                   {/* If none of the other routes matched, we will show a 404. */}
