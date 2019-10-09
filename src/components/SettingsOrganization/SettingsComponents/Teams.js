@@ -261,7 +261,7 @@ class Teams extends Component {
                     aria-describedby="edit team"
                     className={classes.modal}
                     open={this.state.teamEditOpen}
-                    onClose={this.handleClose}
+                    onClose={this.handleTeamClose}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
                     BackdropProps={{
@@ -326,7 +326,7 @@ class Teams extends Component {
                     aria-describedby="add team"
                     className={classes.modal}
                     open={this.state.teamAddOpen}
-                    onClose={this.handleClose}
+                    onClose={this.handleTeamClose}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
                     BackdropProps={{

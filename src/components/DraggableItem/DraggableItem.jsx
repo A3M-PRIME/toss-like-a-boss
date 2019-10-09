@@ -80,23 +80,26 @@ const style = {
 
 let firstTry = true;
 
-function firstTryCorrect() {
-  this.props.dispatch({
-    type: "FIRST_TRY_CORRECT",
-    payload: this.props.id
-  });
-}
 
-function firstTryIncorrect() {
-  this.props.dispatch({
-    type: "FIRST_TRY_INCORRECT",
-    payload: this.props.id
-  });
-  console.log(this.props.id)
-}
 
 const DraggableItem = ({ name, isDragging, connectDragSource }) => {
   const opacity = isDragging ? 0 : 1;
+
+    // function firstTryCorrect() {
+    //     dispatch({
+    //         type: "FIRST_TRY_CORRECT",
+    //         payload: itemId
+    //     });
+    // }
+
+    // function firstTryIncorrect() {
+    //     this.props.dispatch({
+    //         type: "FIRST_TRY_INCORRECT",
+    //         // payload: this.props.id
+    //     });
+    //     console.log(this.props.id)
+    // }
+
 
   return (
     <div ref={connectDragSource} style={{ ...style, opacity }}>
@@ -104,21 +107,30 @@ const DraggableItem = ({ name, isDragging, connectDragSource }) => {
     </div>
   );
 };
-export default DragSource(
+
+let mapStateToProps = (state) => {
+    return {
+        items: state.gameItemsReducer
+    }
+}
+
+let DragNDrop = connect(mapStateToProps)(DragSource(
   ItemTypes.BOX,
   {
     beginDrag: props => ({ name: props.name }),
     endDrag(props, monitor) {
+        console.log(props.items)
+        props.dispatch({type: 'HELLO_DND'})
       const item = monitor.getItem();
       const dropResult = monitor.getDropResult();
       if (dropResult && dropResult.name == item.name && firstTry === true) {
         alert(`You dropped ${item.name} into ${dropResult.name}!`);
         firstTry = true;
-        firstTryCorrect();
+        // firstTryCorrect();
       } else if (dropResult && dropResult.name !== item.name) {
         firstTry = false;
         console.log(firstTry);
-        firstTryIncorrect();
+        // firstTryIncorrect();
       }
       if (dropResult && dropResult.name == item.name && firstTry === false) {
         firstTry = true;
@@ -130,4 +142,7 @@ export default DragSource(
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   })
-)(connect()(DraggableItem));
+)(DraggableItem));
+
+
+export default DragNDrop
