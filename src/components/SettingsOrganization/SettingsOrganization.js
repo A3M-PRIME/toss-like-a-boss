@@ -6,6 +6,7 @@ import { Card, CardContent, Grid } from "@material-ui/core";
 import { AccountBalance, LaptopMac, People, Settings } from '@material-ui/icons';
 import OrganizationName from './SettingsComponents/OrganizationName';
 import Teams from './SettingsComponents/Teams';
+import Contests from './SettingsComponents/Contests';
 
 const styles = theme => ({
   root: {
@@ -55,6 +56,7 @@ class SettingsOrganization extends Component {
         <h2>Teams<People className={classes.icon} /></h2>
           <Teams/>
         <h2>Contests<LaptopMac className={classes.icon} /></h2>
+          <Contests/>
       </div>
 
     )
