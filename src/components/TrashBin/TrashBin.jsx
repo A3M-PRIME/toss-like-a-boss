@@ -5,21 +5,37 @@ const Types = {
     ITEM: 'trash'
 }
 
+const trashTarget = {
+drop(props, monitor, component) {
+    if (monitor.didDrop()) {
+        return
+    }
+}
+}
+
 function collect(connect, monitor) {
     return {
-        connectDropTarget: connect.dropTarget()
+        // Call this function inside render()
+        // to let React DnD handle the drag events:
+        connectDropTarget: connect.dropTarget(),
+        // You can ask the monitor about the current drag state:
+        isOver: monitor.isOver(),
+        isOverCurrent: monitor.isOver({ shallow: true }),
+        canDrop: monitor.canDrop(),
+        itemType: monitor.getItemType(),
     }
 }
 
 class TrashBin extends Component {
     render() {
-        const { connectDropTarget } = this.props;
+        const { isOver, canDrop, connectDropTarget } = this.props;
         return connectDropTarget(
             <div className='trash'>
-                <div><p>THIS IS A BOX</p></div>
+                {isOver && canDrop && <span>Rock and roll</span>}
+                THIS IS A BOX
             </div>
         );
     }
 }
 
-export default DropTarget(Types.ITEM, {}, collect)(TrashBin);
+export default DropTarget(Types.ITEM, trashTarget, collect)(TrashBin);
