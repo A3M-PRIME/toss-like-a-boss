@@ -45,7 +45,8 @@ const styles = {
 class Game extends Component {
   state = {
     score: 0,
-    time: 0
+    time: 0,
+    firstTry: true,
   };
 
   componentDidMount() {
@@ -78,6 +79,7 @@ class Game extends Component {
   toReady = () => {
     this.props.history.push("/gamelaunch");
   };
+
 
   render() {
     console.log(this.state);
