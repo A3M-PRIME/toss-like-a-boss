@@ -92,7 +92,7 @@ export default DragSource(
         endDrag(props, monitor) {
             const item = monitor.getItem()
             const dropResult = monitor.getDropResult()
-            if (dropResult) {
+            if (dropResult && dropResult.name == item.name) {
                 alert(`You dropped ${item.name} into ${dropResult.name}!`)
             }
         },
