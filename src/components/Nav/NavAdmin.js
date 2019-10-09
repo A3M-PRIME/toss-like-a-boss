@@ -39,7 +39,7 @@ const NavAdmin = props => (
       {/* <Link className="nav-link" to="/about">
         About
       </Link> */}
-      <Grid
+      {/* <Grid
         container
         justify={"space-evenly"}
         spacing={6}
@@ -52,7 +52,7 @@ const NavAdmin = props => (
           Resources
         </Link>
         <LogOutButton className="nav-link" />
-      </Grid>
+      </Grid> */}
     </div>
   </div>
 );
