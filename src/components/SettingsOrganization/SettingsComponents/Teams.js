@@ -5,6 +5,13 @@ import { Edit, Cancel, Save, Delete } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
+import { AddCircle, Edit, Cancel, Save, Delete } from '@material-ui/icons';
+import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
+import { connect } from 'react-redux';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+const MySwal = withReactContent(Swal)
 
 const styles = theme => ({
     root: {
@@ -92,15 +99,24 @@ class Teams extends Component {
         teamName: '',
         teamNameId: 0,
         open: false
+        teamEditOpen: false,
+        teamAddOpen: false,
     }
 
     componentDidMount() {
         this.getTeams();
+        this.getOrganization();
     }
 
     getTeams() {
         this.props.dispatch({
             type: 'FETCH_TEAMS'
+        })
+    }
+
+    getOrganization() {
+        this.props.dispatch({
+            type: 'FETCH_ORGANIZATION'
         })
     }
 
@@ -110,9 +126,15 @@ class Teams extends Component {
         });
     }
 
+
     handleOpen = (name, id) => {
         this.setState({
             open: !this.state.open,
+
+    handleTeamEditOpen = (name, id) => {
+        this.setState({
+            teamEditOpen: !this.state.teamEditOpen,
+
             teamName: name,
             teamNameId: id
         })
@@ -121,6 +143,18 @@ class Teams extends Component {
     handleClose = () => {
         this.setState({
             open: !this.state.open
+
+    handleTeamAddOpen = () => {
+        this.setState({
+            teamAddOpen: !this.state.teamAddOpen,
+        })
+    };
+
+    handleTeamClose = () => {
+        this.setState({
+            teamEditOpen: false,
+            teamAddOpen: false,
+            teamName: ''
         })
     };
 
@@ -136,6 +170,41 @@ class Teams extends Component {
 
     handleDelete = (id) => {
         console.log('deleting this id', id)
+        this.handleTeamClose();
+    }
+
+    handleDelete = (name, id) => {
+        MySwal.fire({
+            title: `Delete the ${name} team?`,
+            text: `${name} will be removed from the system.`,
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({
+                    type: 'DELETE_TEAM',
+                    payload: id
+                })
+                Swal.fire(
+                    'Deleted!',
+                    `The ${name} team has been deleted.`,
+                    'success'
+                )
+            }
+        })
+    }
+
+    handleTeamAdd = (event) => {
+        event.preventDefault();
+        this.props.dispatch({
+            type: 'ADD_TEAM',
+            payload: this.state
+
+        })
+        this.handleTeamClose();
     }
 
     render() {
@@ -147,11 +216,13 @@ class Teams extends Component {
                 <tr>
                     <td className={classes.cardContentIconsLeft}>
                         <Button onClick={() => this.handleOpen(team.team_name, team.id)}>
+                        <Button onClick={() => this.handleTeamEditOpen(team.team_name, team.id)}>
                             <Edit />
                         </Button>
                     </td>
                     <td className={classes.cardContentIcons}>
                         <Button onClick={() => this.handleDelete(team.id)}>
+                        <Button onClick={() => this.handleDelete(team.team_name, team.id)}>
                             <Delete />
                         </Button>
                     </td>
@@ -170,6 +241,12 @@ class Teams extends Component {
                     <Grid item sm={6}>
                         <Card className={classes.card}>
                             <CardContent>
+                            <CardActions style={{ backgroundColor: "#EEF1F1" }}>
+                                <Button onClick={() => this.handleTeamAddOpen()} style={{ marginLeft: "auto", marginRight: 0 }}>
+                                    <AddCircle style={{ marginRight: 3 }} />Add New Team
+                            </Button>
+                            </CardActions>
+                            <CardContent style={{ backgroundColor: "#EEF1F1" }}>
                                 <span className={classes.cardHeader}>Teams</span>
                                 {!this.props.team[0] && <br />}
                                 {!this.props.team[0] && <br />}
@@ -182,6 +259,21 @@ class Teams extends Component {
                                         {teamList}
                                     </tbody>
                                 </table>
+                                    <span className={classes.cardContent}>You have not added any teams.  If you want to spice up the competition within {this.props.organization.organization_name}, begin by adding a new team!</span>
+                                }
+                                <br /><br />
+                                {this.props.team[0] && <table className={classes.tableTeam}>
+                                    <thead>
+                                        <tr>
+                                            <th>Edit</th>
+                                            <th>Delete</th>
+                                            <th>Team Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {teamList}
+                                    </tbody>
+                                </table>}
                             </CardContent>
                         </Card>
                     </Grid>
@@ -194,6 +286,7 @@ class Teams extends Component {
                     aria-describedby="edit team"
                     className={classes.modal}
                     open={this.state.open}
+                    open={this.state.teamEditOpen}
                     onClose={this.handleClose}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
@@ -202,7 +295,7 @@ class Teams extends Component {
                     }}
                 >
                     <CardContent className={classes.form}>
-
+                    <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
                         {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleEdit}>
                             <div>
@@ -232,6 +325,14 @@ class Teams extends Component {
                             <div>
                                 <Button
                                     variant="contained"
+                                    name="cancel"
+                                    color="secondary"
+                                    onClick={() => this.handleTeamClose()}
+                                    style={{ marginTop: 10, marginRight: 10 }}>
+                                    <Cancel style={{ marginRight: 3 }} />Cancel
+                                </Button>
+                                <Button
+                                    variant="contained"
                                     type="submit"
                                     name="submit"
                                     color="primary"
@@ -240,6 +341,72 @@ class Teams extends Component {
                          </Button>
                             </div>
                         </form>
+                    </CardContent>
+                </Modal>
+                    </CardContent>
+                </Modal>
+
+                <Modal
+                    aria-labelledby="add team"
+                    aria-describedby="add team"
+                    className={classes.modal}
+                    open={this.state.teamAddOpen}
+                    onClose={this.handleClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
+
+                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
+                        <form onSubmit={this.handleTeamAdd}>
+                            <div>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="team name"
+                                    className={classes.fieldLarge}
+                                    value={this.state.teamName}
+                                    onChange={this.handleChangeFor('teamName')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <Button
+                                    variant="contained"
+                                    name="cancel"
+                                    color="secondary"
+                                    onClick={() => this.handleTeamClose()}
+                                    style={{ marginTop: 10, marginRight: 10 }}>
+                                    <Cancel style={{ marginRight: 3 }} />Cancel
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    type="submit"
+                                    name="submit"
+                                    color="primary"
+                                    style={{ marginTop: 10 }}>
+                                    <Save style={{ marginRight: 3 }} />Save
+                                </Button>
+                            </div>
+                        </form>
+
+
 
                     </CardContent>
                 </Modal>
@@ -254,6 +421,7 @@ const mapStateToProps = (reduxStore) => {
     return {
         user: reduxStore.user,
         team: reduxStore.teamSettings,
+        organization: reduxStore.orgSettings,
     }
 }
 export default connect(mapStateToProps)(withStyles(styles)(Teams));
