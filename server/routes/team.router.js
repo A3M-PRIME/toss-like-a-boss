@@ -4,6 +4,7 @@ const router = express.Router();
 
 //TEAM DATA GET
 router.get('/', (req, res) => {
+    const sqlText = `SELECT * FROM team WHERE organization_id = $1;`;
     const sqlText = `SELECT * FROM team WHERE organization_id = $1 ORDER BY team_name ASC;`;
     pool.query(sqlText, [req.user.organization_id])
         .then((result) => {

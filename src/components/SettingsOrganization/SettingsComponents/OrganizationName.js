@@ -108,6 +108,7 @@ class OrganizationName extends Component {
                 </Grid>
                 <Grid item sm={6}>
                     <Card className={classes.card}>
+                        <CardContent>
                         <CardContent style={{ backgroundColor: "#EEF1F1" }}>
                             <span className={classes.cardHeader}>Organization Name</span>
                             <br /><br />
@@ -140,6 +141,7 @@ class OrganizationName extends Component {
                                 />
                             }
                         </CardContent>
+                        <CardActions>
                         <CardActions style={{ backgroundColor: "#EEF1F1" }}>
                             {!this.state.organizationNameEdit &&
                                 <Button color="secondary" onClick={this.toggleOrganizationNameEdit} style={{ marginRight: 20, marginLeft: 0 }}>

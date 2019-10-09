@@ -53,6 +53,7 @@ function* updateTeam(action) {
     }
 }
 
+
 function* deleteTeam(action) {
     try {
         let response = yield axios.delete(`/api/team/${action.payload}`)
@@ -83,6 +84,7 @@ function* orgSettingsSaga() {
     yield takeEvery('FETCH_ORGANIZATION', fetchOrganization);
     yield takeEvery('UPDATE_ORGANIZATION_NAME', updateOrganizationName);
     yield takeEvery('FETCH_TEAMS', fetchTeams);
+    yield takeEvery('UPDATE_TEAM', updateTeam)
     yield takeEvery('UPDATE_TEAM', updateTeam);
     yield takeEvery('DELETE_TEAM', deleteTeam);
     yield takeEvery('ADD_TEAM', addTeam);
