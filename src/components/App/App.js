@@ -18,7 +18,8 @@ import Game from "../Game/Game";
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany'
+import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany';
+import HowToPlay from '../HowToPlay/HowToPlay';
 
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
@@ -32,6 +33,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import 'typeface-roboto';
 
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
@@ -39,6 +43,7 @@ class App extends Component {
 
   render() {
     return (
+      <DndProvider backend={HTML5Backend}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
@@ -84,6 +89,11 @@ class App extends Component {
                     path="/login"
                     component={LoginPage}
                   />
+                  <Route
+                    exact
+                    path="/howtoplay"
+                    component={HowToPlay}
+                  />
                   <ProtectedRoute
                     exact
                     path="/settingsorg"
@@ -99,6 +109,7 @@ class App extends Component {
           </div>
         </Router>
       </ThemeProvider>
+      </DndProvider>
     );
   }
 }

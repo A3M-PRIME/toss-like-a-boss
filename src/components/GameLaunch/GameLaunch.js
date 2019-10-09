@@ -99,19 +99,22 @@ class GameLaunch extends Component {
                 spacing={6}
                 alignItems={"center"}
               >
-                <Button
-                  className={this.props.classes.Button}
-                  onClick={this.howToPlay}
-                >
-                  How To Play
-                </Button>
-                {/* <h2>Score : 0</h2> */}
-                <Button
-                  className={this.props.classes.Button}
-                  onClick={this.backToHome}
-                >
-                  Back To Home
-                </Button>
+                <Grid item xs={3}>
+                  <Button
+                    className={this.props.classes.Button}
+                    onClick={this.howToPlay}
+                  >
+                    How To Play
+                  </Button>
+                </Grid>
+                <Grid item xs={3}>
+                  <Button
+                    className={this.props.classes.Button}
+                    onClick={this.backToHome}
+                  >
+                    Back To Home
+                  </Button>
+                </Grid>
               </Grid>
               <br></br>
               <Grid
@@ -120,27 +123,36 @@ class GameLaunch extends Component {
                 spacing={48}
                 alignItems={"center"}
               >
-                <Button className={this.props.classes.Button} 
-                onClick>
+                <Grid item xs={2}>
+                <Button className={this.props.classes.Button} onClick>
                   PLAY!
                 </Button>
+                </Grid>
               </Grid>
             </body>
-            {/* {JSON.stringify(this.props.reduxStore)} */}
+            <br></br>
             <Grid
               container
               justify={"space-evenly"}
               spacing={12}
               alignItems={"center"}
             >
-              <Button className={this.props.classes.Button} 
-              onClick={this.toContest}>
-                HOST A CONTEST
-              </Button>
-              <Button className={this.props.classes.Button} 
-              onClick={this.toLogin}>
-                LOGIN TO YOUR ADMIN ACCOUNT
-              </Button>
+              <Grid item xs={3}>
+                <Button
+                  className={this.props.classes.Button}
+                  onClick={this.toContest}
+                >
+                  HOST A CONTEST
+                </Button>
+              </Grid>
+              <Grid item xs={3}>
+                <Button
+                  className={this.props.classes.Button}
+                  onClick={this.toLogin}
+                >
+                  LOGIN TO YOUR ADMIN ACCOUNT
+                </Button>
+              </Grid>
             </Grid>
             {/* <footer>
               <Grid

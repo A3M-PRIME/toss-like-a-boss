@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import TrashBin from '../TrashBin/TrashBin';
+import DraggableItem from '../DraggableItem/DraggableItem';
 
 //Material UI Components
 import Button from "@material-ui/core/Button";
@@ -144,6 +146,7 @@ class Game extends Component {
           <div>
             <div className={this.props.classes.item} >
               {/* {this.props.gameItems[0].name} */}
+              <DraggableItem />
             </div>
           </div>
         </Grid>
@@ -158,6 +161,8 @@ class Game extends Component {
           <div className={this.props.classes.bin}>Garbage</div>
           <div className={this.props.classes.bin}>Recycle</div>
           <div className={this.props.classes.bin}>Compost</div>
+            <div className={this.props.classes.bin}><TrashBin /></div>
+            
         </Grid>
       </footer>
       </div >
