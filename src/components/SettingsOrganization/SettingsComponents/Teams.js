@@ -242,12 +242,19 @@ class Teams extends Component {
                         <Card className={classes.card}>
                             <CardContent>
                             <CardActions style={{ backgroundColor: "#EEF1F1" }}>
-                                <Button onClick={() => this.handleTeamAddOpen()} style={{ marginLeft: "auto", marginRight: 0 }}>
-                                    <AddCircle style={{ marginRight: 3 }} />Add New Team
+                                <Grid item sm={5}>
+                                </Grid>
+                                <Grid item sm={2}>
+                                    <span className={classes.cardHeader} style={{ marginLeft: "auto" }}>Teams</span>
+                                </Grid>
+                                <Grid item sm={5} style={{textAlign: "right"}}>
+                                    <Button onClick={() => this.handleTeamAddOpen()} style={{ marginLeft: "auto",}}>
+                                        <AddCircle style={{ marginRight: 3 }} />Add New Team
                             </Button>
+                                </Grid>
+                                
                             </CardActions>
                             <CardContent style={{ backgroundColor: "#EEF1F1" }}>
-                                <span className={classes.cardHeader}>Teams</span>
                                 {!this.props.team[0] && <br />}
                                 {!this.props.team[0] && <br />}
                                 {!this.props.team[0] &&
@@ -261,7 +268,6 @@ class Teams extends Component {
                                 </table>
                                     <span className={classes.cardContent}>You have not added any teams.  If you want to spice up the competition within {this.props.organization.organization_name}, begin by adding a new team!</span>
                                 }
-                                <br /><br />
                                 {this.props.team[0] && <table className={classes.tableTeam}>
                                     <thead>
                                         <tr>
