@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Grid } from "@material-ui/core";
-import { AccountBalance, Settings } from '@material-ui/icons';
-import OrganizationName from './SettingsOrganizationComponents/OrganizationName';
+import { AccountBalance, People, Settings } from '@material-ui/icons';
+import OrganizationName from './SettingsComponents/OrganizationName';
+import Teams from './SettingsComponents/Teams';
 
 const styles = theme => ({
   root: {
@@ -51,6 +52,8 @@ class SettingsOrganization extends Component {
         <h1 className={classes.h1}>Settings<Settings className={classes.icon} /></h1>
         <h2>Organization<AccountBalance className={classes.icon} /></h2>
           <OrganizationName/>
+        <h2>Teams<People className={classes.icon} /></h2>
+          <Teams/>
       </div>
 
     )
