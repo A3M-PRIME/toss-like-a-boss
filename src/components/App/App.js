@@ -43,6 +43,10 @@ class App extends Component {
     this.props.dispatch({ type: 'FETCH_USER' })
   }
 
+  navBarToUser = () => {
+    
+  }
+
   render() {
     return (
       <DndProvider backend={HTML5Backend}>
@@ -50,8 +54,8 @@ class App extends Component {
         <CssBaseline />
         <Router>
           <div>
-            {/* <Nav /> */}
-            {/* <NavAdmin />  */}
+            <Nav />
+            <NavAdmin /> 
             <NavUser />
             <Container>
               <Typography color="secondary">
@@ -118,4 +122,10 @@ class App extends Component {
   }
 }
 
-export default connect()(App);
+const mapStateToProps = reduxStore => {
+  return {
+    reduxStore
+  }
+} 
+
+export default connect(mapStateToProps)(App);
