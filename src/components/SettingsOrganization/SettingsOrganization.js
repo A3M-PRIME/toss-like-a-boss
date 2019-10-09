@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Card, CardContent, Grid } from "@material-ui/core";
-import { AccountBalance, People, Settings } from '@material-ui/icons';
+import { AccountBalance, LaptopMac, People, Settings } from '@material-ui/icons';
 import OrganizationName from './SettingsComponents/OrganizationName';
 import Teams from './SettingsComponents/Teams';
 
@@ -54,6 +54,7 @@ class SettingsOrganization extends Component {
           <OrganizationName/>
         <h2>Teams<People className={classes.icon} /></h2>
           <Teams/>
+        <h2>Contests<LaptopMac className={classes.icon} /></h2>
       </div>
 
     )
