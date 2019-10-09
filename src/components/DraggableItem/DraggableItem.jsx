@@ -66,6 +66,7 @@
 import React, { useState } from "react";
 import ItemTypes from "../ItemTypes/ItemTypes";
 import { DragSource } from "react-dnd";
+import { connect } from "react-redux";
 
 const style = {
   border: "1px dashed gray",
@@ -76,10 +77,26 @@ const style = {
   cursor: "move",
   float: "left"
 };
+
 let firstTry = true;
+
+function firstTryCorrect() {
+  this.props.dispatch({
+    type: "FIRST_TRY_CORRECT",
+    payload: this.props.id
+  });
+}
+
+function firstTryIncorrect() {
+  this.props.dispatch({
+    type: "FIRST_TRY_INCORRECT",
+    payload: this.props.id
+  });
+  console.log(this.props.id)
+}
+
 const DraggableItem = ({ name, isDragging, connectDragSource }) => {
   const opacity = isDragging ? 0 : 1;
-  //HOOKS FOR FIRST TRY
 
   return (
     <div ref={connectDragSource} style={{ ...style, opacity }}>
@@ -97,13 +114,15 @@ export default DragSource(
       if (dropResult && dropResult.name == item.name && firstTry === true) {
         alert(`You dropped ${item.name} into ${dropResult.name}!`);
         firstTry = true;
+        firstTryCorrect();
       } else if (dropResult && dropResult.name !== item.name) {
         firstTry = false;
-        console.log(firstTry)
+        console.log(firstTry);
+        firstTryIncorrect();
       }
       if (dropResult && dropResult.name == item.name && firstTry === false) {
-          firstTry = true;
-          alert('Second time is the charm!')
+        firstTry = true;
+        alert("Second time is the charm!");
       }
     }
   },
@@ -111,4 +130,4 @@ export default DragSource(
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   })
-)(DraggableItem);
+)(connect()(DraggableItem));
