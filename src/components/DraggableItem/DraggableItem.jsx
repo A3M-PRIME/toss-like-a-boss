@@ -63,42 +63,86 @@
 // }
 // export default DragSource(Types.ITEM, itemSource, collect)(connect(mapStateToProps)(DraggableItem));
 
+import React, { useState } from "react";
+import ItemTypes from "../ItemTypes/ItemTypes";
+import { DragSource } from "react-dnd";
+import { connect } from "react-redux";
 
-
-import React from 'react'
-import ItemTypes from '../ItemTypes/ItemTypes'
-import { DragSource } from 'react-dnd'
 const style = {
-    border: '1px dashed gray',
-    backgroundColor: 'white',
-    padding: '0.5rem 1rem',
-    marginRight: '1.5rem',
-    marginBottom: '1.5rem',
-    cursor: 'move',
-    float: 'left',
-}
+  border: "1px dashed gray",
+  backgroundColor: "white",
+  padding: "0.5rem 1rem",
+  marginRight: "1.5rem",
+  marginBottom: "1.5rem",
+  cursor: "move",
+  float: "left"
+};
+
+let firstTry = true;
+
+
+
 const DraggableItem = ({ name, isDragging, connectDragSource }) => {
-    const opacity = isDragging ? 0 : 1
-    return (
-        <div ref={connectDragSource} style={{ ...style, opacity }}>
-            {name}
-        </div>
-    )
+  const opacity = isDragging ? 0 : 1;
+
+    // function firstTryCorrect() {
+    //     dispatch({
+    //         type: "FIRST_TRY_CORRECT",
+    //         payload: itemId
+    //     });
+    // }
+
+    // function firstTryIncorrect() {
+    //     this.props.dispatch({
+    //         type: "FIRST_TRY_INCORRECT",
+    //         // payload: this.props.id
+    //     });
+    //     console.log(this.props.id)
+    // }
+
+
+  return (
+    <div ref={connectDragSource} style={{ ...style, opacity }}>
+      {name}
+    </div>
+  );
+};
+
+let mapStateToProps = (state) => {
+    return {
+        items: state.gameItemsReducer
+    }
 }
-export default DragSource(
-    ItemTypes.BOX,
-    {
-        beginDrag: props => ({ name: props.name }),
-        endDrag(props, monitor) {
-            const item = monitor.getItem()
-            const dropResult = monitor.getDropResult()
-            if (dropResult) {
-                alert(`You dropped ${item.name} into ${dropResult.name}!`)
-            }
-        },
-    },
-    (connect, monitor) => ({
-        connectDragSource: connect.dragSource(),
-        isDragging: monitor.isDragging(),
-    }),
-)(DraggableItem)
+
+let DragNDrop = connect(mapStateToProps)(DragSource(
+  ItemTypes.BOX,
+  {
+    beginDrag: props => ({ name: props.name }),
+    endDrag(props, monitor) {
+        console.log(props.items)
+        props.dispatch({type: 'HELLO_DND'})
+      const item = monitor.getItem();
+      const dropResult = monitor.getDropResult();
+      if (dropResult && dropResult.name == item.name && firstTry === true) {
+        alert(`You dropped ${item.name} into ${dropResult.name}!`);
+        firstTry = true;
+        // firstTryCorrect();
+      } else if (dropResult && dropResult.name !== item.name) {
+        firstTry = false;
+        console.log(firstTry);
+        // firstTryIncorrect();
+      }
+      if (dropResult && dropResult.name == item.name && firstTry === false) {
+        firstTry = true;
+        alert("Second time is the charm!");
+      }
+    }
+  },
+  (connect, monitor) => ({
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  })
+)(DraggableItem));
+
+
+export default DragNDrop
