@@ -50,7 +50,9 @@ class App extends Component {
         <CssBaseline />
         <Router>
           <div>
-            <Nav />
+            {/* <Nav /> */}
+            {/* <NavAdmin />  */}
+            <NavUser />
             <Container>
               <Typography color="secondary">
                 <Switch>

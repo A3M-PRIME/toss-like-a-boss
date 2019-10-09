@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { Backdrop, Card, CardActions, CardContent, Grid, Modal, TextField } from "@material-ui/core";
+import { Edit, Cancel, Save, Delete } from '@material-ui/icons';
+import { withRouter } from 'react-router-dom';
+import { withStyles } from '@material-ui/styles';
+import { connect } from 'react-redux';
 import { AddCircle, Edit, Cancel, Save, Delete } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-
 const MySwal = withReactContent(Swal)
 
 const styles = theme => ({
@@ -95,6 +98,7 @@ class Teams extends Component {
         teamNameEdit: false,
         teamName: '',
         teamNameId: 0,
+        open: false
         teamEditOpen: false,
         teamAddOpen: false,
     }
@@ -122,13 +126,23 @@ class Teams extends Component {
         });
     }
 
+
+    handleOpen = (name, id) => {
+        this.setState({
+            open: !this.state.open,
+
     handleTeamEditOpen = (name, id) => {
         this.setState({
             teamEditOpen: !this.state.teamEditOpen,
+
             teamName: name,
             teamNameId: id
         })
     };
+
+    handleClose = () => {
+        this.setState({
+            open: !this.state.open
 
     handleTeamAddOpen = () => {
         this.setState({
@@ -151,6 +165,11 @@ class Teams extends Component {
             payload: this.state
 
         })
+        this.handleClose();
+    }
+
+    handleDelete = (id) => {
+        console.log('deleting this id', id)
         this.handleTeamClose();
     }
 
@@ -196,11 +215,13 @@ class Teams extends Component {
             return (
                 <tr>
                     <td className={classes.cardContentIconsLeft}>
+                        <Button onClick={() => this.handleOpen(team.team_name, team.id)}>
                         <Button onClick={() => this.handleTeamEditOpen(team.team_name, team.id)}>
                             <Edit />
                         </Button>
                     </td>
                     <td className={classes.cardContentIcons}>
+                        <Button onClick={() => this.handleDelete(team.id)}>
                         <Button onClick={() => this.handleDelete(team.team_name, team.id)}>
                             <Delete />
                         </Button>
@@ -219,6 +240,7 @@ class Teams extends Component {
                     </Grid>
                     <Grid item sm={6}>
                         <Card className={classes.card}>
+                            <CardContent>
                             <CardActions style={{ backgroundColor: "#EEF1F1" }}>
                                 <Grid item sm={5}>
                                 </Grid>
@@ -236,6 +258,14 @@ class Teams extends Component {
                                 {!this.props.team[0] && <br />}
                                 {!this.props.team[0] && <br />}
                                 {!this.props.team[0] &&
+                                    <span className={classes.cardContent}>You have not added any teams.  If you want to spice up the competition among your organization, begin by adding a new team!</span>
+                                }
+                                <br /><br />
+                                <table className={classes.tableTeam}>
+                                    <tbody>
+                                        {teamList}
+                                    </tbody>
+                                </table>
                                     <span className={classes.cardContent}>You have not added any teams.  If you want to spice up the competition within {this.props.organization.organization_name}, begin by adding a new team!</span>
                                 }
                                 {this.props.team[0] && <table className={classes.tableTeam}>
@@ -261,6 +291,7 @@ class Teams extends Component {
                     aria-labelledby="edit team"
                     aria-describedby="edit team"
                     className={classes.modal}
+                    open={this.state.open}
                     open={this.state.teamEditOpen}
                     onClose={this.handleClose}
                     closeAfterTransition
@@ -269,8 +300,8 @@ class Teams extends Component {
                         timeout: 500,
                     }}
                 >
+                    <CardContent className={classes.form}>
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
-
                         {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleEdit}>
                             <div>
@@ -316,9 +347,8 @@ class Teams extends Component {
                          </Button>
                             </div>
                         </form>
-
-
-
+                    </CardContent>
+                </Modal>
                     </CardContent>
                 </Modal>
 
@@ -386,7 +416,6 @@ class Teams extends Component {
 
                     </CardContent>
                 </Modal>
-
             </div>
         )
 
