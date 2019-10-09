@@ -9,6 +9,8 @@ import {
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
+import NavAdmin from '../Nav/NavAdmin';
+import NavUser from '../Nav/NavUser';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -48,7 +50,9 @@ class App extends Component {
         <CssBaseline />
         <Router>
           <div>
-            <Nav />
+            {/* <Nav /> */}
+            {/* <NavAdmin />  */}
+            <NavUser />
             <Container>
               <Typography color="secondary">
                 <Switch>
