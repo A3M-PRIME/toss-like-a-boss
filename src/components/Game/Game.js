@@ -144,9 +144,9 @@ class Game extends Component {
         </Grid>
         <Grid>
           <div>
-            <div className={this.props.classes.item} >
+            <div>
               {/* {this.props.gameItems[0].name} */}
-              <DraggableItem />
+              <DraggableItem name="Trash Example" />
             </div>
           </div>
         </Grid>
@@ -161,7 +161,7 @@ class Game extends Component {
           <div className={this.props.classes.bin}>Garbage</div>
           <div className={this.props.classes.bin}>Recycle</div>
           <div className={this.props.classes.bin}>Compost</div>
-            <div className={this.props.classes.bin}><TrashBin /></div>
+            <div><TrashBin /></div>
             
         </Grid>
       </footer>
