@@ -94,11 +94,16 @@ export default DragSource(
     endDrag(props, monitor) {
       const item = monitor.getItem();
       const dropResult = monitor.getDropResult();
-      if (dropResult && dropResult.name == item.name) {
+      if (dropResult && dropResult.name == item.name && firstTry === true) {
         alert(`You dropped ${item.name} into ${dropResult.name}!`);
+        firstTry = true;
       } else if (dropResult && dropResult.name !== item.name) {
         firstTry = false;
         console.log(firstTry)
+      }
+      if (dropResult && dropResult.name == item.name && firstTry === false) {
+          firstTry = true;
+          alert('Second time is the charm!')
       }
     }
   },
