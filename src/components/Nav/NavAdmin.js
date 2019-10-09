@@ -10,7 +10,7 @@ const NavAdmin = props => (
     {/* <Link to="/home">
       <h2 className="nav-title">Admin Nav</h2>
     </Link> */}
-    <div className="nav-right">
+    <div className="nav-center">
       {/* <Link className="nav-link" to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
@@ -39,7 +39,7 @@ const NavAdmin = props => (
       {/* <Link className="nav-link" to="/about">
         About
       </Link> */}
-      <Grid
+      {/* <Grid
         container
         justify={"space-evenly"}
         spacing={6}
@@ -52,7 +52,7 @@ const NavAdmin = props => (
           Resources
         </Link>
         <LogOutButton className="nav-link" />
-      </Grid>
+      </Grid> */}
     </div>
   </div>
 );
