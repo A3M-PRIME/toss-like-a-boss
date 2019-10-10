@@ -50,6 +50,25 @@ class App extends Component {
   render() {
     return (
       <DndProvider backend={HTML5Backend}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <div>
+            <Nav />
+            <NavAdmin /> 
+            <NavUser />
+            <Container>
+              <Typography color="secondary">
+                <Switch>
+                  {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+                  <Redirect exact from="/" to="/home" />
+                  {/* Visiting localhost:3000/about will show the about page.
+            This is a route anyone can see, no login necessary */}
+
+                  <Route exact path="/about" component={AboutPage} />
+                  <Route exact path="/results" component={ResultsGuestPlayer} />
+                  <Route exact path="/leaderboard" component={Leaderboard} />
+                  {/* For protected routes, the view could show one of several things on the same route.
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Router>
