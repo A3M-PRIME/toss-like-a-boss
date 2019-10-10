@@ -118,7 +118,8 @@ class Items extends Component {
         toggleAdd: false,
         itemName: '',
         receptacle: '',
-        url: ''
+        url: '',
+        itemText: ''
     }
 
     componentDidMount() {
@@ -142,8 +143,7 @@ class Items extends Component {
         });
     }
 
-    handleItemAdd = (event) => {
-        event.preventDefault();
+    handleItemAdd = () => {
         this.props.dispatch({
             type: 'ADD_ITEM',
             payload: this.state
@@ -152,7 +152,32 @@ class Items extends Component {
         this.setState({
             itemName: '',
             receptacle: '',
-            url: ''
+            url: '',
+            itemText: ''
+        })
+    }
+
+    handleDelete = (name, id) => {
+        MySwal.fire({
+            title: `Delete the ${name} item?`,
+            text: `This will remove ${name} from the game.`,
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({
+                    type: 'DELETE_ITEM',
+                    payload: id
+                })
+                Swal.fire(
+                    'Deleted!',
+                    `The item ${name} has been deleted.`,
+                    'success'
+                )
+            }
         })
     }
 
@@ -169,7 +194,7 @@ class Items extends Component {
                         </Button>
                     </td>
                     <td className={classes.cardContentIcons}>
-                        <Button onClick={() => this.handleDelete(item.item_name, item.id)}>
+                        <Button onClick={() => this.handleDelete(item.name, item.id)}>
                             <Delete />
                         </Button>
                     </td>
@@ -249,16 +274,39 @@ class Items extends Component {
                             shrink: true
                         }}
                     >
-                        <MenuItem value="garbage">
+                        <MenuItem value="Garbage">
                             Garbage
                         </MenuItem>
-                        <MenuItem value="garbage">
+                        <MenuItem value="Recycling">
                             Recycling
                         </MenuItem> 
-                        <MenuItem value="garbage">
+                        <MenuItem value="Compost">
                             Compost
                         </MenuItem> 
                     </TextField>
+                    <br/>
+                    <TextField
+                        align="left"
+                        id="outlined-name"
+                        label="reason for receptacle"
+                        className={classes.fieldLarge}
+                        value={this.state.itemText}
+                        onChange={this.handleChangeFor('itemText')}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                            className: classes.input,
+                            classes: {
+                                root: classes.cssOutlinedInput,
+                                focused: classes.cssFocused,
+                                notchedOutline: classes.notchedOutline,
+                            }
+                        }}
+                        InputLabelProps={{
+                            className: classes.input,
+                            shrink: true
+                        }}
+                    />
                     <br/>
                     <TextField
                         align="left"
@@ -284,7 +332,8 @@ class Items extends Component {
                     />
                     {/* <ImageUpload/> */}
                     <br/><br/>
-                    <Button className={classes.button} variant="contained" name="items" color="primary">Submit Item</Button>
+                    <Button className={classes.button} onClick={() => this.handleItemAdd()}
+                    variant="contained" name="items" color="primary">Submit Item</Button>
                 </div>}
                 <br/><br/>
                 <Grid container spacing={4} justify="center">
