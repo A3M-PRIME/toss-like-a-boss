@@ -38,10 +38,14 @@ const styles = theme => ({
         paddingLeft: 5,
         paddingRight: 5
     },
-    cardContentTeams: {
+    cardContentItems: {
         fontSize: 20,
         paddingLeft: 8,
-        textAlign: 'left'
+        textAlign: 'center'
+    },
+    image: {
+        height: 75,
+        width: 75
     },
     icon: {
         width: 35,
@@ -65,6 +69,18 @@ const styles = theme => ({
     },
     addItem: {
         fontSize: 24,
+    },
+    edit: {
+        width: "10%"
+    },
+    delete: {
+        width: "10%"
+    },
+    itemName: {
+        width: "40%"
+    },
+    receptacle: {
+        width: "20%"
     },
     modal: {
         display: 'flex',
@@ -102,7 +118,8 @@ class Items extends Component {
         toggleAdd: false,
         itemName: '',
         receptacle: '',
-        url: ''
+        url: '',
+        itemText: ''
     }
 
     componentDidMount() {
@@ -126,8 +143,7 @@ class Items extends Component {
         });
     }
 
-    handleItemAdd = (event) => {
-        event.preventDefault();
+    handleItemAdd = () => {
         this.props.dispatch({
             type: 'ADD_ITEM',
             payload: this.state
@@ -136,13 +152,64 @@ class Items extends Component {
         this.setState({
             itemName: '',
             receptacle: '',
-            url: ''
+            url: '',
+            itemText: ''
+        })
+    }
+
+    handleDelete = (name, id) => {
+        MySwal.fire({
+            title: `Delete the ${name} item?`,
+            text: `This will remove ${name} from the game.`,
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({
+                    type: 'DELETE_ITEM',
+                    payload: id
+                })
+                Swal.fire(
+                    'Deleted!',
+                    `The item ${name} has been deleted.`,
+                    'success'
+                )
+            }
         })
     }
 
     render() {
 
         const { classes } = this.props
+
+        let itemList = this.props.item.map(item => {
+            return (
+                <tr>
+                    <td className={classes.cardContentIconsLeft}>
+                        <Button onClick={() => this.handleItemEditOpen(item.name, item.url, item.receptacle, item.item_text)}>
+                            <Edit />
+                        </Button>
+                    </td>
+                    <td className={classes.cardContentIcons}>
+                        <Button onClick={() => this.handleDelete(item.name, item.id)}>
+                            <Delete />
+                        </Button>
+                    </td>
+                    <td className={classes.cardContentItems}>
+                        {item.name}
+                    </td>
+                    <td className={classes.cardContentItems}>
+                        {item.receptacle}
+                    </td>
+                    <td className={classes.cardContentItems}>
+                        <img className={classes.image} src={item.url}/>
+                    </td>
+                </tr>
+            )
+        })
 
         return (
             <div>
@@ -207,16 +274,39 @@ class Items extends Component {
                             shrink: true
                         }}
                     >
-                        <MenuItem value="garbage">
+                        <MenuItem value="Garbage">
                             Garbage
                         </MenuItem>
-                        <MenuItem value="garbage">
+                        <MenuItem value="Recycling">
                             Recycling
                         </MenuItem> 
-                        <MenuItem value="garbage">
+                        <MenuItem value="Compost">
                             Compost
                         </MenuItem> 
                     </TextField>
+                    <br/>
+                    <TextField
+                        align="left"
+                        id="outlined-name"
+                        label="reason for receptacle"
+                        className={classes.fieldLarge}
+                        value={this.state.itemText}
+                        onChange={this.handleChangeFor('itemText')}
+                        margin="normal"
+                        variant="outlined"
+                        InputProps={{
+                            className: classes.input,
+                            classes: {
+                                root: classes.cssOutlinedInput,
+                                focused: classes.cssFocused,
+                                notchedOutline: classes.notchedOutline,
+                            }
+                        }}
+                        InputLabelProps={{
+                            className: classes.input,
+                            shrink: true
+                        }}
+                    />
                     <br/>
                     <TextField
                         align="left"
@@ -242,8 +332,45 @@ class Items extends Component {
                     />
                     {/* <ImageUpload/> */}
                     <br/><br/>
-                    <Button className={classes.button} variant="contained" name="items" color="primary">Submit Item</Button>
+                    <Button className={classes.button} onClick={() => this.handleItemAdd()}
+                    variant="contained" name="items" color="primary">Submit Item</Button>
                 </div>}
+                <br/><br/>
+                <Grid container spacing={4} justify="center">
+                    <Grid item sm={2}>
+                    </Grid>
+                    <Grid item sm={8}>
+                        <Card className={classes.card}>
+                            <CardActions style={{ backgroundColor: "#EEF1F1" }}>
+                                <Grid item sm={5}>
+                                </Grid>
+                                <Grid item sm={2}>
+                                    <span className={classes.cardHeader} style={{ marginLeft: "auto" }}>Items</span>
+                                </Grid>
+                                <Grid item sm={5} style={{ textAlign: "right" }}>
+                                </Grid>
+                            </CardActions>
+                            <CardContent style={{ backgroundColor: "#EEF1F1" }}>
+                                {this.props.item[0] && <table className={classes.tableItem}>
+                                    <thead>
+                                        <tr>
+                                            <th className={classes.edit}>Edit</th>
+                                            <th className={classes.delete}>Delete</th>
+                                            <th className={classes.itemName}>Item Name</th>
+                                            <th className={classes.receptacle}>Receptacle</th>
+                                            <th className={classes.image}>Image</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {itemList}
+                                    </tbody>
+                                </table>}
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item sm={2}>
+                    </Grid>
+                </Grid>
             </div>
         )
 
