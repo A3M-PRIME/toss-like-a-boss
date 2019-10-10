@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import CompostBinChoice from '../CompostBinChoice/CompostBinChoice';
 import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
   Button: {
@@ -40,6 +42,9 @@ const styles = {
 };
 
 class GameLaunch extends Component {
+  state = {
+    timeToPlay: false,
+  }
 
   // route the user back to the contest page
   toContest = () => {
@@ -53,7 +58,7 @@ class GameLaunch extends Component {
 
   // route the user back to the home page
   backToHome = () => {
-    this.props.history.push('/'); 
+    this.props.history.push('/');
   };
 
   // route the user back to the how to play page
@@ -63,76 +68,81 @@ class GameLaunch extends Component {
 
   // route the user back to the gamelaunch page
   toGame = () => {
-    this.props.history.push('/game')
+    this.setState({
+      timeToPlay: true
+    })
+    console.log(this.state)
   }
 
-    render() {
-        return (
-          <div>
-            <br></br>
-            <body>
-              <Grid
-                container
-                justify={"space-evenly"}
-                spacing={6}
-                alignItems={"center"}
+  render() {
+    return (
+      <div>
+        <br></br>
+        <body>
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={6}
+            alignItems={"center"}
+          >
+            <Grid item xs={3}>
+              <Button
+                className={this.props.classes.Button}
+                onClick={this.howToPlay}
               >
-                <Grid item xs={3}>
-                  <Button
-                    className={this.props.classes.Button}
-                    onClick={this.howToPlay}
-                  >
-                    How To Play
+                How To Play
                   </Button>
-                </Grid>
-                <Grid item xs={3}>
-                  <Button
-                    className={this.props.classes.Button}
-                    onClick={this.backToHome}
-                  >
-                    Back To Home
-                  </Button>
-                </Grid>
-              </Grid>
-              <br></br>
-              <Grid
-                container
-                justify={"space-evenly"}
-                spacing={48}
-                alignItems={"center"}
-              >
-                <Grid item xs={2}>
-                <Button className={this.props.classes.Button} onClick={this.toGame}>
-                  PLAY!
-                </Button>
-                </Grid>
-              </Grid>
-            </body>
-            <br></br>
-            <Grid
-              container
-              justify={"space-evenly"}
-              spacing={12}
-              alignItems={"center"}
-            >
-              <Grid item xs={3}>
-                <Button
-                  className={this.props.classes.Button}
-                  onClick={this.toContest}
-                >
-                  HOST A CONTEST
-                </Button>
-              </Grid>
-              <Grid item xs={3}>
-                <Button
-                  className={this.props.classes.Button}
-                  onClick={this.toLogin}
-                >
-                  LOGIN TO YOUR ADMIN ACCOUNT
-                </Button>
-              </Grid>
             </Grid>
-            {/* <footer>
+            <Grid item xs={3}>
+              <Button
+                className={this.props.classes.Button}
+                onClick={this.backToHome}
+              >
+                Back To Home
+                  </Button>
+            </Grid>
+          </Grid>
+          <br></br>
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={48}
+            alignItems={"center"}
+          >
+            <Grid item xs={2}>
+              <Button className={this.props.classes.Button} onClick={this.toGame}>
+                PLAY!
+                </Button>
+                {/* conditionally render CompostBinChoice when play is clicked */}
+              {this.state.timeToPlay && <CompostBinChoice />}
+            </Grid>
+          </Grid>
+        </body>
+        <br></br>
+        <Grid
+          container
+          justify={"space-evenly"}
+          spacing={12}
+          alignItems={"center"}
+        >
+          <Grid item xs={3}>
+            <Button
+              className={this.props.classes.Button}
+              onClick={this.toContest}
+            >
+              HOST A CONTEST
+                </Button>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              className={this.props.classes.Button}
+              onClick={this.toLogin}
+            >
+              LOGIN TO YOUR ADMIN ACCOUNT
+                </Button>
+          </Grid>
+        </Grid>
+        {/* <footer>
               <Grid
                 container
                 justify={"space-evenly"}
@@ -144,16 +154,16 @@ class GameLaunch extends Component {
                 <div className={this.props.classes.compost}>Compost</div>
               </Grid>
             </footer> */}
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 //mapping the state to props
 const mapStateToProps = reduxStore => {
-    return {
-        reduxStore
-    }
+  return {
+    reduxStore
+  }
 }
 
 // exports the component
