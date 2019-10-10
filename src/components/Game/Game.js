@@ -53,6 +53,7 @@ class Game extends Component {
     this.props.dispatch({
       type: "FETCH_GAME_ITEMS"
     });
+    console.log(this.props.gameItems[0].id);
   }
 
   handleTimerStart = () => {
@@ -144,7 +145,8 @@ class Game extends Component {
           <Grid>
             <div>
               <div>
-                <DraggableItem name='garbage' />
+                {/* id={this.props.gameItems[0].id} */}
+                <DraggableItem name='garbage' itemId={this.props.gameItems && this.props.gameItems[0].id} />
               </div>
             </div>
           </Grid>
