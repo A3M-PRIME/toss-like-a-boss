@@ -164,7 +164,7 @@ class Game extends Component {
               <RecycleBin />
             </div>
             <div>
-              <CompostBin />
+              {this.props.compostBin && <CompostBin />}
             </div>
           </Grid>
         </footer>
@@ -177,7 +177,8 @@ class Game extends Component {
 const mapStateToProps = reduxStore => {
   return {
     reduxStore,
-    gameItems: reduxStore.gameItemsReducer
+    gameItems: reduxStore.gameItemsReducer,
+    compostBin: reduxStore.compostBinReducer
   };
 };
 
