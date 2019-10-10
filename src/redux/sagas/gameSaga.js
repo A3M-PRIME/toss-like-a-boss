@@ -17,7 +17,8 @@ function* addCorrectAnswer(action) {
 function* addWrongAnswer(action) {
   try {
     yield put({
-      type: "UPDATE_WRONG_ANSWER_ARRAY"
+      type: "UPDATE_WRONG_ANSWER_ARRAY",
+      payload: action.payload
     });
   } catch (error) {
     console.log("error with add wrong answer saga", error);
@@ -39,7 +40,7 @@ function* fetchGameItems(action) {
 function* firstTryCorrect(action) {
   console.log('first try correct action.payload is', action.payload.id)
   try {
-    yield axios.put(`/api/item/correct`, action.payload.id);
+    yield axios.put(`/api/item/correct`, action.payload);
     yield put({
       type: "ADD_CORRECT_ANSWER"
     });
