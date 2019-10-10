@@ -22,7 +22,8 @@ router.get('/', (req, res) => {
 // number of instances when an item is correct on
 // the first attempt
 router.put('/correct', (req, res) => {
-    const itemId = req.body;
+    console.log('req.body is', req.body.id)
+    const itemId = req.body.id;
     const queryText = `
     UPDATE "item"
     SET "correct_count" = "correct_count" + 1,
