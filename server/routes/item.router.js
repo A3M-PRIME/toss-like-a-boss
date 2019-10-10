@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 // number of instances when an item is correct on
 // the first attempt
 router.put('/correct', (req, res) => {
-    console.log('req.body is', req.body.id)
+    console.log('req.body is', req.body)
     const itemId = req.body.id;
     const queryText = `
     UPDATE "item"
@@ -39,7 +39,8 @@ router.put('/correct', (req, res) => {
 })
 //updates database to increment number of instances if initial guess is incorrect
 router.put('/incorrect', (req, res) => {
-    const itemId = req.body;
+    console.log("req.body is", req.body);
+    const itemId = req.body.id;
     const queryText = `
     UPDATE "item"
     SET "number_of_instances" = "number_of_instances" + 1
