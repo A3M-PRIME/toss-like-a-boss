@@ -20,10 +20,11 @@ const styles = {
 class ResultsItemCard extends Component {
     render() {
         let wrongAnswerArray = [];
+        //if there were incorrect answers, map over the array they are 
+        //stored in from redux and create cards to display information
+        //to user
+        //if there are no incorrect answers, render the PerfectScore component
         if (this.props.wrongAnswers[0]) {
-            //TO DO:
-            //REPLACE PLACEHOLDERS WITH
-            //ARRAY VARIABLES
             wrongAnswerArray = this.props.wrongAnswerReducer.map(item => {
                 return (
                     <div>
@@ -34,15 +35,15 @@ class ResultsItemCard extends Component {
                         </div>
                         <Card>
                             <CardHeader
-                                title="Soda can"
+                                title={item.name}
                             />
                             <CardContent>
                                 <CardMedia
                                     className={this.props.classes.media}
-                                    image="drpepper.jpg"
+                                    image={this.url}
                                 />
                                 <Typography component="p">
-                                    Aluminum should always be recycled after being rinsed
+                                    {this.item_text}
                             </Typography>
                             </CardContent>
                         </Card>
