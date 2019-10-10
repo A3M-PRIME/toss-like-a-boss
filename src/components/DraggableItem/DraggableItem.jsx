@@ -120,18 +120,20 @@ let DragNDrop = connect(mapStateToProps)(DragSource(
     beginDrag: props => ({ name: props.name }),
     endDrag(props, monitor) {
         console.log(props.items)
-        props.dispatch({type: 'HELLO_DND'})
       const item = monitor.getItem();
       const dropResult = monitor.getDropResult();
+      //if correct on the first try
       if (dropResult && dropResult.name == item.name && firstTry === true) {
+          props.dispatch({ type: 'FIRST_TRY_CORRECT', payload: {id: props.items[0].id}})
         alert(`You dropped ${item.name} into ${dropResult.name}!`);
         firstTry = true;
-        // firstTryCorrect();
-      } else if (dropResult && dropResult.name !== item.name) {
+      } 
+      // if incorrect, will make you repeat until correct
+      else if (dropResult && dropResult.name !== item.name) {
         firstTry = false;
         console.log(firstTry);
-        // firstTryIncorrect();
       }
+      //if correct on any other try than the first, move on
       if (dropResult && dropResult.name == item.name && firstTry === false) {
         firstTry = true;
         alert("Second time is the charm!");
