@@ -80,7 +80,7 @@ const style = {
 
 let firstTry = true;
 
-const DraggableItem = ({ name, isDragging, connectDragSource }) => {
+const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
   const opacity = isDragging ? 0 : 1;
 
   // function firstTryCorrect() {
@@ -100,7 +100,7 @@ const DraggableItem = ({ name, isDragging, connectDragSource }) => {
 
   return (
     <div ref={connectDragSource} style={{ ...style, opacity }}>
-      {name}
+      {label}
     </div>
   );
 };
