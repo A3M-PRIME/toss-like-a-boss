@@ -54,4 +54,18 @@ router.put('/incorrect', (req, res) => {
         })
 })
 
+//WASTE WISE ADMIN PAGE ONLY
+router.get('/admin', (req, res) => {
+    const sqlText = `SELECT * FROM item ORDER BY "name" ASC;`;
+    pool.query(sqlText)
+        .then((result) => {
+            console.log('Item Admin GET from database:', result);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error getting items from database`, error);
+            res.sendStatus(500);
+        })
+});
+
 module.exports = router;
