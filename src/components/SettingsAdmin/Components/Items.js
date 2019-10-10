@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+// import ImageUpload from './ImageUpload';
 
 const MySwal = withReactContent(Swal)
 
@@ -104,6 +105,15 @@ class Items extends Component {
         url: ''
     }
 
+    componentDidMount() {
+        this.getItems();
+    }
+
+    getItems() {
+        this.props.dispatch({
+            type: 'FETCH_ITEMS'
+        })
+    }
     handleAddClick = () => {
         this.setState({
             toggleAdd: !this.state.toggleAdd
@@ -114,6 +124,20 @@ class Items extends Component {
         this.setState({
             [propertyName]: event.target.value
         });
+    }
+
+    handleItemAdd = (event) => {
+        event.preventDefault();
+        this.props.dispatch({
+            type: 'ADD_ITEM',
+            payload: this.state
+
+        })
+        this.setState({
+            itemName: '',
+            receptacle: '',
+            url: ''
+        })
     }
 
     render() {
@@ -198,7 +222,7 @@ class Items extends Component {
                         align="left"
                         id="outlined-name"
                         label="image url"
-                        className={classes.fieldMedium}
+                        className={classes.fieldLarge}
                         value={this.state.url}
                         onChange={this.handleChangeFor('url')}
                         margin="normal"
@@ -216,8 +240,10 @@ class Items extends Component {
                             shrink: true
                         }}
                     />
+                    {/* <ImageUpload/> */}
+                    <br/><br/>
+                    <Button className={classes.button} variant="contained" name="items" color="primary">Submit Item</Button>
                 </div>}
-
             </div>
         )
 
@@ -230,6 +256,7 @@ const mapStateToProps = (reduxStore) => {
         user: reduxStore.user,
         team: reduxStore.teamSettings,
         organization: reduxStore.orgSettings,
+        item: reduxStore.item
     }
 }
 export default connect(mapStateToProps)(withStyles(styles)(Items));
