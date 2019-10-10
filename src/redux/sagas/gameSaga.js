@@ -37,8 +37,9 @@ function* fetchGameItems(action) {
 }
 
 function* firstTryCorrect(action) {
+  console.log('first try correct action.payload is', action.payload.id)
   try {
-    let response = yield axios.put(`/api/item/correct`, action.payload);
+    yield axios.put(`/api/item/correct`, action.payload.id);
     yield put({
       type: "ADD_CORRECT_ANSWER"
     });
