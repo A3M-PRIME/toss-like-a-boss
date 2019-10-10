@@ -9,6 +9,7 @@ import gameItemsReducer from './gameItemsReducer';
 import orgSettings from './orgSettingsReducer';
 import teamSettings from './teamSettingsReducer';
 import contestSettings from './contestSettingsReducer';
+import compostBinReducer from './compostBinReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -26,7 +27,8 @@ const rootReducer = combineReducers({
   gameItemsReducer, //has list of items for game
   orgSettings, //has data for the organization admin to edit on settings page
   teamSettings, //has list of teams that belong to the organization on the organization's settings page
-  contestSettings //has list of contests that belong to the organization on the organization's settings page
+  contestSettings, //has list of contests that belong to the organization on the organization's settings page
+  compostBinReducer, //stores whether player has compost bin or not
 });
 
 export default rootReducer;
