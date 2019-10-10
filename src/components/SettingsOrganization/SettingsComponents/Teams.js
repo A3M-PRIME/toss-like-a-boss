@@ -232,8 +232,6 @@ class Teams extends Component {
                                 </Grid>
                             </CardActions>
                             <CardContent style={{ backgroundColor: "#EEF1F1" }}>
-                                {!this.props.team[0] && <br />}
-                                {!this.props.team[0] && <br />}
                                 {!this.props.team[0] &&
                                     <span className={classes.cardContent}>You have not added any teams.  If you want to spice up the competition within {this.props.organization.organization_name}, begin by adding a new team!</span>
                                 }

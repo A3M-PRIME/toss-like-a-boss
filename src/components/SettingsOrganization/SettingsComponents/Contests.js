@@ -208,9 +208,9 @@ class Contests extends Component {
         return (
             <div>
                 <Grid container spacing={4} justify="center">
-                    <Grid item sm={2}>
+                    <Grid item sm={3}>
                     </Grid>
-                    <Grid item sm={8}>
+                    <Grid item sm={6}>
                         <Card className={classes.card}>
                             <CardActions style={{ backgroundColor: "#EEF1F1" }}>
                                 <Grid item sm={5}>
@@ -246,7 +246,7 @@ class Contests extends Component {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid item sm={2}>
+                    <Grid item sm={3}>
                     </Grid>
                 </Grid>
 
