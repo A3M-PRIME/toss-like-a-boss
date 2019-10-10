@@ -53,7 +53,6 @@ function* updateTeam(action) {
     }
 }
 
-
 function* deleteTeam(action) {
     try {
         let response = yield axios.delete(`/api/team/${action.payload}`)
@@ -80,6 +79,32 @@ function* addTeam(action) {
     }
 }
 
+function* fetchContests(action) {
+    try {
+        let response = yield axios.get('/api/contest')
+        console.log('Saga response:', response.data)
+        yield put({
+            type: 'SET_CONTESTS',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in CONTEST GET', err);
+    }
+}
+
+function* updateContest(action) {
+    try {
+        let response = yield axios.put('/api/contest', action.payload);
+        console.log('Contest name update saga response:', action.payload);
+        yield put({
+            type: 'FETCH_CONTESTS',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in CONTEST INFO PUT', err);
+    }
+}
+
 function* orgSettingsSaga() {
     yield takeEvery('FETCH_ORGANIZATION', fetchOrganization);
     yield takeEvery('UPDATE_ORGANIZATION_NAME', updateOrganizationName);
@@ -88,6 +113,8 @@ function* orgSettingsSaga() {
     yield takeEvery('UPDATE_TEAM', updateTeam);
     yield takeEvery('DELETE_TEAM', deleteTeam);
     yield takeEvery('ADD_TEAM', addTeam);
+    yield takeEvery('FETCH_CONTESTS', fetchContests);
+    yield takeEvery('UPDATE_CONTEST', updateContest);
 }
 
 export default orgSettingsSaga;
