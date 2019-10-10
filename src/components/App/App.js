@@ -8,9 +8,9 @@ import {
 
 import { connect } from 'react-redux';
 
-import Nav from '../Nav/Nav';
-import NavAdmin from '../Nav/NavAdmin';
-import NavUser from '../Nav/NavUser';
+import NavOrganizationAdmin from '../Nav/NavOrganizationAdmin';
+import NavWasteWiseAdmin from '../Nav/NavWasteWiseAdmin';
+import NavGuest from '../Nav/NavGuest';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -20,6 +20,7 @@ import Game from "../Game/Game";
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import Resources from '../Resources/Resources';
 import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany';
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
@@ -54,9 +55,9 @@ class App extends Component {
           <CssBaseline />
           <Router>
             <div>
-              {/* <Nav /> */}
-              <NavAdmin />
-              {/* <NavUser /> */}
+              <NavOrganizationAdmin />
+              <NavWasteWiseAdmin />
+              <NavGuest />
               <Container>
                 <Typography color="secondary">
                   <Switch>
@@ -117,6 +118,16 @@ class App extends Component {
                       exact
                       path="/settingsadmin"
                       component={SettingsAdmin}
+                    />
+                    <ProtectedRoute 
+                      exact
+                      path="/leaderboard"
+                      component={Leaderboard}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path="/resources"
+                      component={Resources}
                     />
 
 
