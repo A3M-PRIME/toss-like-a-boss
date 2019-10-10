@@ -7,6 +7,8 @@ import gameWrongAnswerReducer from './gameWrongAnswerReducer';
 import leaderboardReducer from './leaderboardReducer';
 import gameItemsReducer from './gameItemsReducer';
 import orgSettings from './orgSettingsReducer';
+import teamSettings from './teamSettingsReducer';
+import contestSettings from './contestSettingsReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +25,8 @@ const rootReducer = combineReducers({
   leaderboardReducer, //list of scores to display for organization leaderboard
   gameItemsReducer, //has list of items for game
   orgSettings, //has data for the organization admin to edit on settings page
+  teamSettings, //has list of teams that belong to the organization on the organization's settings page
+  contestSettings //has list of contests that belong to the organization on the organization's settings page
 });
 
 export default rootReducer;

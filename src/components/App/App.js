@@ -9,6 +9,8 @@ import {
 import { connect } from 'react-redux';
 
 import Nav from '../Nav/Nav';
+import NavAdmin from '../Nav/NavAdmin';
+import NavUser from '../Nav/NavUser';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -21,6 +23,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany';
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
+import SettingsAdmin from '../SettingsAdmin/SettingsAdmin';
 
 //Styling
 import { ThemeProvider } from '@material-ui/styles';
@@ -32,37 +35,48 @@ import './App.css';
 import 'typeface-roboto';
 import HowToPlay from '../HowToPlay/HowToPlay';
 
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
   }
 
+  navBarToUser = () => {
+
+  }
+
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <div>
-            <Nav />
-            <Container>
-              <Typography color="secondary">
-                <Switch>
-                  {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-                  <Redirect exact from="/" to="/home" />
-                  {/* Visiting localhost:3000/about will show the about page.
+      <DndProvider backend={HTML5Backend}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <div>
+              {/* <Nav /> */}
+              <NavAdmin />
+              {/* <NavUser /> */}
+              <Container>
+                <Typography color="secondary">
+                  <Switch>
+                    {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+                    <Redirect exact from="/" to="/home" />
+                    {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
 
-                  <Route exact path="/about" component={AboutPage} />
-                  <Route exact path="/about" component={AboutPage} />
-                  <Route exact path="/results" component={ResultsGuestPlayer} />
-                  <Route exact path="/leaderboard" component={Leaderboard} />
-                  {/* For protected routes, the view could show one of several things on the same route.
+                    <Route exact path="/about" component={AboutPage} />
+                    <Route exact path="/about" component={AboutPage} />
+                    <Route exact path="/results" component={ResultsGuestPlayer} />
+                    <Route exact path="/leaderboard" component={Leaderboard} />
+                    {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-                  <ProtectedRoute exact path="/home" component={UserPage} />
-                  {/* This works the same as the other protected route, except that if the user is logged in,
+                    <ProtectedRoute exact path="/home" component={UserPage} />
+                    {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
+
 
                   <ProtectedRoute exact path="/info" component={InfoPage} />
                   <Route exact path="/game" component={Game} />
@@ -74,18 +88,56 @@ class App extends Component {
                     path="/settingsorg"
                     component={SettingsOrganization}
                   />
+                    <ProtectedRoute
+                      exact
+                      path="/info"
+                      component={InfoPage}
+                    />
+                    <Route
+                      exact
+                      path="/game"
+                      component={Game}
+                    />
+                    <Route
+                      exact
+                      path="/gamelaunch"
+                      component={GameLaunch}
+                    />
+                    <Route
+                      exact
+                      path="/login"
+                      component={LoginPage}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path="/settingsorg"
+                      component={SettingsOrganization}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path="/settingsadmin"
+                      component={SettingsAdmin}
+                    />
 
-                  {/* If none of the other routes matched, we will show a 404. */}
-                  <Route render={() => <h1>404</h1>} />
-                </Switch>
-              </Typography>
-            </Container>
-            <Footer />
-          </div>
-        </Router>
-      </ThemeProvider>
+
+                    {/* If none of the other routes matched, we will show a 404. */}
+                    <Route render={() => <h1>404</h1>} />
+                  </Switch>
+                </Typography>
+              </Container>
+              <Footer />
+            </div>
+          </Router>
+        </ThemeProvider>
+      </DndProvider>
     );
   }
 }
 
-export default connect()(App);
+const mapStateToProps = reduxStore => {
+  return {
+    reduxStore
+  }
+}
+
+export default connect(mapStateToProps)(App);
