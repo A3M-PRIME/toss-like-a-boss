@@ -54,9 +54,9 @@ class App extends Component {
         <CssBaseline />
         <Router>
           <div>
-            {/* <Nav /> */}
+            <Nav />
             <NavAdmin /> 
-            {/* <NavUser /> */}
+            <NavUser />
             <Container>
               <Typography color="secondary">
                 <Switch>
@@ -65,7 +65,6 @@ class App extends Component {
                   {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
 
-                  <Route exact path="/about" component={AboutPage} />
                   <Route exact path="/about" component={AboutPage} />
                   <Route exact path="/results" component={ResultsGuestPlayer} />
                   <Route exact path="/leaderboard" component={Leaderboard} />
