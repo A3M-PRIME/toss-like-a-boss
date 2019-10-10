@@ -18,8 +18,7 @@ import Game from "../Game/Game";
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany'
-
+import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany';
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
 
@@ -31,6 +30,7 @@ import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import 'typeface-roboto';
+import HowToPlay from '../HowToPlay/HowToPlay';
 
 class App extends Component {
   componentDidMount() {
@@ -64,26 +64,11 @@ class App extends Component {
                   {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
 
-                  <ProtectedRoute
-                    exact
-                    path="/info"
-                    component={InfoPage}
-                  />
-                  <Route
-                    exact
-                    path="/game"
-                    component={Game}
-                  />
-                  <Route
-                    exact
-                    path="/gamelaunch"
-                    component={GameLaunch}
-                  />
-                  <Route
-                    exact
-                    path="/login"
-                    component={LoginPage}
-                  />
+                  <ProtectedRoute exact path="/info" component={InfoPage} />
+                  <Route exact path="/game" component={Game} />
+                  <Route exact path="/gamelaunch" component={GameLaunch} />
+                  <Route exact path="/login" component={LoginPage} />
+                  <Route exact path="/howtoplay" component={HowToPlay} />
                   <ProtectedRoute
                     exact
                     path="/settingsorg"
