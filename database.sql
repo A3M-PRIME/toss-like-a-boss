@@ -3,110 +3,108 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
+CREATE TABLE "user"
+(
+    "id" serial NOT NULL,
+    "first_name" varchar(40) NOT NULL,
+    "last_name" varchar(50) NOT NULL,
+    "username" varchar(60) NOT NULL UNIQUE,
+    "password" varchar(100) NOT NULL,
+    "wastewise_admin" BOOLEAN NOT NULL,
+    "organization_id" integer,
+    CONSTRAINT "user_pk" PRIMARY KEY ("id")
+)
+WITH (
+  OIDS=FALSE
 );
 
---test data
 
-SELECT *, (SELECT count(*)
-    FROM "item") AS ct
-FROM "item"
-ORDER BY random()
-LIMIT 15;
+
+CREATE TABLE "contest"
+(
+    "id" serial NOT NULL,
+    "contest_name" varchar(100) NOT NULL,
+    "access_code" integer NOT NULL,
+    "compost" BOOLEAN NOT NULL,
+    "start_date" varchar(25) NOT NULL,
+    "start_time" varchar(25) NOT NULL,
+    "end_date" varchar(25) NOT NULL,
+    "end_time" varchar(25) NOT NULL,
+    "organization_id" integer NOT NULL,
+    CONSTRAINT "contest_pk" PRIMARY KEY ("id")
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "organization"
+(
+    "id" serial NOT NULL,
+    "organization_name" varchar(120) NOT NULL,
+    CONSTRAINT "organization_pk" PRIMARY KEY ("id")
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "team"
+(
+    "id" serial NOT NULL,
+    "team_name" varchar(50) NOT NULL,
+    "organization_id" integer NOT NULL,
+    CONSTRAINT "team_pk" PRIMARY KEY ("id")
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+CREATE TABLE "score"
+(
+    "id" serial NOT NULL,
+    "first_name" varchar(40) NOT NULL,
+    "last_name" varchar(50) NOT NULL,
+    "email_address" varchar(80) NOT NULL,
+    "score" integer NOT NULL,
+    "time" integer NOT NULL,
+    "contest_id" integer NOT NULL,
+    "team_id" integer NOT NULL,
+    CONSTRAINT "score_pk" PRIMARY KEY ("id")
+)
+WITH (
+  OIDS=FALSE
+);
+
+
 
 CREATE TABLE "item"
 (
-	"id" SERIAL PRIMARY KEY,
-	"name" VARCHAR
-(100),
-	"url" VARCHAR
-(100),
-	"receptacle" VARCHAR
-(30),
-	"correct_count" INTEGER,
-	"number_of_instances" INTEGER
-	);
+    "id" serial NOT NULL,
+    "name" varchar(60) NOT NULL,
+    "url" varchar(1000) NOT NULL,
+    "receptacle" varchar(30) NOT NULL,
+    "correct_count" integer,
+    "number_of_instances" integer,
+    "item_text" varchar(300),
+    CONSTRAINT "item_pk" PRIMARY KEY ("id")
+)
+WITH (
+  OIDS=FALSE
+);
 
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash1', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash2', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash3', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash4', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash5', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash6', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash7', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash8', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash9', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash10', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash11', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash12', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash13', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash14', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash15', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash16', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash17', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash18', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash19', 'test.com', 'garbage', '1', '1');
-INSERT into "item"
-    ("name", "url", "receptacle", "correct_count", "number_of_instances")
-VALUES
-    ('trash20', 'test.com', 'garbage', '1', '1');
+
+
+ALTER TABLE "user" ADD CONSTRAINT "user_fk0" FOREIGN KEY ("organization_id") REFERENCES "organization"("id");
+
+ALTER TABLE "contest" ADD CONSTRAINT "contest_fk0" FOREIGN KEY ("organization_id") REFERENCES "organization"("id");
+
+ALTER TABLE "team" ADD CONSTRAINT "team_fk0" FOREIGN KEY ("organization_id") REFERENCES "organization"("id");
+
+ALTER TABLE "score" ADD CONSTRAINT "score_fk0" FOREIGN KEY ("contest_id") REFERENCES "contest"("id");
+
+ALTER TABLE "score" ADD CONSTRAINT "score_fk1" FOREIGN KEY ("team_id") REFERENCES "team"("id");
