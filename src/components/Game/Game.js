@@ -146,7 +146,7 @@ class Game extends Component {
             <div>
               <div>
                 {/* id={this.props.gameItems[0].id} */}
-                <DraggableItem name='garbage' itemId={this.props.gameItems && this.props.gameItems[0].id} />
+                <DraggableItem name={this.props.gameItems[0].receptacle} label={this.props.gameItems[0].name} itemId={this.props.gameItems && this.props.gameItems[0].id} />
               </div>
             </div>
           </Grid>
