@@ -19,12 +19,6 @@ const styles = {
       color: "black"
     }
   },
-  // h1: {
-  //   border: "2px solid black",
-  //   width: "100%",
-  //   margin: "20px",
-  //   padding: "40px"
-  // },
   trash: {
     border: "2px solid black",
     width: "25%",
@@ -47,10 +41,12 @@ const styles = {
 
 class GameLaunch extends Component {
 
+  // route the user back to the contest page
   toContest = () => {
-    this.props.history.push('/')
+    this.props.history.push('/contest')
   }
 
+  // route the user back to the login page
   toLogin = () => {
     this.props.history.push('/login')
   }
@@ -65,32 +61,14 @@ class GameLaunch extends Component {
     this.props.history.push('/howtoplay')
   }
 
-  toReady = () => {
-    this.props.history.push('/gamelaunch')
+  // route the user back to the gamelaunch page
+  toGame = () => {
+    this.props.history.push('/game')
   }
 
     render() {
         return (
           <div>
-            {/* <Grid
-              container
-              justify={"space-evenly"}
-              spacing={12}
-              alignItems={"center"}
-            >
-              <div className={this.props.classes.h1}>
-                <Grid
-                  container
-                  justify={"space-evenly"}
-                  spacing={10}
-                  alignItems={"center"}
-                >
-                  <h1>WASTE-WISE-R</h1>
-                  <h3>items remaining : 15</h3>{" "}
-                  <h3>Elapsed Time showing : 0:00</h3>
-                </Grid>
-              </div>
-            </Grid> */}
             <br></br>
             <body>
               <Grid
@@ -124,7 +102,7 @@ class GameLaunch extends Component {
                 alignItems={"center"}
               >
                 <Grid item xs={2}>
-                <Button className={this.props.classes.Button} onClick>
+                <Button className={this.props.classes.Button} onClick={this.toGame}>
                   PLAY!
                 </Button>
                 </Grid>
