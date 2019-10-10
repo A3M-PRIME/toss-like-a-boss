@@ -1,8 +1,10 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {withStyles} from '@material-ui/core/styles';
-import {Grid} from '@material-ui/core';
+import { AccountBalance, Fastfood, NaturePeople, Settings } from '@material-ui/icons';
+import { withStyles } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
+import Items from './Components/Items';
 
 const styles = theme => ({
     root: {
@@ -16,25 +18,14 @@ const styles = theme => ({
         justifyContent: 'center',
     },
     cardHeader: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 28,
+        fontWeight: 'bold'
     },
     cardContent: {
-        fontSize: 14
+        fontSize: 24
     },
-    cardContentLeft: {
-        fontSize: 20,
-        width: 10
-    },
-    cardContentIcons: {
-        fontSize: 20,
-        paddingLeft: 5,
-        paddingRight: 5
-    },
-    cardContentTeams: {
-        fontSize: 20,
-        paddingLeft: 8,
-        textAlign: 'left'
+    h1: {
+        textAlign: 'right'
     },
     icon: {
         width: 35,
@@ -42,54 +33,41 @@ const styles = theme => ({
         marginLeft: 10,
         marginBottom: -8,
     },
-    fieldLarge: {
-        margin: 5,
-        width: 490,
-        '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
-            borderColor: "black"
-        }
-    },
-    tableTeam: {
-        // marginLeft: 'auto',
-        // marginRight: 'auto'
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    form: {
-        backgroundColor: '#fff',
-        border: '2px solid #000',
-        boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        color: theme.palette.secondary.main,
+    buttonRow: {
         textAlign: 'center'
     },
-    input: {
-        color: "black"
-    },
-    cssLabel: {
-        '&$cssFocused': {
-            color: "black",
-        },
-    },
-    cssOutlinedInput: {
-        '&$cssFocused $notchedOutline': {
-            borderColor: "black",
-        },
-    },
-    cssFocused: {},
-    notchedOutline: { borderColor: "black" }
+    button: {
+        margin: 8
+    }
 });
 
 class SettingsAdmin extends Component {
 
+    state = {
+        items: 'true'
+    }
+
+    handleDisplay = () => {
+        this.setState({
+          items: !this.state.items  
+        })
+    }
+
     render() {
 
+        const { classes } = this.props
+
         return (
-            <div>
-                This is the Settings Admin page!
+            <div className={classes.root}>
+                <h1 className={classes.h1}>Waste Wise Settings<Settings className={classes.icon} /></h1>
+                <div className={classes.buttonRow}>
+                    {this.state.items && <Button className={classes.button} variant="contained" name="items" color="primary">Items</Button>}
+                    {!this.state.items && <Button className={classes.button} variant="contained" name="items" color="secondary" onClick={() => this.handleDisplay()}>Items</Button>}
+                    {this.state.items && <Button className={classes.button} variant="contained" name="users" color="secondary" onClick={() => this.handleDisplay()}>Users</Button>}
+                    {!this.state.items && <Button className={classes.button} variant="contained" name="users" color="primary">Users</Button>}
+                </div>
+                {this.state.items && <h2>Items<Fastfood className={classes.icon} /></h2>}
+                {!this.state.items && <h2>Users<NaturePeople className={classes.icon} /></h2>}
             </div>
         );
     }
