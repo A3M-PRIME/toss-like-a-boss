@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 class HowToPlay extends Component {
 
     toGame = () => {
@@ -8,7 +9,9 @@ class HowToPlay extends Component {
 
     render () {
         return (
+            
             <div onClick={this.toGame}>
+                
                 <img src="HowToPlay.jpg" alt="How To Play"></img>       
                 
             </div>

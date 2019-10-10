@@ -21,8 +21,6 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany';
-import HowToPlay from '../HowToPlay/HowToPlay';
-
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
 import SettingsAdmin from '../SettingsAdmin/SettingsAdmin';
@@ -35,6 +33,7 @@ import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import 'typeface-roboto';
+import HowToPlay from '../HowToPlay/HowToPlay';
 
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
@@ -51,6 +50,25 @@ class App extends Component {
   render() {
     return (
       <DndProvider backend={HTML5Backend}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <div>
+            <Nav />
+            <NavAdmin /> 
+            <NavUser />
+            <Container>
+              <Typography color="secondary">
+                <Switch>
+                  {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
+                  <Redirect exact from="/" to="/home" />
+                  {/* Visiting localhost:3000/about will show the about page.
+            This is a route anyone can see, no login necessary */}
+
+                  <Route exact path="/about" component={AboutPage} />
+                  <Route exact path="/results" component={ResultsGuestPlayer} />
+                  <Route exact path="/leaderboard" component={Leaderboard} />
+                  {/* For protected routes, the view could show one of several things on the same route.
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Router>
@@ -78,6 +96,17 @@ class App extends Component {
                     {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
 
+
+                  <ProtectedRoute exact path="/info" component={InfoPage} />
+                  <Route exact path="/game" component={Game} />
+                  <Route exact path="/gamelaunch" component={GameLaunch} />
+                  <Route exact path="/login" component={LoginPage} />
+                  <Route exact path="/howtoplay" component={HowToPlay} />
+                  <ProtectedRoute
+                    exact
+                    path="/settingsorg"
+                    component={SettingsOrganization}
+                  />
                     <ProtectedRoute
                       exact
                       path="/info"
@@ -98,11 +127,6 @@ class App extends Component {
                       path="/login"
                       component={LoginPage}
                     />
-                    <Route
-                      exact
-                      path="/howtoplay"
-                      component={HowToPlay}
-                    />
                     <ProtectedRoute
                       exact
                       path="/settingsorg"
@@ -113,6 +137,7 @@ class App extends Component {
                       path="/settingsadmin"
                       component={SettingsAdmin}
                     />
+
 
                     {/* If none of the other routes matched, we will show a 404. */}
                     <Route render={() => <h1>404</h1>} />

@@ -8,51 +8,54 @@ import "./Nav.css";
 const NavAdmin = props => (
   <div className="nav">
     {/* <Link to="/home">
-      <h2 className="nav-title">Admin Nav</h2>
+      <h2 className="nav-title">Toss Like A Boss</h2>
     </Link> */}
     <div className="nav-center">
       {/* <Link className="nav-link" to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {/* {props.user.id ? "Home" : "Login / Register"} */}
+      {/* {props.user.id ? "Home" : "Login / Register"} */}
       {/* </Link> */}
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={6}
+            alignItems={"center"}
+          >
+            <Link className="nav-link" to="/score">
+              Leaderboard
+            </Link>
+            <Link className="nav-link" to="/settingsorg">
+              Organization Settings
+            </Link>
+            <Link className="nav-link" to="/resources">
+              Resources
+            </Link>
+            <LogOutButton className="nav-link" />
+          </Grid>
           {/* <Link className="nav-link" to="/info">
             Info Page
           </Link> */}
+          {/* <Link className="nav-link" to="/">
+            Leaderboard
+          </Link>
           <Link className="nav-link" to="/">
             Settings
           </Link>
           <Link className="nav-link" to="/">
             Resources
           </Link>
-          {/* <Link className="nav-link" to="/">
-            Organization
-          </Link> */}
-          <LogOutButton className="nav-link" />
+          <LogOutButton className="nav-link" /> */}
         </>
       )}
       {/* Always show this link since the about page is not protected */}
       {/* <Link className="nav-link" to="/about">
         About
       </Link> */}
-      {/* <Grid
-        container
-        justify={"space-evenly"}
-        spacing={6}
-        alignItems={"center"}
-      >
-        <Link className="nav-link" to="/settings">
-          Settings
-        </Link>
-        <Link className="nav-link" to="/resources">
-          Resources
-        </Link>
-        <LogOutButton className="nav-link" />
-      </Grid> */}
     </div>
   </div>
 );
