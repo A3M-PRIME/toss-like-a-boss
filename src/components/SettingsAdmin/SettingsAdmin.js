@@ -67,6 +67,7 @@ class SettingsAdmin extends Component {
                     {!this.state.items && <Button className={classes.button} variant="contained" name="users" color="primary">Users</Button>}
                 </div>
                 {this.state.items && <h2>Items<Fastfood className={classes.icon} /></h2>}
+                {this.state.items && <Items/>}
                 {!this.state.items && <h2>Users<NaturePeople className={classes.icon} /></h2>}
             </div>
         );
