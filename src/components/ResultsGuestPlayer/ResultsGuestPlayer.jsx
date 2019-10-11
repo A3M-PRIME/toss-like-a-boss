@@ -16,6 +16,7 @@ const styles = {
 class ResultsGuestPlayer extends Component {
 
 
+
     playAgain = action => {
         this.props.dispatch({
             type: "RESET_CURRENT_GAME_VALUE"
@@ -43,7 +44,7 @@ class ResultsGuestPlayer extends Component {
                 </div>
                 <div>
                     <Typography variant='h5'>
-                        SCORE: {this.props.gameScore}/15 {scorePercentage}%
+                        SCORE: {this.props.gameWrongAnswers.length === undefined ? 15 : 15-this.props.gameWrongAnswers.length}/15 {parseInt(((15-this.props.gameWrongAnswers.length)/15)*100)}%
           </Typography>
                 </div>
                 <div>
@@ -70,7 +71,7 @@ class ResultsGuestPlayer extends Component {
 const mapStateToProps = reduxStore => {
     return {
         gameScore: reduxStore.gameScoreReducer,
-        gamewrongAnswers: reduxStore.gameWrongAnswerReducer,
+        gameWrongAnswers: reduxStore.gameWrongAnswerReducer,
         gameTime: reduxStore.gameTimeReducer,
     };
 };
