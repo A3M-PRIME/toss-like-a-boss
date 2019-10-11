@@ -34,7 +34,8 @@ class ResultsGuestPlayer extends Component {
                     <ResultsItemCard />
                 </div>
                 <div>
-                    <Button variant="contained">CLICK HERE TO PLAY AGAIN</Button>
+                    <Button 
+                    onClick={() => this.props.history.push('/gamelaunch')} variant="contained">CLICK HERE TO PLAY AGAIN</Button>
                 </div>
                 <div>
                     <Button variant="contained">CHECK OUT THE LEADERBOARD</Button>

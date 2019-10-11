@@ -10,6 +10,7 @@ import orgSettings from './orgSettingsReducer';
 import teamSettings from './teamSettingsReducer';
 import contestSettings from './contestSettingsReducer';
 import compostBinReducer from './compostBinReducer';
+import currentGameValueReducer from './currentGameValueReducer';
 import item from './itemReducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -30,7 +31,8 @@ const rootReducer = combineReducers({
   teamSettings, //has list of teams that belong to the organization on the organization's settings page
   contestSettings, //has list of contests that belong to the organization on the organization's settings page
   compostBinReducer, //stores whether player has compost bin or not
-  item, //loads items for WasteWise admin view
+  currentGameValueReducer, //stores value for knowing what index of game items array user is on
+  item,
 });
 
 export default rootReducer;

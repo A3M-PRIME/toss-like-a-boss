@@ -47,17 +47,21 @@ class Game extends Component {
     score: 0,
     time: 0,
     firstTry: true,
+    gameStarted: false,
   };
 
   componentDidMount() {
     this.props.dispatch({
       type: "FETCH_GAME_ITEMS"
     });
-    console.log(this.props.gameItems[0].id);
   }
 
   handleTimerStart = () => {
     console.log("start a timer");
+    this.setState({
+      gameStarted: true
+    })
+
     this.timer = setInterval(
       () =>
         this.setState({
@@ -80,7 +84,6 @@ class Game extends Component {
   toReady = () => {
     this.props.history.push("/gamelaunch");
   };
-
 
   render() {
     console.log(this.state);
@@ -135,18 +138,22 @@ class Game extends Component {
             justify={"space-evenly"}
             spacing={48}
             alignItems={"center"}>
-            <Button
+            {!this.state.gameStarted && <Button
               className={this.props.classes.Button}
               onClick={() => this.handleTimerStart()}>
               {" "}
               READY?!{" "}
-            </Button>
+            </Button>}
           </Grid>
           <Grid>
             <div>
               <div>
                 {/* id={this.props.gameItems[0].id} */}
-                <DraggableItem name={this.props.gameItems[0].receptacle} label={this.props.gameItems[0].name} itemId={this.props.gameItems && this.props.gameItems[0].id} />
+                {this.props.gameItems[this.props.currentGameValue].receptacle === 'compost' && !this.props.compostBin ? (
+                  this.props.gameItems[this.props.currentGameValue].receptacle && <DraggableItem name={'garbage'} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />) : (
+                    <DraggableItem name={this.props.gameItems[this.props.currentGameValue].receptacle} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />
+                )
+    }
               </div>
             </div>
           </Grid>
@@ -178,7 +185,8 @@ const mapStateToProps = reduxStore => {
   return {
     reduxStore,
     gameItems: reduxStore.gameItemsReducer,
-    compostBin: reduxStore.compostBinReducer
+    compostBin: reduxStore.compostBinReducer,
+    currentGameValue: reduxStore.currentGameValueReducer,
   };
 };
 
