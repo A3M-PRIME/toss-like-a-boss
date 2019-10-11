@@ -188,6 +188,9 @@ goToResults = () => {
                       this.props.gameItems[this.props.currentGameValue].id
                     }
                     goToResults={this.goToResults}
+                    gameTime={
+                      this.state.time
+                    }
                   />
                 )}
               </div>
