@@ -46,6 +46,10 @@ let DragNDrop = withRouter(connect(mapStateToProps)(
         const dropResult = monitor.getDropResult();
         //if correct on the first try
         if (props.currentGameValue === props.items.length - 1) {
+          props.dispatch({
+            type: 'SET_GAME_END_TIME',
+            payload: props.gameTime
+          })
           props.history.push("/results");
         } else {
           if (dropResult && dropResult.name == item.name && firstTry === true) {
