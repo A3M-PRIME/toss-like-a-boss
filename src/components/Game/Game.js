@@ -149,11 +149,36 @@ class Game extends Component {
             <div>
               <div>
                 {/* id={this.props.gameItems[0].id} */}
-                {this.props.gameItems[this.props.currentGameValue].receptacle === 'compost' && !this.props.compostBin ? (
-                  this.props.gameItems[this.props.currentGameValue].receptacle && <DraggableItem name={'garbage'} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />) : (
-                    <DraggableItem name={this.props.gameItems[this.props.currentGameValue].receptacle} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />
-                )
-    }
+                {this.props.gameItems[this.props.currentGameValue]
+                  .receptacle === "compost" && !this.props.compostBin ? (
+                  this.props.gameItems[this.props.currentGameValue]
+                    .receptacle && (
+                    <DraggableItem
+                      name={"garbage"}
+                      label={
+                        this.props.gameItems[this.props.currentGameValue].name
+                      }
+                      itemId={
+                        this.props.gameItems &&
+                        this.props.gameItems[this.props.currentGameValue].id
+                      }
+                    />
+                  )
+                ) : (
+                  <DraggableItem
+                    name={
+                      this.props.gameItems[this.props.currentGameValue]
+                        .receptacle
+                    }
+                    label={
+                      this.props.gameItems[this.props.currentGameValue].name
+                    }
+                    itemId={
+                      this.props.gameItems &&
+                      this.props.gameItems[this.props.currentGameValue].id
+                    }
+                  />
+                )}
               </div>
             </div>
           </Grid>
@@ -170,9 +195,7 @@ class Game extends Component {
             <div>
               <RecycleBin />
             </div>
-            <div>
-              {this.props.compostBin && <CompostBin />}
-            </div>
+            <div>{this.props.compostBin && <CompostBin />}</div>
           </Grid>
         </footer>
       </div>
@@ -186,7 +209,7 @@ const mapStateToProps = reduxStore => {
     reduxStore,
     gameItems: reduxStore.gameItemsReducer,
     compostBin: reduxStore.compostBinReducer,
-    currentGameValue: reduxStore.currentGameValueReducer,
+    currentGameValue: reduxStore.currentGameValueReducer
   };
 };
 

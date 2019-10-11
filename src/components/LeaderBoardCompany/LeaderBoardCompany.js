@@ -34,7 +34,8 @@ class Leaderboard extends Component {
 
   getLeaderboardInfo() {
     this.props.dispatch({
-      type: "FETCH_LEADERBOARD"
+      type: "FETCH_LEADERBOARD",
+      payload: this.props.contestSettings.organization_id
     });
   }
 
