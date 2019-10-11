@@ -13,6 +13,7 @@ import compostBinReducer from './compostBinReducer';
 import currentGameValueReducer from './currentGameValueReducer';
 import item from './itemReducer';
 import gameTimeReducer from './gameTimeReducer';
+import contestUserInfoReducer from './contestUserInfoReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   currentGameValueReducer, //stores value for knowing what index of game items array user is on
   item,
   gameTimeReducer, //stores value of timer after game ends
+  contestUserInfoReducer, //stores user info for contest
 });
 
 export default rootReducer;
