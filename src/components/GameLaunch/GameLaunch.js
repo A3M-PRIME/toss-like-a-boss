@@ -7,7 +7,7 @@ import { Grid } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 
 const styles = {
-  Button: {
+  HowToPlayButton: {
     backgroundColor: "green",
     color: "white",
     border: "2px solid black",
@@ -21,23 +21,19 @@ const styles = {
       color: "black"
     }
   },
-  trash: {
+  PlayButton: {
+    backgroundColor: "green",
+    color: "white",
     border: "2px solid black",
-    width: "25%",
-    margin: "20px",
-    padding: "40px",
-  },
-  recycle: {
-    border: "2px solid black",
-    width: "25%",
-    margin: "20px",
-    padding: "40px"
-  },
-  compost: {
-    border: "2px solid black",
-    width: "25%",
-    margin: "20px",
-    padding: "40px"
+    fontSize: "calc(10px + 2vmin)",
+    padding: "50px",
+    margin: "50px",
+    "&:hover": {
+      // change to both KEY and the
+      // textDecoration: "underline",
+      backgroundColor: "yellow",
+      color: "black"
+    }
   },
 };
 
@@ -45,21 +41,6 @@ class GameLaunch extends Component {
   state = {
     timeToPlay: false,
   }
-
-  // route the user back to the contest page
-  toContest = () => {
-    this.props.history.push('/contest')
-  }
-
-  // route the user back to the login page
-  toLogin = () => {
-    this.props.history.push('/login')
-  }
-
-  // route the user back to the home page
-  backToHome = () => {
-    this.props.history.push('/');
-  };
 
   // route the user back to the how to play page
   howToPlay = () => {
@@ -82,78 +63,38 @@ class GameLaunch extends Component {
           <Grid
             container
             justify={"space-evenly"}
-            spacing={6}
+            spacing={12}
             alignItems={"center"}
           >
             <Grid item xs={3}>
               <Button
-                className={this.props.classes.Button}
+                className={this.props.classes.HowToPlayButton}
                 onClick={this.howToPlay}
               >
                 How To Play
-                  </Button>
-            </Grid>
-            <Grid item xs={3}>
-              <Button
-                className={this.props.classes.Button}
-                onClick={this.backToHome}
-              >
-                Back To Home
-                  </Button>
+              </Button>
             </Grid>
           </Grid>
           <br></br>
           <Grid
             container
             justify={"space-evenly"}
-            spacing={48}
+            spacing={12}
             alignItems={"center"}
           >
-            <Grid item xs={2}>
-              <Button className={this.props.classes.Button} onClick={this.toGame}>
+            <Grid item xs={3}>
+              <Button
+                className={this.props.classes.PlayButton}
+                onClick={this.toGame}
+              >
                 PLAY!
-                </Button>
-                {/* conditionally render CompostBinChoice when play is clicked */}
+              </Button>
+              {/* conditionally render CompostBinChoice when play is clicked */}
               {this.state.timeToPlay && <CompostBinChoice />}
             </Grid>
           </Grid>
         </body>
         <br></br>
-        <Grid
-          container
-          justify={"space-evenly"}
-          spacing={12}
-          alignItems={"center"}
-        >
-          <Grid item xs={3}>
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.toContest}
-            >
-              HOST A CONTEST
-                </Button>
-          </Grid>
-          <Grid item xs={3}>
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.toLogin}
-            >
-              LOGIN TO YOUR ADMIN ACCOUNT
-                </Button>
-          </Grid>
-        </Grid>
-        {/* <footer>
-              <Grid
-                container
-                justify={"space-evenly"}
-                spacing={12}
-                alignItems={"center"}
-              >
-                <div className={this.props.classes.trash}>Trash/Garbage</div>
-                <div className={this.props.classes.recycle}>Recycle</div>
-                <div className={this.props.classes.compost}>Compost</div>
-              </Grid>
-            </footer> */}
       </div>
     );
   }
