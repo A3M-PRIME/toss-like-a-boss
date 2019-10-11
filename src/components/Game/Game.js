@@ -71,6 +71,13 @@ class Game extends Component {
     );
   };
 
+goToResults = () => {
+  if (this.props.currentGameValue > this.props.gameItemsReducer.length-1) {
+    this.props.history.push("/results");
+  }
+
+}
+
   // route the user back to the home page
   backToHome = () => {
     this.props.history.push("/");
@@ -138,12 +145,14 @@ class Game extends Component {
             justify={"space-evenly"}
             spacing={48}
             alignItems={"center"}>
-            {!this.state.gameStarted && <Button
-              className={this.props.classes.Button}
-              onClick={() => this.handleTimerStart()}>
-              {" "}
-              READY?!{" "}
-            </Button>}
+            {!this.state.gameStarted && (
+              <Button
+                className={this.props.classes.Button}
+                onClick={() => this.handleTimerStart()}>
+                {" "}
+                READY?!{" "}
+              </Button>
+            )}
           </Grid>
           <Grid>
             <div>
@@ -162,6 +171,7 @@ class Game extends Component {
                         this.props.gameItems &&
                         this.props.gameItems[this.props.currentGameValue].id
                       }
+                      goToResults={this.goToResults}
                     />
                   )
                 ) : (
@@ -177,6 +187,7 @@ class Game extends Component {
                       this.props.gameItems &&
                       this.props.gameItems[this.props.currentGameValue].id
                     }
+                    goToResults={this.goToResults}
                   />
                 )}
               </div>
