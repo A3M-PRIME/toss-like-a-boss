@@ -9,14 +9,15 @@ class HowToPlay extends Component {
 
     render () {
         return (
-            
-            <div onClick={this.toGame}>
-                
-                <img src="HowToPlay.jpg" alt="How To Play"></img>       
-                
-            </div>
-            
-        )
+          <div onClick={this.toGame}>
+            <img
+              src="HowToPlay.jpg"
+              alt="How To Play"
+              height="400"
+              width="600"
+            ></img>
+          </div>
+        );
     };
 }
 
