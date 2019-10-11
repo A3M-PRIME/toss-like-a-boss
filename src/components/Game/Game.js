@@ -47,6 +47,7 @@ class Game extends Component {
     score: 0,
     time: 0,
     firstTry: true,
+    gameStarted: false,
   };
 
   componentDidMount() {
@@ -57,6 +58,10 @@ class Game extends Component {
 
   handleTimerStart = () => {
     console.log("start a timer");
+    this.setState({
+      gameStarted: true
+    })
+
     this.timer = setInterval(
       () =>
         this.setState({
@@ -133,12 +138,12 @@ class Game extends Component {
             justify={"space-evenly"}
             spacing={48}
             alignItems={"center"}>
-            <Button
+            {!this.state.gameStarted && <Button
               className={this.props.classes.Button}
               onClick={() => this.handleTimerStart()}>
               {" "}
               READY?!{" "}
-            </Button>
+            </Button>}
           </Grid>
           <Grid>
             <div>
