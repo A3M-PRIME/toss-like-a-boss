@@ -5,6 +5,11 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+
+const MySwal = withReactContent(Swal)
 
 const styles = {
   HowToPlayButton: {
@@ -40,6 +45,10 @@ const styles = {
 class GameLaunch extends Component {
   state = {
     timeToPlay: false,
+    email: '',
+    firstName: '',
+    lastName: '',
+    contestPlayReady: false
   }
 
   // route the user back to the how to play page
@@ -55,7 +64,37 @@ class GameLaunch extends Component {
     console.log(this.state)
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    MySwal.fire({
+      title: `Are you sure you are ready? You only get one
+      chance to play to record a score!`,
+      text: `You can practice all you want by clicking the Play
+      button to the left.`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: `I'm ready to go!`
+    }).then((result) => {
+      if (result.value) {
+        this.props.dispatch({
+          type: 'SET_SCORE_PERSONAL_INFO',
+          payload: this.state
+        })
+        this.props.history.push(`/game${this.props.history.location.search}`)
+      }
+    })
+  }
+
+  handleChange = name => (event) => {
+    this.setState({
+      [name]: event.target.value
+    })
+  }
+
   render() {
+    console.log(this.state)
     return (
       <div>
         <br></br>
@@ -92,6 +131,37 @@ class GameLaunch extends Component {
               {/* conditionally render CompostBinChoice when play is clicked */}
               {this.state.timeToPlay && <CompostBinChoice />}
             </Grid>
+            {this.props.history.location.search && <Grid item xs={3}>
+              <form onSubmit={this.handleSubmit}>
+                <TextField
+                  required
+                  label="Email Address"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.handleChange('email')}
+                />
+                <TextField
+                  required
+                  label="First Name"
+                  value={this.state.firstName}
+                  onChange={this.handleChange('firstName')}
+                />
+                <TextField
+                  required
+                  label="Last Name"
+                  value={this.state.lastName}
+                  onChange={this.handleChange('lastName')}
+                />
+
+                <Button
+                  type="submit"
+                  className={this.props.classes.PlayButton}
+                  // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                >
+                  CONTEST PLAY!
+              </Button>
+              </form>
+            </Grid>}
           </Grid>
         </body>
         <br></br>
