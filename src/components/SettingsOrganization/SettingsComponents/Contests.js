@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { Backdrop, Card, CardActions, CardContent, Grid, MenuItem, Modal, TextField } from "@material-ui/core";
-import { AddCircle, Edit, Cancel, Save, Delete, Link } from '@material-ui/icons';
+import { AddCircle, Edit, Cancel, Save, Delete, Link, InfoIcon, Close } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
 
 const MySwal = withReactContent(Swal)
 
 const styles = theme => ({
     root: {
         flexGrow: 1,
+    },
+    close: {
+        padding: theme.spacing.unit / 2
     },
     card: {
         textAlign: 'center',
@@ -37,10 +42,10 @@ const styles = theme => ({
         paddingLeft: 5,
         paddingRight: 5
     },
-    cardContentTeams: {
+    cardContentContest: {
         fontSize: 20,
         paddingLeft: 8,
-        textAlign: 'left'
+        textAlign: 'align'
     },
     icon: {
         width: 35,
@@ -62,9 +67,20 @@ const styles = theme => ({
             borderColor: "black"
         }
     },
-    tableContest: {
-        // marginLeft: 'auto',
-        // marginRight: 'auto'
+    edit: {
+        width: "10%"
+    },
+    delete: {
+        width: "10%"
+    },
+    contestName: {
+        width: "55%"
+    },
+    contestLink: {
+        width: "25%"
+    },
+    td: {
+        textAlign: "center"
     },
     modal: {
         display: 'flex',
@@ -106,6 +122,7 @@ class Contests extends Component {
         contestEndTime: 0,
         contestNameId: 0,
         contestEditOpen: false,
+        snackBarShowOpen: false,
     }
 
     componentDidMount() {
@@ -154,7 +171,32 @@ class Contests extends Component {
         this.handleContestClose();
     }
 
+    handleDelete = (name, id) => {
+        MySwal.fire({
+            title: `Delete the ${name} contest?`,
+            text: `${name} will be removed from the system.`,
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+        }).then((result) => {
+            if (result.value) {
+                this.props.dispatch({
+                    type: 'DELETE_CONTEST',
+                    payload: id
+                })
+                Swal.fire(
+                    'Deleted!',
+                    `The ${name} contest has been deleted.`,
+                    'success'
+                )
+            }
+        })
+    }
+
     copyLink = (code) => {
+        this.setState({ snackBarShowOpen: true });
         let dummy = document.createElement("textarea");
         let currentUrl = window.location.href
         let newUrl = '';
@@ -174,6 +216,13 @@ class Contests extends Component {
         document.body.removeChild(dummy);
     }
 
+    handleSnackShowClose = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+        this.setState({ snackBarShowOpen: false });
+    };
+
     render() {
 
         const { classes } = this.props
@@ -191,12 +240,12 @@ class Contests extends Component {
                             <Delete/>
                         </Button>
                     </td>
-                    <td className={classes.cardContentTeams}>
+                    <td className={classes.cardContentContest}>
                         {contest.contest_name}
                     </td>
                     <td>
                         <Button onClick={() => this.copyLink(contest.access_code)}>
-                            <Link style={{marginRight: 3}}/>Copy Contest Link
+                            Copy Link<Link style={{ marginLeft: 3 }} />
                         </Button>
                     </td>
                 </tr>
@@ -255,10 +304,10 @@ class Contests extends Component {
                                 {this.props.contest[0] && <table className={classes.tableContest}>
                                     <thead>
                                         <tr>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
-                                            <th>Contest Name</th>
-                                            <th>Contest Link</th>
+                                            <th className={classes.edit}>Edit</th>
+                                            <th className={classes.delete}>Delete</th>
+                                            <th className={classes.contestName}>Contest Name</th>
+                                            <th className={classes.contestLink}>Contest Link</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -450,11 +499,32 @@ class Contests extends Component {
                             </div>
                         </form>
 
-
-
                     </CardContent>
                 </Modal>
 
+                <Snackbar
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "right"
+                    }}
+                    open={this.state.snackBarShowOpen}
+                    autoHideDuration={6000}
+                    onClose={this.handleSnackShowClose}
+                    ContentProps={{
+                        "aria-describedby": "message-id"
+                    }}
+                    message={<span id='message-id'>Copied link to clipboard!</span>}
+                    action={[
+                        <IconButton
+                            key='close'
+                            aria-label='Close'
+                            color='inherit'
+                            className={classes.close}
+                            onClick={this.handleSnackShowClose}>
+                            <Close />
+                        </IconButton>
+                    ]}
+                />
 
             </div>
         )

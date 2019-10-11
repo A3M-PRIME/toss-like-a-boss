@@ -55,7 +55,8 @@ class ResultsGuestPlayer extends Component {
 
 const mapStateToProps = reduxStore => {
   return {
-    gameScore: reduxStore.gameScoreReducer
+    gameScore: reduxStore.gameScoreReducer,
+    gamewrongAnswers: reduxStore.gameWrongAnswerReducer
   };
 };
 
