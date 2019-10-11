@@ -274,13 +274,13 @@ class Items extends Component {
                             shrink: true
                         }}
                     >
-                        <MenuItem value="Garbage">
+                        <MenuItem value="garbage">
                             Garbage
                         </MenuItem>
-                        <MenuItem value="Recycling">
+                        <MenuItem value="recycle">
                             Recycling
                         </MenuItem> 
-                        <MenuItem value="Compost">
+                        <MenuItem value="compost">
                             Compost
                         </MenuItem> 
                     </TextField>

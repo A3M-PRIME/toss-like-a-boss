@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { Backdrop, Card, CardActions, CardContent, Grid, MenuItem, Modal, TextField } from "@material-ui/core";
-import { AddCircle, Edit, Cancel, Save, Delete } from '@material-ui/icons';
+import { AddCircle, Edit, Cancel, Save, Delete, Link } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
@@ -154,6 +154,26 @@ class Contests extends Component {
         this.handleContestClose();
     }
 
+    copyLink = (code) => {
+        let dummy = document.createElement("textarea");
+        let currentUrl = window.location.href
+        let newUrl = '';
+        for (let each of currentUrl) {
+            if (each !== '#') {
+                newUrl += each
+            } else if (each == '#') {
+                break;
+            }
+        }
+        newUrl += '#/game?contest='
+        newUrl += code
+        document.body.appendChild(dummy);
+        dummy.value = newUrl;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+    }
+
     render() {
 
         const { classes } = this.props
@@ -175,7 +195,9 @@ class Contests extends Component {
                         {contest.contest_name}
                     </td>
                     <td>
-
+                        <Button onClick={() => this.copyLink(contest.access_code)}>
+                            <Link style={{marginRight: 3}}/>Copy Contest Link
+                        </Button>
                     </td>
                 </tr>
             )
@@ -236,7 +258,7 @@ class Contests extends Component {
                                             <th>Edit</th>
                                             <th>Delete</th>
                                             <th>Contest Name</th>
-                                            <th>Status</th>
+                                            <th>Contest Link</th>
                                         </tr>
                                     </thead>
                                     <tbody>
