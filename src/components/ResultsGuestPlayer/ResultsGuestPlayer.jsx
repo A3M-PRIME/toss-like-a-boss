@@ -22,7 +22,13 @@ class ResultsGuestPlayer extends Component {
         });
         this.props.dispatch({
             type: 'RESET_GAME_TIME'
-        })
+        });
+        this.props.dispatch({
+            type: 'RESET_GAME_SCORE'
+        });
+        this.props.dispatch({
+            type: 'CLEAR_WRONG_ANSWERS'
+        });
         this.props.history.push("/gamelaunch");
     };
 
