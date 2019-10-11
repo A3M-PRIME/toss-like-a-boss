@@ -1,19 +1,6 @@
 import { put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
 
-function* addCorrectAnswer(action) {
-  //TODO add correct answer to DB for item here
-  try {
-    //yield axios put... goes here
-    //update game score reducer
-    yield put({
-      type: "UPDATE_GAME_SCORE"
-    });
-  } catch (error) {
-    console.log("error with add correct answer saga", error);
-  }
-}
-
 function* addWrongAnswer(action) {
   try {
     yield put({
@@ -61,7 +48,6 @@ function* firstTryIncorrect(action) {
 }
 
 function* gameSaga() {
-  yield takeEvery("ADD_CORRECT_ANSWER", addCorrectAnswer);
   yield takeEvery("FETCH_GAME_ITEMS", fetchGameItems);
   yield takeEvery("ADD_WRONG_ANSWER", addWrongAnswer);
   yield takeEvery("FIRST_TRY_CORRECT", firstTryCorrect);
