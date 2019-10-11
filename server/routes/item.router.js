@@ -54,4 +54,45 @@ router.put('/incorrect', (req, res) => {
         })
 })
 
+//WASTE WISE ADMIN PAGE ONLY
+//ITEM GET
+router.get('/admin', (req, res) => {
+    const sqlText = `SELECT * FROM item ORDER BY "name" ASC;`;
+    pool.query(sqlText)
+        .then((result) => {
+            console.log('Item Admin GET from database:', result);
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(`Error getting items from database`, error);
+            res.sendStatus(500);
+        })
+});
+
+//ITEM ADD
+router.post('/admin', (req, res) => {
+    const sqlText = `INSERT INTO item ("name", "receptacle", "item_text", "url") VALUES ($1, $2, $3, $4);`;
+    pool.query(sqlText, [req.body.itemName, req.body.receptacle, req.body.itemText, req.body.url])
+        .then((result) => {
+            console.log('ADD ITEM POST from database:', result);
+            res.sendStatus(201);
+        })
+        .catch((error) => {
+            console.log(`Error POSTing new item:`, error);
+            res.sendStatus(500);
+        })
+})
+
+//ITEM DELETE
+router.delete('/admin/:id', (req, res) => {
+    const sqlText = `DELETE FROM item WHERE "id" = $1;`;
+    pool.query(sqlText, [req.params.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;

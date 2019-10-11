@@ -53,7 +53,6 @@ class Game extends Component {
     this.props.dispatch({
       type: "FETCH_GAME_ITEMS"
     });
-    console.log(this.props.gameItems[0].id);
   }
 
   handleTimerStart = () => {
@@ -80,7 +79,6 @@ class Game extends Component {
   toReady = () => {
     this.props.history.push("/gamelaunch");
   };
-
 
   render() {
     console.log(this.state);
@@ -146,7 +144,11 @@ class Game extends Component {
             <div>
               <div>
                 {/* id={this.props.gameItems[0].id} */}
-                <DraggableItem name={this.props.gameItems[0].receptacle} label={this.props.gameItems[0].name} itemId={this.props.gameItems && this.props.gameItems[0].id} />
+                {this.props.gameItems[this.props.currentGameValue].receptacle === 'compost' && !this.props.compostBin ? (
+                  this.props.gameItems[this.props.currentGameValue].receptacle && <DraggableItem name={'garbage'} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />) : (
+                    <DraggableItem name={this.props.gameItems[this.props.currentGameValue].receptacle} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />
+                )
+    }
               </div>
             </div>
           </Grid>
@@ -164,7 +166,7 @@ class Game extends Component {
               <RecycleBin />
             </div>
             <div>
-              <CompostBin />
+              {this.props.compostBin && <CompostBin />}
             </div>
           </Grid>
         </footer>
@@ -177,7 +179,9 @@ class Game extends Component {
 const mapStateToProps = reduxStore => {
   return {
     reduxStore,
-    gameItems: reduxStore.gameItemsReducer
+    gameItems: reduxStore.gameItemsReducer,
+    compostBin: reduxStore.compostBinReducer,
+    currentGameValue: reduxStore.currentGameValueReducer,
   };
 };
 
