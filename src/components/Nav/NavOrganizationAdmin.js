@@ -2,34 +2,51 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import { Grid } from '@material-ui/core';
 import './Nav.css';
 
-const Nav = (props) => (
+const NavOrganizationAdmin = props => (
   <div className="nav">
     <Link to="/home">
-      <h2 className="nav-title">Prime Solo Project</h2>
+      <h2 className="nav-title">Toss Like A Boss</h2>
     </Link>
     <div className="nav-right">
-      <Link className="nav-link" to="/home">
+      <Link className="nav-link" to="/gamelaunch">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {props.user.id ? 'Home' : 'Login / Register'}
+        {props.user.id ? "Home" : "Login / Register"}
       </Link>
+      </div>
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>
-          <Link className="nav-link" to="/info">
+          {/* <Link className="nav-link" to="/info">
             Info Page
-          </Link>
-          <LogOutButton className="nav-link"/>
+          </Link> */}
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={12}
+            alignItems={"center"}
+          >
+            <Link className="nav-link" to="/leaderboard">
+              Leaderboard
+            </Link>
+            <Link className="nav-link" to="/settingsorg">
+              Organization Settings
+            </Link>
+            <Link className="nav-link" to="/resources">
+              Resources
+            </Link>
+            <LogOutButton className="nav-link" />
+          </Grid>
         </>
       )}
       {/* Always show this link since the about page is not protected */}
-      <Link className="nav-link" to="/about">
+      {/* <Link className="nav-link" to="/about">
         About
-      </Link>
-    </div>
+      </Link> */}
   </div>
 );
 
@@ -42,4 +59,4 @@ const mapStateToProps = state => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps)(Nav);
+export default connect(mapStateToProps)(NavOrganizationAdmin);
