@@ -151,7 +151,8 @@ let DragNDrop = connect(mapStateToProps)(
             type: "ADD_WRONG_ANSWER",
             payload: props.items[props.currentGameValue]
           });
-          console.log("object being sent to wrong answer arrray", props.items[props.currentGameValue])
+          console.log("object being sent to wrong answer arrray", props.items[props.currentGameValue]);
+          alert("Keep trying!");
           //will tell you to keep trying until you get it correct to move onto the next item
         } else if (
           dropResult &&
@@ -166,7 +167,7 @@ let DragNDrop = connect(mapStateToProps)(
             type: 'INCREMENT_CURRENT_GAME_VALUE'
           });
           firstTry = true;
-          alert("Second time is the charm!");
+          alert("Way to Go!");
         }
       }
     },
