@@ -71,6 +71,13 @@ class Game extends Component {
     );
   };
 
+  goToResults = () => {
+    if (this.props.currentGameValue > this.props.gameItemsReducer.length - 1) {
+      this.props.history.push("/results");
+    }
+
+  }
+
   // route the user back to the home page
   backToHome = () => {
     this.props.history.push("/");
@@ -99,8 +106,8 @@ class Game extends Component {
               <h1>WASTE-WISE-R</h1>
               {/* conditionally render items remaining based on length of array, use 0 if no items */}
               <h3>
-                items remaining :
-                {this.props.gameItems.length ? this.props.gameItems.length : 0}
+                Items Remaining :
+                {15 - this.props.currentGameValue}
               </h3>{" "}
               <h3>Elapsed Time showing : {this.state.time}</h3>
               <div className={this.props.classes.h1}>
@@ -125,7 +132,7 @@ class Game extends Component {
               onClick={this.howToPlay}>
               How To Play
             </Button>
-            <h2>Score : {this.state.score}</h2>
+            <h2>Score : {this.props.gameScore}</h2>
             <Button
               className={this.props.classes.Button}
               onClick={this.backToHome}>
@@ -138,12 +145,14 @@ class Game extends Component {
             justify={"space-evenly"}
             spacing={48}
             alignItems={"center"}>
-            {!this.state.gameStarted && <Button
-              className={this.props.classes.Button}
-              onClick={() => this.handleTimerStart()}>
-              {" "}
-              READY?!{" "}
-            </Button>}
+            {!this.state.gameStarted && (
+              <Button
+                className={this.props.classes.Button}
+                onClick={() => this.handleTimerStart()}>
+                {" "}
+                READY?!{" "}
+              </Button>
+            )}
           </Grid>
           <Grid>
             <div>
@@ -151,10 +160,26 @@ class Game extends Component {
                 {/* id={this.props.gameItems[0].id} */}
                 {this.props.gameItems[this.props.currentGameValue]
                   .receptacle === "compost" && !this.props.compostBin ? (
-                  this.props.gameItems[this.props.currentGameValue]
-                    .receptacle && (
+                    this.props.gameItems[this.props.currentGameValue]
+                      .receptacle && (
+                      <DraggableItem
+                        name={"garbage"}
+                        label={
+                          this.props.gameItems[this.props.currentGameValue].name
+                        }
+                        itemId={
+                          this.props.gameItems &&
+                          this.props.gameItems[this.props.currentGameValue].id
+                        }
+                        goToResults={this.goToResults}
+                      />
+                    )
+                  ) : (
                     <DraggableItem
-                      name={"garbage"}
+                      name={
+                        this.props.gameItems[this.props.currentGameValue]
+                          .receptacle
+                      }
                       label={
                         this.props.gameItems[this.props.currentGameValue].name
                       }
@@ -162,23 +187,12 @@ class Game extends Component {
                         this.props.gameItems &&
                         this.props.gameItems[this.props.currentGameValue].id
                       }
+                      goToResults={this.goToResults}
+                      gameTime={
+                        this.state.time
+                      }
                     />
-                  )
-                ) : (
-                  <DraggableItem
-                    name={
-                      this.props.gameItems[this.props.currentGameValue]
-                        .receptacle
-                    }
-                    label={
-                      this.props.gameItems[this.props.currentGameValue].name
-                    }
-                    itemId={
-                      this.props.gameItems &&
-                      this.props.gameItems[this.props.currentGameValue].id
-                    }
-                  />
-                )}
+                  )}
               </div>
             </div>
           </Grid>
@@ -209,7 +223,8 @@ const mapStateToProps = reduxStore => {
     reduxStore,
     gameItems: reduxStore.gameItemsReducer,
     compostBin: reduxStore.compostBinReducer,
-    currentGameValue: reduxStore.currentGameValueReducer
+    currentGameValue: reduxStore.currentGameValueReducer,
+    gameScore: reduxStore.gameScoreReducer,
   };
 };
 
