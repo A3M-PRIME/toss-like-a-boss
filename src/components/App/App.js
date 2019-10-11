@@ -25,6 +25,8 @@ import Leaderboard from '../LeaderBoardCompany/LeaderBoardCompany';
 import ResultsGuestPlayer from '../ResultsGuestPlayer/ResultsGuestPlayer';
 import SettingsOrganization from '../SettingsOrganization/SettingsOrganization';
 import SettingsAdmin from '../SettingsAdmin/SettingsAdmin';
+import RegisterPage from '../RegisterPage/RegisterPage';
+
 
 //Styling
 import { ThemeProvider } from '@material-ui/styles';
@@ -42,10 +44,6 @@ import { DndProvider } from 'react-dnd';
 class App extends Component {
   componentDidMount() {
     this.props.dispatch({ type: 'FETCH_USER' })
-  }
-
-  navBarToUser = () => {
-
   }
 
   render() {
@@ -87,6 +85,7 @@ class App extends Component {
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/howtoplay" component={HowToPlay} />
                     <Route exact path="/resources" component={Resources} />
+                    <Route exact path="/settingsorg" component={RegisterPage} />
 
                     <ProtectedRoute 
                       exact 

@@ -14,35 +14,43 @@ const NavGuest = props => (
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
-        {props.user.id ? "Home" : "Login / Register"}
+        {props.user.id ? "Home" : "Login"}
       </Link>
       <Link className="nav-link" to="/gamelaunch">
         Game
       </Link>
-      <Link className="nav-link" to="/resources">
-        Resources
+      <Link className="nav-link" to="/settingsorg">
+        Host a Contest
       </Link>
 
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>
-          {props.user.wastewise_admin === true && (
+          {/* {props.user.wastewise_admin === true && (
+            <Link className="nav-link" to="/settingsadmin">
+              Admin Settings
+            </Link>
+          )} */}
+          {props.user.username === 'wastewiseadmin@wastewise.com' && (
             <Link className="nav-link" to="/settingsadmin">
               Admin Settings
             </Link>
           )}
-          {props.user.wastewise_admin === true && (
+          {props.user.username === "mileslacek@gmail.com" && (
             <Link className="nav-link" to="/settingsorg">
               Organization Settings
             </Link>
           )}
           {props.user.wastewise_admin === true && (
-          <Link className="nav-link" to="/leaderboard">
-            Leaderboard
-          </Link>
+            <Link className="nav-link" to="/leaderboard">
+              Leaderboard
+            </Link>
           )}
-          <Link className="nav-link" to="/info">
+          {/* <Link className="nav-link" to="/info">
             Info Page
+          </Link> */}
+          <Link className="nav-link" to="/resources">
+            Resources
           </Link>
           <LogOutButton className="nav-link" />
         </>
