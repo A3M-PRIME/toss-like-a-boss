@@ -79,6 +79,7 @@ const style = {
 };
 
 let firstTry = true;
+let currentGameValue = 0;
 
 const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
   const opacity = isDragging ? 0 : 1;
@@ -107,7 +108,8 @@ const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
 
 let mapStateToProps = state => {
   return {
-    items: state.gameItemsReducer
+    items: state.gameItemsReducer,
+    currentGameValue: state.currentGameValueReducer
   };
 };
 
@@ -118,17 +120,20 @@ let DragNDrop = connect(mapStateToProps)(
       beginDrag: props => ({ name: props.name }),
       endDrag(props, monitor) {
         console.log(props.items);
+        console.log(props.currentGameValue)
         const item = monitor.getItem();
         const dropResult = monitor.getDropResult();
         //if correct on the first try
         if (dropResult && dropResult.name == item.name && firstTry === true) {
           props.dispatch({
             type: "FIRST_TRY_CORRECT",
-            payload: { id: props.items[0].id }
+            payload: { id: props.items[props.currentGameValue].id }
           });
+          props.dispatch({
+            type: 'INCREMENT_CURRENT_GAME_VALUE'
+          })
           alert(`You dropped ${item.name} into ${dropResult.name}!`);
           firstTry = true;
-          props.items.shift();
         }
         // if incorrect first try, will increment count for piece of trash up one, and will make you repeat until correct
         else if (
@@ -140,13 +145,13 @@ let DragNDrop = connect(mapStateToProps)(
           console.log(firstTry);
           props.dispatch({
             type: "FIRST_TRY_INCORRECT",
-            payload: { id: props.items[0].id }
+            payload: { id: props.items[props.currentGameValue].id }
           });
           props.dispatch({
             type: "ADD_WRONG_ANSWER",
-            payload: props.items[0]
+            payload: props.items[props.currentGameValue]
           });
-          console.log("object being sent to wrong answer arrray", props.items[0])
+          console.log("object being sent to wrong answer arrray", props.items[props.currentGameValue])
           //will tell you to keep trying until you get it correct to move onto the next item
         } else if (
           dropResult &&
@@ -157,9 +162,11 @@ let DragNDrop = connect(mapStateToProps)(
         }
         //if correct on any other try than the first, move on
         if (dropResult && dropResult.name == item.name && firstTry === false) {
+          props.dispatch({
+            type: 'INCREMENT_CURRENT_GAME_VALUE'
+          });
           firstTry = true;
           alert("Second time is the charm!");
-          props.items.shift();
         }
       }
     },
