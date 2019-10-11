@@ -44,6 +44,9 @@ function* firstTryCorrect(action) {
     yield put({
       type: "ADD_CORRECT_ANSWER"
     });
+    yield put({
+      type: "UPDATE_GAME_SCORE"
+    });
   } catch (error) {
     console.log("error with firstTryCorrect saga", error);
   }

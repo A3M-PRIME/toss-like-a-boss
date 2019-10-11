@@ -245,7 +245,7 @@ class Contests extends Component {
                     </td>
                     <td>
                         <Button onClick={() => this.copyLink(contest.access_code)}>
-                            <Link style={{marginRight: 3}}/>Copy Link
+                            Copy Link<Link style={{ marginLeft: 3 }} />
                         </Button>
                     </td>
                 </tr>
