@@ -20,29 +20,25 @@ const styles = {
 class ResultsItemCard extends Component {
     render() {
         let wrongAnswerArray = [];
-        if (this.props.wrongAnswers[0]) {
-            //TO DO:
-            //REPLACE PLACEHOLDERS WITH
-            //ARRAY VARIABLES
-            wrongAnswerArray = this.props.wrongAnswerReducer.map(item => {
+        //if there were incorrect answers, map over the array they are 
+        //stored in from redux and create cards to display information
+        //to user
+        //if there are no incorrect answers, render the PerfectScore component
+        if (this.props.wrongAnswers && this.props.wrongAnswers[0]) {
+            wrongAnswerArray = this.props.wrongAnswers.map(item => {
                 return (
                     <div>
-                        <div>
-                            <Typography variant="h6">
-                                These items were sorted incorrectly:
-                            </Typography>
-                        </div>
                         <Card>
                             <CardHeader
-                                title="Soda can"
+                                title={item.name}
                             />
                             <CardContent>
                                 <CardMedia
                                     className={this.props.classes.media}
-                                    image="drpepper.jpg"
+                                    image={item.url}
                                 />
                                 <Typography component="p">
-                                    Aluminum should always be recycled after being rinsed
+                                    {item.item_text}
                             </Typography>
                             </CardContent>
                         </Card>
@@ -54,7 +50,14 @@ class ResultsItemCard extends Component {
         }
         return (
             <div>
+            <div>
+                <Typography variant="h6">
+                    These items were sorted incorrectly:
+                            </Typography>
+            </div>
+            <div>
                 {wrongAnswerArray && wrongAnswerArray}
+            </div>
             </div>
         );
     }
