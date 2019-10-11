@@ -55,9 +55,9 @@ class App extends Component {
           <CssBaseline />
           <Router>
             <div>
-              <NavOrganizationAdmin />
+              {/* <NavOrganizationAdmin /> */}
               <NavWasteWiseAdmin />
-              <NavGuest />
+              {/* <NavGuest /> */}
               <Container>
                 <Typography color="secondary">
                   <Switch>
