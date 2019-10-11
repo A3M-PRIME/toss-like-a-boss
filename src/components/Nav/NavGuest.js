@@ -10,31 +10,45 @@ const NavGuest = props => (
       <h2 className="nav-title">Toss Like a Boss</h2>
     </Link>
     <div className="nav-right">
+      <Link className="nav-link" to="/home">
+        {/* Show this link if they are logged in or not,
+        but call this link 'Home' if they are logged in,
+        and call this link 'Login / Register' if they are not */}
+        {props.user.id ? "Home" : "Login / Register"}
+      </Link>
       <Link className="nav-link" to="/gamelaunch">
         Game
-      </Link>
-      <Link className="nav-link" to="/leaderboard">
-        Leaderboard
       </Link>
       <Link className="nav-link" to="/resources">
         Resources
       </Link>
-      {/* <Link className="nav-link" to="/home">
-        {/* Show this link if they are logged in or not,
-        but call this link 'Home' if they are logged in,
-        and call this link 'Login / Register' if they are not */}
-      {/* {props.user.id ? "Home" : "Login / Register"}
-      </Link> */}
+
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>
-          {/* <Link className="nav-link" to="/info">
+          {props.user.wastewise_admin === true && (
+            <Link className="nav-link" to="/settingsadmin">
+              Admin Settings
+            </Link>
+          )}
+          {props.user.wastewise_admin === true && (
+            <Link className="nav-link" to="/settingsorg">
+              Organization Settings
+            </Link>
+          )}
+          {props.user.wastewise_admin === true && (
+          <Link className="nav-link" to="/leaderboard">
+            Leaderboard
+          </Link>
+          )}
+          <Link className="nav-link" to="/info">
             Info Page
           </Link>
-          <LogOutButton className="nav-link" /> */}
+          <LogOutButton className="nav-link" />
         </>
       )}
       {/* Always show this link since the about page is not protected */}
+      {/* <LogOutButton className="nav-link" /> */}
     </div>
   </div>
 );

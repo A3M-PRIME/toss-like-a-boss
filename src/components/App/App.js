@@ -55,9 +55,9 @@ class App extends Component {
           <CssBaseline />
           <Router>
             <div>
-              {/* <NavOrganizationAdmin /> */}
-              <NavWasteWiseAdmin />
-              {/* <NavGuest /> */}
+              {/* <NavOrganizationAdmin />
+              <NavWasteWiseAdmin /> */}
+              <NavGuest />
               <Container>
                 <Typography color="secondary">
                   <Switch>
@@ -68,7 +68,11 @@ class App extends Component {
 
                     <Route exact path="/about" component={AboutPage} />
                     <Route exact path="/about" component={AboutPage} />
-                    <Route exact path="/results" component={ResultsGuestPlayer} />
+                    <Route
+                      exact
+                      path="/results"
+                      component={ResultsGuestPlayer}
+                    />
                     <Route exact path="/leaderboard" component={Leaderboard} />
                     {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
@@ -78,36 +82,16 @@ class App extends Component {
                     {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
 
+                    <Route exact path="/game" component={Game} />
+                    <Route exact path="/gamelaunch" component={GameLaunch} />
+                    <Route exact path="/login" component={LoginPage} />
+                    <Route exact path="/howtoplay" component={HowToPlay} />
+                    <Route exact path="/resources" component={Resources} />
 
-                  <ProtectedRoute exact path="/info" component={InfoPage} />
-                  <Route exact path="/game" component={Game} />
-                  <Route exact path="/gamelaunch" component={GameLaunch} />
-                  <Route exact path="/login" component={LoginPage} />
-                  <Route exact path="/howtoplay" component={HowToPlay} />
-                  <ProtectedRoute
-                    exact
-                    path="/settingsorg"
-                    component={SettingsOrganization}
-                  />
-                    <ProtectedRoute
-                      exact
-                      path="/info"
-                      component={InfoPage}
-                    />
-                    <Route
-                      exact
-                      path="/game"
-                      component={Game}
-                    />
-                    <Route
-                      exact
-                      path="/gamelaunch"
-                      component={GameLaunch}
-                    />
-                    <Route
-                      exact
-                      path="/login"
-                      component={LoginPage}
+                    <ProtectedRoute 
+                      exact 
+                      path="/info" 
+                      component={InfoPage} 
                     />
                     <ProtectedRoute
                       exact
@@ -119,17 +103,11 @@ class App extends Component {
                       path="/settingsadmin"
                       component={SettingsAdmin}
                     />
-                    <ProtectedRoute 
+                    <ProtectedRoute
                       exact
                       path="/leaderboard"
                       component={Leaderboard}
                     />
-                    <ProtectedRoute
-                      exact
-                      path="/resources"
-                      component={Resources}
-                    />
-
 
                     {/* If none of the other routes matched, we will show a 404. */}
                     <Route render={() => <h1>404</h1>} />

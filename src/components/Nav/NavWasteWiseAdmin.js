@@ -11,7 +11,7 @@ const NavWasteWiseAdmin = props => (
       <h2 className="nav-title">Toss Like A Boss</h2>
     </Link>
     <div className="nav-right">
-      <Link className="nav-link" to="/gamelaunch">
+      <Link className="nav-link" to="/home">
         {/* Show this link if they are logged in or not,
         but call this link 'Home' if they are logged in,
         and call this link 'Login / Register' if they are not */}
@@ -31,9 +31,9 @@ const NavWasteWiseAdmin = props => (
               <Link className="nav-link" to="/leaderboard">
                 Leaderboard
               </Link>
-              <Link className="nav-link" to="/settingsorg">
+              {props.user.wastewise_admin === true && <Link className="nav-link" to="/settingsorg">
                 Admin Settings
-              </Link>
+              </Link>}
               <Link className="nav-link" to="/resources">
                 Resources
               </Link>
