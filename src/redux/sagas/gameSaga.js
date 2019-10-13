@@ -2,6 +2,7 @@ import { put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
 import ResultsGuestPlayer from "../../components/ResultsGuestPlayer/ResultsGuestPlayer";
 
+
 function* addWrongAnswer(action) {
   try {
     yield put({
