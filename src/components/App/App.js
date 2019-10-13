@@ -86,10 +86,10 @@ class App extends Component {
                     <Route exact path="/resources" component={Resources} />
                     <Route exact path="/settingsorg" component={SettingsOrganization} />
 
-                    <ProtectedRoute 
-                      exact 
-                      path="/info" 
-                      component={InfoPage} 
+                    <ProtectedRoute
+                      exact
+                      path="/info"
+                      component={InfoPage}
                     />
                     <ProtectedRoute
                       exact
