@@ -17,7 +17,8 @@ const style = {
 let firstTry = true;
 let currentGameValue = 0;
 
-const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
+
+const DraggableItem = ({ name, isDragging, connectDragSource, label}) => {
   const opacity = isDragging ? 0 : 1;
 
   return (
@@ -60,7 +61,6 @@ let DragNDrop = withRouter(connect(mapStateToProps)(
             props.dispatch({
               type: "INCREMENT_CURRENT_GAME_VALUE"
             });
-            alert(`You dropped ${item.name} into ${dropResult.name}!`);
             firstTry = true;
           }
           // if incorrect first try, will increment count for piece of trash up one, and will make you repeat until correct
