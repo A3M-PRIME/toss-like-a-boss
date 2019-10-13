@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { Backdrop, Card, CardActions, CardContent, Grid, MenuItem, Modal, TextField } from "@material-ui/core";
+import { Backdrop, Card, CardActions, CardContent, FormControl, FormControlLabel, FormLabel, Grid, MenuItem, Modal, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { AddCircle, Edit, Cancel, Save, Delete, Link, InfoIcon, Close } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
@@ -121,6 +121,8 @@ class Contests extends Component {
         contestEndDate: '',
         contestEndTime: 0,
         contestNameId: 0,
+        contestCompostBin: false,
+        contestAccessCode: '',
         contestEditOpen: false,
         contestAddOpen: false,
         snackBarShowOpen: false,
@@ -129,7 +131,7 @@ class Contests extends Component {
     componentDidMount() {
         this.getContests();
     }
-    
+
     getContests() {
         this.props.dispatch({
             type: 'FETCH_CONTESTS'
@@ -142,7 +144,7 @@ class Contests extends Component {
         });
     }
 
-    handleContestEditOpen = (name, startDate, startTime, endDate, endTime, id) => {
+    handleContestEditOpen = (name, startDate, startTime, endDate, endTime, compost, id) => {
         this.setState({
             contestEditOpen: !this.state.contestEditOpen,
             contestName: name,
@@ -150,6 +152,7 @@ class Contests extends Component {
             contestStartTime: startTime,
             contestEndDate: endDate,
             contestEndTime: endTime,
+            contestCompostBin: compost ? "true" : "false",
             contestNameId: id
         })
     };
@@ -168,7 +171,9 @@ class Contests extends Component {
             contestStartDate: '',
             contestStartTime: '',
             contestEndDate: '',
-            contestEndTime: ''
+            contestEndTime: '',
+            contestAccessCode: '',
+            contestCompostBin: '',
         })
     };
 
@@ -183,11 +188,17 @@ class Contests extends Component {
 
     handleAdd = (event) => {
         event.preventDefault();
+        this.generateAccessId();
+        console.log('We are getting to the handle Add')
         this.props.dispatch({
             type: 'ADD_CONTEST',
             payload: this.state
         })
         this.handleContestClose();
+    }
+
+    generateAccessId() {
+        this.state.contestAccessCode = Math.floor(Math.random() * 900000000) + 100000000;
     }
 
     handleDelete = (name, id) => {
@@ -247,16 +258,17 @@ class Contests extends Component {
         const { classes } = this.props
 
         let contestList = this.props.contest.map(contest => {
+            console.log('the mapped over contest is', contest)
             return (
                 <tr>
                     <td className={classes.cardContentIconsLeft}>
-                        <Button onClick={() => this.handleContestEditOpen(contest.contest_name, contest.start_date, contest.start_time, contest.end_date, contest.end_time, contest.id)}>
-                            <Edit/>
+                        <Button onClick={() => this.handleContestEditOpen(contest.contest_name, contest.start_date, contest.start_time, contest.end_date, contest.end_time, contest.compost, contest.id)}>
+                            <Edit />
                         </Button>
                     </td>
                     <td className={classes.cardContentIcons}>
                         <Button onClick={() => this.handleDelete(contest.contest_name, contest.id)}>
-                            <Delete/>
+                            <Delete />
                         </Button>
                     </td>
                     <td className={classes.cardContentContest}>
@@ -499,6 +511,16 @@ class Contests extends Component {
                                 </TextField>
                             </div>
                             <div>
+                                <br />
+                                <FormControl component="fieldset" className={classes.radio}>
+                                    <FormLabel component="legend" style={{ color: "black" }}>Should your game include an option for a compost bin?</FormLabel>
+                                    <RadioGroup aria-label="compost bin" name="compostBin" defaultValue={this.state.contestCompostBin} onChange={this.handleChangeFor('contestCompostBin')}>
+                                        <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                                        <FormControlLabel value="false" control={<Radio />} label="No" />
+                                    </RadioGroup>
+                                </FormControl>
+                            </div>
+                            <div>
                                 <Button
                                     variant="contained"
                                     name="cancel"
@@ -678,6 +700,16 @@ class Contests extends Component {
                                         </MenuItem>
                                     )}
                                 </TextField>
+                            </div>
+                            <div>
+                                <br />
+                                <FormControl component="fieldset" className={classes.radio}>
+                                    <FormLabel component="legend" style={{ color: "black" }}>Should your game include an option for a compost bin?</FormLabel>
+                                    <RadioGroup aria-label="compost bin" name="compostBin" onChange={this.handleChangeFor('contestCompostBin')}>
+                                        <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                                        <FormControlLabel value="false" control={<Radio />} label="No" />
+                                    </RadioGroup>
+                                </FormControl>
                             </div>
                             <div>
                                 <Button

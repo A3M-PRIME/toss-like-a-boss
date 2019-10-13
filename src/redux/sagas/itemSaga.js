@@ -40,10 +40,24 @@ function* deleteItem(action) {
     }
 }
 
+function* uploadImage(action) {
+    try {
+        let response = yield axios.post('/api/item/admin/upload', action.payload)
+        console.log('Upload item saga response:', action.payload);
+        yield put({
+            type: 'FETCH_ITEMS',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in UPLOAD ITEM POST', err);
+    }
+}
+
 function* itemSaga() {
     yield takeEvery('FETCH_ITEMS', fetchItems);
     yield takeEvery('ADD_ITEM', addItem);
     yield takeEvery('DELETE_ITEM', deleteItem);
+    yield takeEvery('UPLOAD_IMAGE', uploadImage);
 }
 
 export default itemSaga;

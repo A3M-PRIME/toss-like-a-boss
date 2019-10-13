@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 import { Backdrop, Card, CardActions, CardContent, Fab, Grid, MenuItem, Modal, TextField } from "@material-ui/core";
 import { Add, AddCircle, Edit, Cancel, Save, Delete, Remove } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
@@ -119,7 +120,9 @@ class Items extends Component {
         itemName: '',
         receptacle: '',
         url: '',
-        itemText: ''
+        itemText: '',
+        selectedFile: null,
+        formData: new FormData()
     }
 
     componentDidMount() {
@@ -179,6 +182,37 @@ class Items extends Component {
                 )
             }
         })
+    }
+
+    fileSelectedHandler = event => {
+        this.setState({
+            selectedFile: event.target.files[0]
+        })
+    }
+
+    fileUploadHandler = () => {
+        let formData = new FormData()
+        formData.append('image', this.state.selectedFile)
+        console.log('now the form data is', formData)
+        this.props.dispatch({
+            type: 'UPLOAD_IMAGE',
+            payload: formData
+        })
+
+        // this.state.formData.append("image", this.state.selectedFile);
+        // console.log('the form data now is', this.state.formData);
+        // axios.post('https://api.imgur.com/3/image', this.state.formData, {
+        //     headers: {
+        //         "Authorization": "Client-ID CLIENTID"
+        //     }
+        // })
+        //     .then(res => {
+        //         console.log('The response is:', res);
+        //         console.log('The specific response is', res.data.data.link)
+        //         this.setState({
+        //             url: res.data.data.link
+        //         })
+        //     })
     }
 
     render() {
@@ -307,6 +341,9 @@ class Items extends Component {
                             shrink: true
                         }}
                     />
+                    <br/>
+                    <input type="file" onChange={this.fileSelectedHandler}/>
+                    <button onClick={this.fileUploadHandler}>Upload</button>
                     <br/>
                     <TextField
                         align="left"
