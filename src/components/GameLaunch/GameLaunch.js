@@ -40,6 +40,14 @@ const styles = {
       color: "black"
     }
   },
+  background: {
+    backgroundImage: "url(/images/Forest.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: 900,
+    margin: -24,
+    padding: 24
+  }
 };
 
 class GameLaunch extends Component {
@@ -114,74 +122,76 @@ class GameLaunch extends Component {
     console.log(this.state)
     return (
       <div>
-        <br></br>
-        <body>
-          <Grid
-            container
-            justify={"space-evenly"}
-            spacing={12}
-            alignItems={"center"}
-          >
-            <Grid item xs={3}>
-              <Button
-                className={this.props.classes.HowToPlayButton}
-                onClick={this.howToPlay}
-              >
-                How To Play
-              </Button>
-            </Grid>
-          </Grid>
           <br></br>
-          <Grid
-            container
-            justify={"space-evenly"}
-            spacing={12}
-            alignItems={"center"}
-          >
-            <Grid item xs={3}>
-              <Button
-                className={this.props.classes.PlayButton}
-                onClick={this.toGame}
-              >
-                PLAY!
-              </Button>
-              {/* conditionally render CompostBinChoice when play is clicked */}
-              {this.state.timeToPlay && <CompostBinChoice />}
-            </Grid>
-            {this.props.history.location.search && <Grid item xs={3}>
-              <form onSubmit={this.handleSubmit}>
-                <TextField
-                  required
-                  label="Email Address"
-                  type="email"
-                  value={this.state.email}
-                  onChange={this.handleChange('email')}
-                />
-                <TextField
-                  required
-                  label="First Name"
-                  value={this.state.firstName}
-                  onChange={this.handleChange('firstName')}
-                />
-                <TextField
-                  required
-                  label="Last Name"
-                  value={this.state.lastName}
-                  onChange={this.handleChange('lastName')}
-                />
-
+          <body className={this.props.classes.background}>
+            <Grid
+              container
+              justify={"space-evenly"}
+              spacing={24}
+              alignItems={"center"}
+            >
+              <Grid item xs={3}>
                 <Button
-                  type="submit"
-                  className={this.props.classes.PlayButton}
-                  // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                  className={this.props.classes.HowToPlayButton}
+                  onClick={this.howToPlay}
                 >
-                  CONTEST PLAY!
-              </Button>
-              </form>
-            </Grid>}
-          </Grid>
-        </body>
-        <br></br>
+                  How To Play
+                </Button>
+              </Grid>
+            </Grid>
+            <br></br>
+            <Grid
+              container
+              justify={"space-evenly"}
+              spacing={24}
+              alignItems={"center"}
+            >
+              <Grid item xs={3}>
+                <Button
+                  className={this.props.classes.PlayButton}
+                  onClick={this.toGame}
+                >
+                  PLAY!
+                </Button>
+                {/* conditionally render CompostBinChoice when play is clicked */}
+                {this.state.timeToPlay && <CompostBinChoice />}
+              </Grid>
+              {this.props.history.location.search && (
+                <Grid item xs={3}>
+                  <form onSubmit={this.handleSubmit}>
+                    <TextField
+                      required
+                      label="Email Address"
+                      type="email"
+                      value={this.state.email}
+                      onChange={this.handleChange("email")}
+                    />
+                    <TextField
+                      required
+                      label="First Name"
+                      value={this.state.firstName}
+                      onChange={this.handleChange("firstName")}
+                    />
+                    <TextField
+                      required
+                      label="Last Name"
+                      value={this.state.lastName}
+                      onChange={this.handleChange("lastName")}
+                    />
+
+                    <Button
+                      type="submit"
+                      className={this.props.classes.PlayButton}
+                      // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                    >
+                      CONTEST PLAY!
+                    </Button>
+                  </form>
+                </Grid>
+              )}
+            </Grid>
+          </body>
+          <br></br>
       </div>
     );
   }
