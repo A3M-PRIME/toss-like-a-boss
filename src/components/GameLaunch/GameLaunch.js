@@ -50,6 +50,17 @@ class GameLaunch extends Component {
     lastName: '',
     contestPlayReady: false
   }
+  componentDidMount() {
+    //this will get the id of the contest game from url params
+    let contestBoolean = this.props.history.location.search.split('=').pop();
+    console.log('contest boolean is', contestBoolean)
+    //if this is a contest game, send dispatch to find whether game has compost or not
+    this.props.history.location.search && 
+    this.props.dispatch({
+      type: 'GET_CONTEST_COMPOST_BOOLEAN',
+      payload: contestBoolean
+    })
+  }
 
   // route the user back to the how to play page
   howToPlay = () => {
@@ -82,6 +93,12 @@ class GameLaunch extends Component {
           type: 'SET_SCORE_PERSONAL_INFO',
           payload: this.state
         })
+        //hits reducer to remove compost bin from game if contest has no compost
+        if (!this.props.contestCompostBooleanReducer) {
+          this.props.dispatch({
+            type: 'NO_COMPOST_BIN'
+          })
+        }
         this.props.history.push(`/game${this.props.history.location.search}`)
       }
     })
@@ -173,7 +190,8 @@ class GameLaunch extends Component {
 //mapping the state to props
 const mapStateToProps = reduxStore => {
   return {
-    reduxStore
+    reduxStore,
+    compostBoolean: reduxStore.contestCompostBooleanReducer
   }
 }
 
