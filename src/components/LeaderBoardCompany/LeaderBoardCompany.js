@@ -28,15 +28,19 @@ const styles = theme => ({
 });
 
 class Leaderboard extends Component {
-
   componentDidMount = () => {
     this.getLeaderboardInfo();
-  }
+  };
 
-  getLeaderboardInfo()  {
+  getLeaderboardInfo() {
     this.props.dispatch({
       type: "FETCH_LEADERBOARD",
+      payload: this.props.contestSettings.organization_id
     });
+  }
+
+  playAgain= () => {
+    this.props.history.push("/gamelaunch");
   };
 
   render() {
@@ -48,9 +52,11 @@ class Leaderboard extends Component {
           <Grid item xs={6}>
             <div className={classes.grid}>
               <Button
-                variant='outlined'
-                color='primary'
-                className={classes.button}>
+                variant="outlined"
+                color="primary"
+                className={classes.button}
+                onClick={this.playAgain}
+              >
                 PLAY AGAIN
               </Button>
             </div>
@@ -68,9 +74,9 @@ class Leaderboard extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                    {this.props.store.leaderboardReducer.map(player => {
-                      return <LeaderboardList player={player}/>;
-                    })}
+                  {this.props.store.leaderboardReducer.map(player => {
+                    return <LeaderboardList player={player} />;
+                  })}
                 </TableBody>
               </Table>
             </Paper>

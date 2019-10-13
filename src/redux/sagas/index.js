@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import gameSaga from './gameSaga';
 import leaderBoardSaga from './leaderboardSaga';
 import orgSettingsSaga from './orgSettingsSaga';
+import itemSaga from './itemSaga.js';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -20,6 +21,7 @@ export default function* rootSaga() {
     userSaga(),
     gameSaga(),
     leaderBoardSaga(),
-    orgSettingsSaga()
+    orgSettingsSaga(),
+    itemSaga()
   ]);
 }
