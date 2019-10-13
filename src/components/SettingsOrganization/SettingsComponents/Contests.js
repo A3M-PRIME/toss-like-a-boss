@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { Backdrop, Card, CardActions, CardContent, Grid, MenuItem, Modal, TextField } from "@material-ui/core";
+import { Backdrop, Card, CardActions, CardContent, FormControl, FormControlLabel, FormLabel, Grid, MenuItem, Modal, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { AddCircle, Edit, Cancel, Save, Delete, Link, InfoIcon, Close } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
@@ -121,14 +121,17 @@ class Contests extends Component {
         contestEndDate: '',
         contestEndTime: 0,
         contestNameId: 0,
+        contestCompostBin: false,
+        contestAccessCode: '',
         contestEditOpen: false,
+        contestAddOpen: false,
         snackBarShowOpen: false,
     }
 
     componentDidMount() {
         this.getContests();
     }
-    
+
     getContests() {
         this.props.dispatch({
             type: 'FETCH_CONTESTS'
@@ -141,7 +144,7 @@ class Contests extends Component {
         });
     }
 
-    handleContestEditOpen = (name, startDate, startTime, endDate, endTime, id) => {
+    handleContestEditOpen = (name, startDate, startTime, endDate, endTime, compost, id) => {
         this.setState({
             contestEditOpen: !this.state.contestEditOpen,
             contestName: name,
@@ -149,15 +152,28 @@ class Contests extends Component {
             contestStartTime: startTime,
             contestEndDate: endDate,
             contestEndTime: endTime,
+            contestCompostBin: compost ? "true" : "false",
             contestNameId: id
+        })
+    };
+
+    handleContestAddOpen = () => {
+        this.setState({
+            contestAddOpen: !this.state.contestAddOpen,
         })
     };
 
     handleContestClose = () => {
         this.setState({
             contestEditOpen: false,
-            // teamAddOpen: false,
-            // teamName: ''
+            contestAddOpen: false,
+            contestName: '',
+            contestStartDate: '',
+            contestStartTime: '',
+            contestEndDate: '',
+            contestEndTime: '',
+            contestAccessCode: '',
+            contestCompostBin: '',
         })
     };
 
@@ -166,9 +182,23 @@ class Contests extends Component {
         this.props.dispatch({
             type: 'UPDATE_CONTEST',
             payload: this.state
-
         })
         this.handleContestClose();
+    }
+
+    handleAdd = (event) => {
+        event.preventDefault();
+        this.generateAccessId();
+        console.log('We are getting to the handle Add')
+        this.props.dispatch({
+            type: 'ADD_CONTEST',
+            payload: this.state
+        })
+        this.handleContestClose();
+    }
+
+    generateAccessId() {
+        this.state.contestAccessCode = Math.floor(Math.random() * 900000000) + 100000000;
     }
 
     handleDelete = (name, id) => {
@@ -228,16 +258,17 @@ class Contests extends Component {
         const { classes } = this.props
 
         let contestList = this.props.contest.map(contest => {
+            console.log('the mapped over contest is', contest)
             return (
                 <tr>
                     <td className={classes.cardContentIconsLeft}>
-                        <Button onClick={() => this.handleContestEditOpen(contest.contest_name, contest.start_date, contest.start_time, contest.end_date, contest.end_time, contest.id)}>
-                            <Edit/>
+                        <Button onClick={() => this.handleContestEditOpen(contest.contest_name, contest.start_date, contest.start_time, contest.end_date, contest.end_time, contest.compost, contest.id)}>
+                            <Edit />
                         </Button>
                     </td>
                     <td className={classes.cardContentIcons}>
                         <Button onClick={() => this.handleDelete(contest.contest_name, contest.id)}>
-                            <Delete/>
+                            <Delete />
                         </Button>
                     </td>
                     <td className={classes.cardContentContest}>
@@ -478,6 +509,207 @@ class Contests extends Component {
                                         </MenuItem>
                                     )}
                                 </TextField>
+                            </div>
+                            <div>
+                                <br />
+                                <FormControl component="fieldset" className={classes.radio}>
+                                    <FormLabel component="legend" style={{ color: "black" }}>Should your game include an option for a compost bin?</FormLabel>
+                                    <RadioGroup aria-label="compost bin" name="compostBin" defaultValue={this.state.contestCompostBin} onChange={this.handleChangeFor('contestCompostBin')}>
+                                        <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                                        <FormControlLabel value="false" control={<Radio />} label="No" />
+                                    </RadioGroup>
+                                </FormControl>
+                            </div>
+                            <div>
+                                <Button
+                                    variant="contained"
+                                    name="cancel"
+                                    color="secondary"
+                                    onClick={() => this.handleContestClose()}
+                                    style={{ marginTop: 10, marginRight: 10 }}>
+                                    <Cancel style={{ marginRight: 3 }} />Cancel
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    type="submit"
+                                    name="submit"
+                                    color="primary"
+                                    style={{ marginTop: 10 }}>
+                                    <Save style={{ marginRight: 3 }} />Save
+                         </Button>
+                            </div>
+                        </form>
+
+                    </CardContent>
+                </Modal>
+
+                <Modal
+                    aria-labelledby="add contest"
+                    aria-describedby="add contest"
+                    className={classes.modal}
+                    open={this.state.contestAddOpen}
+                    onClose={this.handleContestClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
+
+                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
+                        <form onSubmit={this.handleAdd}>
+                            <div>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="contest name"
+                                    className={classes.fieldLarge}
+                                    value={this.state.contestName}
+                                    onChange={this.handleChangeFor('contestName')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <TextField
+                                    type="date"
+                                    align="left"
+                                    id="outlined-name"
+                                    label="contest start date"
+                                    className={classes.fieldMedium}
+                                    value={this.state.contestStartDate}
+                                    onChange={this.handleChangeFor('contestStartDate')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    select
+                                    label="contest start time"
+                                    className={classes.fieldMedium}
+                                    value={this.state.contestStartTime}
+                                    onChange={this.handleChangeFor('contestStartTime')}
+                                    SelectProps={{
+                                        MenuProps: {
+                                            className: classes.status,
+                                        },
+                                    }}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                >
+                                    {hourSelection.map((hour) =>
+                                        <MenuItem key={hour.sqlValue} value={hour.sqlValue} className={classes.timeOptions}>
+                                            {hour.displayValue}
+                                        </MenuItem>
+                                    )}
+                                </TextField>
+                            </div>
+                            <div>
+                                <TextField
+                                    type="date"
+                                    align="left"
+                                    id="outlined-name"
+                                    label="contest end date"
+                                    className={classes.fieldMedium}
+                                    value={this.state.contestEndDate}
+                                    onChange={this.handleChangeFor('contestEndDate')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    select
+                                    label="contest end time"
+                                    className={classes.fieldMedium}
+                                    value={this.state.contestEndTime}
+                                    onChange={this.handleChangeFor('contestEndTime')}
+                                    SelectProps={{
+                                        MenuProps: {
+                                            className: classes.status,
+                                        },
+                                    }}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                >
+                                    {hourSelection.map((hour) =>
+                                        <MenuItem key={hour.sqlValue} value={hour.sqlValue} className={classes.timeOptions}>
+                                            {hour.displayValue}
+                                        </MenuItem>
+                                    )}
+                                </TextField>
+                            </div>
+                            <div>
+                                <br />
+                                <FormControl component="fieldset" className={classes.radio}>
+                                    <FormLabel component="legend" style={{ color: "black" }}>Should your game include an option for a compost bin?</FormLabel>
+                                    <RadioGroup aria-label="compost bin" name="compostBin" onChange={this.handleChangeFor('contestCompostBin')}>
+                                        <FormControlLabel value="true" control={<Radio />} label="Yes" />
+                                        <FormControlLabel value="false" control={<Radio />} label="No" />
+                                    </RadioGroup>
+                                </FormControl>
                             </div>
                             <div>
                                 <Button
