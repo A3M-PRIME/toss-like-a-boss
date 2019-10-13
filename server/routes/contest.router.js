@@ -57,4 +57,21 @@ router.post('/add', (req, res) => {
         })
 })
 
+//GETS WHETHER COMPOST IS SELECTED FOR CONTEST
+router.get(`/compost/:id`,  (req, res) => {
+    const sqlText = `
+    SELECT compost from contest
+    WHERE access_code = $1;
+    `;
+    pool.query(sqlText, [req.params.id])
+    .then(result => {
+        console.log('result is ', result.rows[0].compost)
+        res.send(result.rows[0].compost);
+    })
+    .catch(error => {
+        console.log('error in /compost/:id GET', error)
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router;

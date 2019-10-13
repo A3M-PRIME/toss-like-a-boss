@@ -1,5 +1,7 @@
 import { put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
+import ResultsGuestPlayer from "../../components/ResultsGuestPlayer/ResultsGuestPlayer";
+
 
 function* addWrongAnswer(action) {
   try {
@@ -47,11 +49,26 @@ function* firstTryIncorrect(action) {
   }
 }
 
+function* getContestCompostBoolean(action) {
+  try {
+    console.log('id of current game is', action.payload)
+    let id = action.payload
+    const response = yield axios.get(`/api/contest/compost/${id}`)
+    yield put ({
+      type: 'SET_CONTEST_COMPOST_BOOLEAN',
+      payload: response.data
+    })
+  } catch (error) {
+    console.log('error with getContestCompostBoolean saga', error)
+  }
+}
+
 function* gameSaga() {
   yield takeEvery("FETCH_GAME_ITEMS", fetchGameItems);
   yield takeEvery("ADD_WRONG_ANSWER", addWrongAnswer);
   yield takeEvery("FIRST_TRY_CORRECT", firstTryCorrect);
   yield takeEvery("FIRST_TRY_INCORRECT", firstTryIncorrect);
+  yield takeEvery('GET_CONTEST_COMPOST_BOOLEAN', getContestCompostBoolean);
 }
 
 export default gameSaga;
