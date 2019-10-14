@@ -134,4 +134,24 @@ router.post('/admin/upload', (req, res) => {
 //         })
 // })
 
+
+
+
+
+
+
+//ITEM INFO PUT
+router.put('/admin', (req, res) => {
+    const sqlText = `UPDATE item
+                    SET "name" = $1, "receptacle" = $2, "item_text" = $3
+                    WHERE "id" = $4;`;
+    pool.query(sqlText, [req.body.itemName, req.body.receptacle, req.body.itemText, req.body.itemId])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router;
