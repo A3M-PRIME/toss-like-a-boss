@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import NavOrganizationAdmin from '../Nav/NavOrganizationAdmin';
 import NavWasteWiseAdmin from '../Nav/NavWasteWiseAdmin';
 import NavGuest from '../Nav/NavGuest';
-import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import LoginPage from '../LoginPage/LoginPage';
@@ -112,7 +111,6 @@ class App extends Component {
                   </Switch>
                 </Typography>
               </Container>
-              <Footer />
             </div>
           </Router>
         </ThemeProvider>
