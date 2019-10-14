@@ -5,6 +5,7 @@ import { AccountBalance, Fastfood, NaturePeople, Settings } from '@material-ui/i
 import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import Items from './Components/Items';
+import Users from './Components/Users';
 
 const styles = theme => ({
     root: {
@@ -69,6 +70,7 @@ class SettingsAdmin extends Component {
                 {this.state.items && <h2>Items<Fastfood className={classes.icon} /></h2>}
                 {this.state.items && <Items/>}
                 {!this.state.items && <h2>Users<NaturePeople className={classes.icon} /></h2>}
+                {!this.state.items && <Users/>}
             </div>
         );
     }

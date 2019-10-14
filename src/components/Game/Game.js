@@ -40,7 +40,15 @@ const styles = {
       backgroundColor: "yellow",
       color: "black"
     }
-  }
+  },
+  background: {
+    backgroundImage: "url(/images/Lake.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: 900,
+    padding: 24,
+    // opacity: 0.7,
+  },
 };
 
 class Game extends Component {
@@ -96,27 +104,26 @@ class Game extends Component {
   render() {
     console.log(this.state);
     return (
-      <div>
+      <div className={this.props.classes.background}>
         <div>
           <header>
             <Grid
               container
               justify={"space-evenly"}
               spacing={12}
-              alignItems={"center"}>
+              alignItems={"center"}
+            >
               <h1>WASTE-WISE-R</h1>
               {/* conditionally render items remaining based on length of array, use 0 if no items */}
-              <h3>
-                Items Remaining :
-                {15 - this.props.currentGameValue}
-              </h3>{" "}
+              <h3>Items Remaining :{15 - this.props.currentGameValue}</h3>{" "}
               <h3>Elapsed Time showing : {this.state.time}</h3>
               <div className={this.props.classes.h1}>
                 <Grid
                   container
                   justify={"space-evenly"}
                   spacing={10}
-                  alignItems={"center"}></Grid>
+                  alignItems={"center"}
+                ></Grid>
               </div>
             </Grid>
           </header>
@@ -127,16 +134,19 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={6}
-            alignItems={"center"}>
+            alignItems={"center"}
+          >
             <Button
               className={this.props.classes.Button}
-              onClick={this.howToPlay}>
+              onClick={this.howToPlay}
+            >
               How To Play
             </Button>
             <h2>Score : {this.props.gameScore}</h2>
             <Button
               className={this.props.classes.Button}
-              onClick={this.backToHome}>
+              onClick={this.backToHome}
+            >
               Back To Home
             </Button>
           </Grid>
@@ -145,11 +155,13 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={48}
-            alignItems={"center"}>
+            alignItems={"center"}
+          >
             {!this.state.gameStarted && (
               <Button
                 className={this.props.classes.Button}
-                onClick={() => this.handleTimerStart()}>
+                onClick={() => this.handleTimerStart()}
+              >
                 {" "}
                 READY?!{" "}
               </Button>
@@ -161,26 +173,10 @@ class Game extends Component {
                 {/* id={this.props.gameItems[0].id} */}
                 {this.props.gameItems[this.props.currentGameValue]
                   .receptacle === "compost" && !this.props.compostBin ? (
-                    this.props.gameItems[this.props.currentGameValue]
-                      .receptacle && (
-                      <DraggableItem
-                        name={"garbage"}
-                        label={
-                          this.props.gameItems[this.props.currentGameValue].name
-                        }
-                        itemId={
-                          this.props.gameItems &&
-                          this.props.gameItems[this.props.currentGameValue].id
-                        }
-                        goToResults={this.goToResults}
-                      />
-                    )
-                  ) : (
+                  this.props.gameItems[this.props.currentGameValue]
+                    .receptacle && (
                     <DraggableItem
-                      name={
-                        this.props.gameItems[this.props.currentGameValue]
-                          .receptacle
-                      }
+                      name={"garbage"}
                       label={
                         this.props.gameItems[this.props.currentGameValue].name
                       }
@@ -189,11 +185,25 @@ class Game extends Component {
                         this.props.gameItems[this.props.currentGameValue].id
                       }
                       goToResults={this.goToResults}
-                      gameTime={
-                        this.state.time
-                      }
                     />
-                  )}
+                  )
+                ) : (
+                  <DraggableItem
+                    name={
+                      this.props.gameItems[this.props.currentGameValue]
+                        .receptacle
+                    }
+                    label={
+                      this.props.gameItems[this.props.currentGameValue].name
+                    }
+                    itemId={
+                      this.props.gameItems &&
+                      this.props.gameItems[this.props.currentGameValue].id
+                    }
+                    goToResults={this.goToResults}
+                    gameTime={this.state.time}
+                  />
+                )}
               </div>
             </div>
           </Grid>
@@ -203,7 +213,8 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={48}
-            alignItems={"center"}>
+            alignItems={"center"}
+          >
             <div>
               <GarbageBin />
             </div>

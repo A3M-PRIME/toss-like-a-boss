@@ -15,7 +15,8 @@ import item from './itemReducer';
 import gameTimeReducer from './gameTimeReducer';
 import contestUserInfoReducer from './contestUserInfoReducer';
 import contestCompostBooleanReducer from './contestCompostBooleanReducer';
-import correctSnackBarReducer from './correctSnackBarReducer'
+import correctSnackBarReducer from './correctSnackBarReducer';
+import wasteWiseAdminUsers from './wasteWiseAdminReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   contestUserInfoReducer, //stores user info for contest
   contestCompostBooleanReducer, //stores whether compost bin is in contest game
   correctSnackBarReducer, //sets status for snack bar open/close on correct answer
+  wasteWiseAdminUsers, //retrieves the users that are admin
 });
 
 export default rootReducer;

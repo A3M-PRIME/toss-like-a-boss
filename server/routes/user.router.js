@@ -54,4 +54,33 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+//ADD WASTE WISE ADMIN USER POST
+router.post('/register/admin', (req, res) => {
+  const password = encryptLib.encryptPassword(req.body.password);
+  const sqlText = `INSERT INTO "user" ("first_name", "last_name", "username", "password", "wastewise_admin") VALUES ($1, $2, $3, $4, $5);`;
+  pool.query(sqlText, [req.body.firstName, req.body.lastName, req.body.username, password, true])
+    .then((result) => {
+      console.log('ADD ADMIN USER POST from database:', result);
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log(`Error POSTing new admin user:`, error);
+      res.sendStatus(500);
+    })
+});
+
+//WASTE WISE ADMIN USER GET
+router.get('/register/admin', (req, res) => {
+  const sqlText = `SELECT * FROM "user" WHERE "wastewise_admin" = true;`;
+  pool.query(sqlText)
+    .then((result) => {
+      console.log('Waste Wise Admin User GET from database:', result);
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(`Error getting Waste Wise Admin User from database`, error);
+      res.sendStatus(500);
+    })
+});
+
 module.exports = router;
