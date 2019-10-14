@@ -5,6 +5,7 @@ import CompostBin from "../CompostBin/CompostBin";
 import RecycleBin from "../RecycleBin/RecycleBin";
 import DraggableItem from "../DraggableItem/DraggableItem";
 import CorrectSnackBar from "./CorrectSnackBar"
+import SuccessSnackBar from "./SnackBar"
 
 //Material UI Components
 import Button from "@material-ui/core/Button";
@@ -223,7 +224,7 @@ class Game extends Component {
             </div>
             <div>{this.props.compostBin && <CompostBin />}</div>
           </Grid>
-          <CorrectSnackBar />
+          <SuccessSnackBar />
         </footer>
       </div>
     );

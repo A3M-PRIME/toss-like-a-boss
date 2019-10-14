@@ -3,6 +3,16 @@ import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import { connect } from "react-redux";
+import { withStyles } from "@material-ui/core/styles";
+import { green } from '@material-ui/core/colors';
+
+
+
+const styles = {
+    root: {
+    backgroundColor: green[600],
+  },
+}
 
 class CorrectSnackBar extends Component {
   handleClose =() => {
@@ -19,22 +29,22 @@ class CorrectSnackBar extends Component {
         <Snackbar
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "left"
+            horizontal: "center"
           }}
           open={this.props.store.correctSnackBarReducer}
-          autoHideDuration={700}
+          autoHideDuration={70000}
           onClose={this.handleClose}
           ContentProps={{
             "aria-describedby": "message-id"
           }}
-          message={<span id='message-id'>YOU WERE CORRECT</span>}
+          message={<span id='message-id'>CORRECT!</span>}
+          className={this.props.classes.root}
           action={[
             <IconButton
               key='close'
               aria-label='close'
               color='inherit'
               onClick={this.handleClose}>
-              <CloseIcon />
             </IconButton>
           ]}
         />
@@ -47,4 +57,4 @@ const mapStateToProps = store => ({
   store
 });
 
-export default connect(mapStateToProps)(CorrectSnackBar);
+export default connect(mapStateToProps)(withStyles(styles)(CorrectSnackBar));
