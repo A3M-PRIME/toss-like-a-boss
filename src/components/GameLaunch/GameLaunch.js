@@ -66,13 +66,12 @@ class GameLaunch extends Component {
   }
   componentDidMount() {
     //this will get the id of the contest game from url params
-    let contestBoolean = this.props.history.location.search.split('=').pop();
-    console.log('contest boolean is', contestBoolean)
+    let contestIdNumber = this.props.history.location.search.split('=').pop();
     //if this is a contest game, send dispatch to find whether game has compost or not
     this.props.history.location.search &&
       this.props.dispatch({
         type: 'GET_CONTEST_COMPOST_BOOLEAN',
-        payload: contestBoolean
+        payload: contestIdNumber
       })
 
     this.handleTeamNames()
@@ -118,7 +117,7 @@ class GameLaunch extends Component {
           payload: this.state
         })
         //hits reducer to remove compost bin from game if contest has no compost
-        if (!this.props.contestCompostBooleanReducer) {
+        if (!this.props.compostBoolean[0].compost) {
           this.props.dispatch({
             type: 'NO_COMPOST_BIN'
           })
