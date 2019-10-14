@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import CompostBinChoice from '../CompostBinChoice/CompostBinChoice';
 import { connect } from "react-redux";
+import CompostBinChoice from '../CompostBinChoice/CompostBinChoice';
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { Grid, Select } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
@@ -47,6 +50,8 @@ const styles = {
     height: 900,
     margin: -24,
     padding: 24
+  },
+  teamSelect: {
   }
 };
 
@@ -56,17 +61,29 @@ class GameLaunch extends Component {
     email: '',
     firstName: '',
     lastName: '',
-    contestPlayReady: false
+    contestPlayReady: false,
+    teamName: ''
   }
   componentDidMount() {
     //this will get the id of the contest game from url params
     let contestBoolean = this.props.history.location.search.split('=').pop();
     console.log('contest boolean is', contestBoolean)
     //if this is a contest game, send dispatch to find whether game has compost or not
-    this.props.history.location.search && 
+    this.props.history.location.search &&
+      this.props.dispatch({
+        type: 'GET_CONTEST_COMPOST_BOOLEAN',
+        payload: contestBoolean
+      })
+
+    this.handleTeamNames()
+  }
+
+  //gets team names from database to populate dropdown
+  handleTeamNames = () => {
+    let contestIdNumber = this.props.history.location.search.split('=').pop();
     this.props.dispatch({
-      type: 'GET_CONTEST_COMPOST_BOOLEAN',
-      payload: contestBoolean
+      type: 'GET_TEAM_NAMES',
+      payload: contestIdNumber
     })
   }
 
@@ -74,7 +91,6 @@ class GameLaunch extends Component {
   howToPlay = () => {
     this.props.history.push('/howtoplay')
   }
-
   // route the user back to the gamelaunch page
   toGame = () => {
     this.setState({
@@ -120,78 +136,101 @@ class GameLaunch extends Component {
 
   render() {
     console.log(this.state)
+
+    let teamNameArray = this.props.teamNames.map(name => {
+      return (<MenuItem value={name.team_name}>{name.team_name}</MenuItem>)
+    })
+
     return (
       <div>
-          <br></br>
-          <body className={this.props.classes.background}>
-            <Grid
-              container
-              justify={"space-evenly"}
-              spacing={24}
-              alignItems={"center"}
-            >
-              <Grid item xs={3}>
-                <Button
-                  className={this.props.classes.HowToPlayButton}
-                  onClick={this.howToPlay}
-                >
-                  How To Play
+        <br></br>
+        <body className={this.props.classes.background}>
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={24}
+            alignItems={"center"}
+          >
+            <Grid item xs={3}>
+              <Button
+                className={this.props.classes.HowToPlayButton}
+                onClick={this.howToPlay}
+              >
+                How To Play
                 </Button>
-              </Grid>
             </Grid>
-            <br></br>
-            <Grid
-              container
-              justify={"space-evenly"}
-              spacing={24}
-              alignItems={"center"}
-            >
-              <Grid item xs={3}>
-                <Button
-                  className={this.props.classes.PlayButton}
-                  onClick={this.toGame}
-                >
-                  PLAY!
+          </Grid>
+          <br></br>
+          <Grid
+            container
+            justify={"space-evenly"}
+            spacing={24}
+            alignItems={"center"}
+          >
+            <Grid item xs={3}>
+              <Button
+                className={this.props.classes.PlayButton}
+                onClick={this.toGame}
+              >
+                PLAY!
                 </Button>
-                {/* conditionally render CompostBinChoice when play is clicked */}
-                {this.state.timeToPlay && <CompostBinChoice />}
-              </Grid>
-              {this.props.history.location.search && (
-                <Grid item xs={3}>
-                  <form onSubmit={this.handleSubmit}>
-                    <TextField
-                      required
-                      label="Email Address"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.handleChange("email")}
-                    />
-                    <TextField
-                      required
-                      label="First Name"
-                      value={this.state.firstName}
-                      onChange={this.handleChange("firstName")}
-                    />
-                    <TextField
-                      required
-                      label="Last Name"
-                      value={this.state.lastName}
-                      onChange={this.handleChange("lastName")}
-                    />
-
-                    <Button
-                      type="submit"
-                      className={this.props.classes.PlayButton}
-                      // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
-                    >
-                      CONTEST PLAY!
+              {/* conditionally render CompostBinChoice when play is clicked */}
+              {this.state.timeToPlay && <CompostBinChoice />}
+            </Grid>
+            {this.props.history.location.search && (
+              <Grid item xs={3}>
+                <form onSubmit={this.handleSubmit}>
+                  <TextField
+                    required
+                    label="Email Address"
+                    type="email"
+                    value={this.state.email}
+                    onChange={this.handleChange("email")}
+                  />
+                  <TextField
+                    required
+                    label="First Name"
+                    value={this.state.firstName}
+                    onChange={this.handleChange("firstName")}
+                  />
+                  <TextField
+                    required
+                    label="Last Name"
+                    value={this.state.lastName}
+                    onChange={this.handleChange("lastName")}
+                  />
+                  {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
+                  IF THERE ARE TEAM NAMES IN REDUCER */}
+                  {this.props.teamNames[0] ? (
+                    <FormControl required className={this.props.classes.teamSelect}>
+                      <InputLabel>Team</InputLabel>
+                      <Select
+                        label="Team Name"
+                        value={this.state.teamName}
+                        onChange={this.handleChange("teamName")}
+                      >
+                        <MenuItem value="">
+                          <em>Select Team</em>
+                        </MenuItem>
+                        {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
+                        {this.props.teamNames && teamNameArray}
+                      </Select>
+                    </FormControl>) :
+                    (<>
+                    </>)}
+                  <Button
+                    type="submit"
+                    className={this.props.classes.PlayButton}
+                  // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                  >
+                    CONTEST PLAY!
                     </Button>
-                  </form>
-                </Grid>
-              )}
-            </Grid>
-          </body>
-          <br></br>
+                </form>
+              </Grid>
+            )}
+          </Grid>
+        </body>
+        <br></br>
       </div>
     );
   }
@@ -201,7 +240,8 @@ class GameLaunch extends Component {
 const mapStateToProps = reduxStore => {
   return {
     reduxStore,
-    compostBoolean: reduxStore.contestCompostBooleanReducer
+    compostBoolean: reduxStore.contestCompostBooleanReducer,
+    teamNames: reduxStore.organizationTeamNameReducer,
   }
 }
 
