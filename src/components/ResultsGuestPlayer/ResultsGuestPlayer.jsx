@@ -10,6 +10,13 @@ const styles = {
     media: {
         width: "100px",
         height: "100px"
+    },
+    background: {
+        backgroundImage: "url(/images/River.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: 900,
+        padding: 24
     }
 };
 
