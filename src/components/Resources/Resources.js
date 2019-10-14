@@ -1,17 +1,49 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
+
+const styles = {
+  background: {
+    backgroundColor: "green",
+    "&:hover": {
+      // change to both KEY and the
+      // textDecoration: "underline",
+      backgroundColor: "yellow",
+      color: "black",
+  }
+}
+};
+
 
 class Resources extends Component {
-//   toGame = () => {
-//     this.props.history.push("/game");
-//   };
 
   render() {
     return (
-      <div onClick={this.toGame}>
-        THIS WILL BE A LINK TO WASTE WISE MN 
+      <div>
+        <Grid
+          container
+          justify={"space-evenly"}
+          spacing={24}
+          alignItems={"center"}
+        >
+          <a href="url">http://www.mnwastewise.org</a>
+        </Grid>
+        <body className={this.props.classes.background}>
+          <div style={{ padding: 20 }}>
+            <Grid
+              container
+              spacing={5}
+              justify={"space-evenly"}
+              spacing={24}
+              alignItems={"center"}
+            >
+              <a href="url">http://www.mnwastewise.org</a>
+            </Grid>
+          </div>
+        </body>
       </div>
     );
   }
 }
 
-export default Resources;
+export default (withStyles(styles)(Resources));
