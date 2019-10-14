@@ -53,6 +53,9 @@ class ResultsGuestPlayer extends Component {
           </Typography>
                 </div>
                 <div>
+                    {this.props.history.location.search && <Button>CONTEST LEADERBOARD</Button>}
+                </div>
+                <div>
                     <ResultsItemCard />
                 </div>
                 <div>
