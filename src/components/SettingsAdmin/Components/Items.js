@@ -135,6 +135,7 @@ class Items extends Component {
             type: 'FETCH_ITEMS'
         })
     }
+    
     handleAddClick = () => {
         this.setState({
             toggleAdd: !this.state.toggleAdd
