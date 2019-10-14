@@ -36,8 +36,9 @@ class Leaderboard extends Component {
     let contestIdNumber = this.props.history.location.search.split("=").pop();
     this.props.dispatch({
       type: "FETCH_LEADERBOARD",
-      payload: contestIdNumber
+      payload: this.props.store.contestSettings.id
     });
+    console.log(this.props.store.contestSettings[0].id);
   }
 
   playAgain= () => {
