@@ -10,12 +10,20 @@ const styles = {
     media: {
         width: "100px",
         height: "100px"
+    },
+    background: {
+        backgroundImage: "url(/images/River.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: 900,
+        padding: 24
     }
 };
 
 class ResultsGuestPlayer extends Component {
 
-
+    componentDidMount() {
+    }
 
     playAgain = action => {
         this.props.dispatch({
@@ -32,6 +40,10 @@ class ResultsGuestPlayer extends Component {
         });
         this.props.history.push("/gamelaunch");
     };
+
+    handleLeaderboardClick = () => {
+        this.props.history.push(`/leaderboard${this.props.history.location.search}`)
+    }
 
 
     render() {
@@ -53,7 +65,9 @@ class ResultsGuestPlayer extends Component {
           </Typography>
                 </div>
                 <div>
-                    {this.props.history.location.search && <Button>CONTEST LEADERBOARD</Button>}
+                    {this.props.history.location.search && <Button
+                    onClick={() => this.handleLeaderboardClick()}
+                    >CONTEST LEADERBOARD</Button>}
                 </div>
                 <div>
                     <ResultsItemCard />
@@ -62,9 +76,6 @@ class ResultsGuestPlayer extends Component {
                     <Button onClick={this.playAgain} variant='contained'>
                         CLICK HERE TO PLAY AGAIN
           </Button>
-                </div>
-                <div>
-                    <Button variant='contained'>CHECK OUT THE LEADERBOARD</Button>
                 </div>
             </div>
         );

@@ -15,8 +15,6 @@ const style = {
 };
 
 let firstTry = true;
-let currentGameValue = 0;
-
 
 const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
   const opacity = isDragging ? 0 : 1;

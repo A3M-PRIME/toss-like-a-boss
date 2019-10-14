@@ -63,12 +63,26 @@ function* getContestCompostBoolean(action) {
   }
 }
 
+function* getTeamNames(action) {
+  try {
+    let id = action.payload
+    const response = yield axios.get(`/api/team/names/${id}`)
+    yield put ({
+      type: 'SET_TEAM_NAMES',
+      payload: response.data
+    })
+  } catch (error) {
+    console.log('error with get team names saga', error)
+  }
+}
+
 function* gameSaga() {
   yield takeEvery("FETCH_GAME_ITEMS", fetchGameItems);
   yield takeEvery("ADD_WRONG_ANSWER", addWrongAnswer);
   yield takeEvery("FIRST_TRY_CORRECT", firstTryCorrect);
   yield takeEvery("FIRST_TRY_INCORRECT", firstTryIncorrect);
   yield takeEvery('GET_CONTEST_COMPOST_BOOLEAN', getContestCompostBoolean);
+  yield takeEvery('GET_TEAM_NAMES', getTeamNames)
 }
 
 export default gameSaga;
