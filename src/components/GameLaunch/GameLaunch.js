@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import CompostBinChoice from '../CompostBinChoice/CompostBinChoice';
 import { connect } from "react-redux";
+import CompostBinChoice from '../CompostBinChoice/CompostBinChoice';
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
@@ -74,7 +74,6 @@ class GameLaunch extends Component {
   howToPlay = () => {
     this.props.history.push('/howtoplay')
   }
-
   // route the user back to the gamelaunch page
   toGame = () => {
     this.setState({
