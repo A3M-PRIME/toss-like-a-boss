@@ -18,7 +18,7 @@ let firstTry = true;
 let currentGameValue = 0;
 
 
-const DraggableItem = ({ name, isDragging, connectDragSource, label}) => {
+const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
   const opacity = isDragging ? 0 : 1;
 
   return (
@@ -45,14 +45,21 @@ let DragNDrop = withRouter(connect(mapStateToProps)(
         console.log(props.currentGameValue);
         const item = monitor.getItem();
         const dropResult = monitor.getDropResult();
-        //if correct on the first try
+        //check to see if game is over, if so, push to results
         if (props.currentGameValue === props.items.length - 1) {
           props.dispatch({
             type: 'SET_GAME_END_TIME',
             payload: props.gameTime
           })
-          props.history.push("/results");
+          //check to see if playing contest game, if so, push to results page
+          //with contest ID in URL
+          if (props.history.location.search) {
+            props.history.push(`/results${props.history.location.search}`)
+          } else {
+            props.history.push("/results");
+          }
         } else {
+          //if correct on the first try
           if (dropResult && dropResult.name == item.name && firstTry === true) {
             props.dispatch({
               type: "FIRST_TRY_CORRECT",
