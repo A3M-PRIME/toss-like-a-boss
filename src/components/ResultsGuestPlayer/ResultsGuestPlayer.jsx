@@ -10,12 +10,39 @@ const styles = {
     media: {
         width: "100px",
         height: "100px"
+    },
+    background: {
+        backgroundImage: "url(/images/River.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height: 900,
+        padding: 24
     }
 };
 
 class ResultsGuestPlayer extends Component {
 
+    componentDidMount() {
+        //if you are playing a contest game, send game data to saga
+        this.props.history.location.search && this.sendContestGameData()
+    }
 
+    sendContestGameData = () => {
+        let contestIdNumber = this.props.history.location.search.split('=').pop();
+        this.props.dispatch({
+            type: 'SEND_CONTEST_GAME_DATA',
+            payload: {
+                firstName: this.props.contestUserInfo.firstName,
+                lastName: this.props.contestUserInfo.lastName,
+                email: this.props.contestUserInfo.email,
+                score: this.props.gameScore,
+                time: this.props.gameTime,
+                contestIdNumber: contestIdNumber,
+                teamName: this.props.contestUserInfo.teamName,
+                organizationIdNumber: this.props.organizationInfo[0].organization_id
+            }
+        })
+    }
 
     playAgain = action => {
         this.props.dispatch({
@@ -32,6 +59,10 @@ class ResultsGuestPlayer extends Component {
         });
         this.props.history.push("/gamelaunch");
     };
+
+    handleLeaderboardClick = () => {
+        this.props.history.push(`/leaderboard${this.props.history.location.search}`)
+    }
 
 
     render() {
@@ -53,7 +84,9 @@ class ResultsGuestPlayer extends Component {
           </Typography>
                 </div>
                 <div>
-                    {this.props.history.location.search && <Button>CONTEST LEADERBOARD</Button>}
+                    {this.props.history.location.search && <Button
+                    onClick={() => this.handleLeaderboardClick()}
+                    >CONTEST LEADERBOARD</Button>}
                 </div>
                 <div>
                     <ResultsItemCard />
@@ -62,9 +95,6 @@ class ResultsGuestPlayer extends Component {
                     <Button onClick={this.playAgain} variant='contained'>
                         CLICK HERE TO PLAY AGAIN
           </Button>
-                </div>
-                <div>
-                    <Button variant='contained'>CHECK OUT THE LEADERBOARD</Button>
                 </div>
             </div>
         );
@@ -76,6 +106,8 @@ const mapStateToProps = reduxStore => {
         gameScore: reduxStore.gameScoreReducer,
         gameWrongAnswers: reduxStore.gameWrongAnswerReducer,
         gameTime: reduxStore.gameTimeReducer,
+        contestUserInfo: reduxStore.contestUserInfoReducer,
+        organizationInfo: reduxStore.organizationTeamNameReducer,
     };
 };
 

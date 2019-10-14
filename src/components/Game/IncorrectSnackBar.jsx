@@ -3,19 +3,19 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import green from "@material-ui/core/colors/green";
-import IconButton from "@material-ui/core/IconButton";
+import amber from "@material-ui/core/colors/green";
+import ErrorIcon from "@material-ui/icons/Error";
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { withStyles } from "@material-ui/core/styles";
 
 const variantIcon = {
-  success: CheckCircleIcon
+  error: ErrorIcon
 };
 
 const styles1 = theme => ({
-  success: {
-    backgroundColor: green[600],
+  error: {
+    backgroundColor: "#ff9900",
     minWidth: "fit-content"
   },
   icon: {
@@ -31,10 +31,10 @@ const styles1 = theme => ({
   },
   message: {
     fontSize: "1.5rem",
-    width: "100%",
+    width: "100%"
   },
   snackBar: {
-      width: "100%"
+    width: "100%"
   }
 });
 
@@ -52,15 +52,6 @@ function MySnackbarContent(props) {
           {message}
         </span>
       }
-      action={[
-        <IconButton
-          key='close'
-          aria-label='Close'
-          color='inherit'
-          className={classes.close}
-          onClick={onClose}>
-        </IconButton>
-      ]}
       {...other}
     />
   );
@@ -82,12 +73,12 @@ const styles2 = theme => ({
   }
 });
 
-class CorrectSnackBar extends Component {
+class IncorrectSnackBar extends Component {
 
 
   handleClose = () => {
     this.props.dispatch({
-      type: "CLOSE_CORRECT_SNACK_BAR"
+      type: "CLOSE_INCORRECT_SNACK_BAR"
     });
   };
 
@@ -102,14 +93,14 @@ class CorrectSnackBar extends Component {
             vertical: "bottom",
             horizontal: "center"
           }}
-          open={this.props.store.correctSnackBarReducer}
+          open={this.props.store.incorrectSnackBarReducer}
           autoHideDuration={700}
           onClose={this.handleClose}>
           <MySnackbarContentWrapper
             className={classes.message}
             onClose={this.handleClose}
-            variant='success'
-            message='CORRECT!'
+            variant='error'
+            message='TRY AGAIN!'
           />
         </Snackbar>
         {/* <MySnackbarContentWrapper
@@ -122,7 +113,7 @@ class CorrectSnackBar extends Component {
   }
 }
 
-CorrectSnackBar.propTypes = {
+IncorrectSnackBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -130,4 +121,4 @@ const mapStateToProps = store => ({
   store
 });
 
-export default connect(mapStateToProps)(withStyles(styles2)(CorrectSnackBar));
+export default connect(mapStateToProps)(withStyles(styles2)(IncorrectSnackBar));

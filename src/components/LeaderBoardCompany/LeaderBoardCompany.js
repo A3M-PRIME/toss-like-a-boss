@@ -33,9 +33,10 @@ class Leaderboard extends Component {
   };
 
   getLeaderboardInfo() {
+    let contestIdNumber = this.props.history.location.search.split("=").pop();
     this.props.dispatch({
       type: "FETCH_LEADERBOARD",
-      payload: this.props.contestSettings.organization_id
+      payload: this.props.store.contestCompostBooleanReducer[0].id
     });
   }
 
