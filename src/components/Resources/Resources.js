@@ -26,7 +26,7 @@ class Resources extends Component {
           spacing={24}
           alignItems={"center"}
         >
-          <a href="url">http://www.mnwastewise.org</a>
+          <a href="http://www.mnwastewise.org">WasteWise MN</a>
         </Grid>
         <body className={this.props.classes.background}>
           <div style={{ padding: 20 }}>
@@ -37,7 +37,10 @@ class Resources extends Component {
               spacing={24}
               alignItems={"center"}
             >
-              <a href="url">http://www.mnwastewise.org</a>
+              <a href="http://www.mnwastewise.org" target="_blank">
+                WasteWise MN
+              </a>
+              {/* <a href="http://www.mnwastewise.org">WastWise MN</a> */}
             </Grid>
           </div>
         </body>
