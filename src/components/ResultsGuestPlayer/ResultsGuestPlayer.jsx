@@ -22,7 +22,8 @@ const styles = {
 
 class ResultsGuestPlayer extends Component {
 
-
+    componentDidMount() {
+    }
 
     playAgain = action => {
         this.props.dispatch({
@@ -40,52 +41,43 @@ class ResultsGuestPlayer extends Component {
         this.props.history.push("/gamelaunch");
     };
 
+    handleLeaderboardClick = () => {
+        this.props.history.push(`/leaderboard${this.props.history.location.search}`)
+    }
+
 
     render() {
         const scorePercentage = parseInt((this.props.gameScore / 15) * 100);
         console.log(scorePercentage);
         return (
-          <div>
-            <body className={this.props.classes.background}>
-              <div>
-                <Typography variant="h3">GAME RESULTS</Typography>
-              </div>
-              <div>
-                <Typography variant="h5">
-                  SCORE:{" "}
-                  {this.props.gameWrongAnswers.length === undefined
-                    ? 15
-                    : 15 - this.props.gameWrongAnswers.length}
-                  /15{" "}
-                  {parseInt(
-                    ((15 - this.props.gameWrongAnswers.length) / 15) * 100
-                  )}
-                  %
-                </Typography>
-              </div>
-              <div>
-                <Typography variant="h5">
-                  TIME: {this.props.gameTime}
-                </Typography>
-              </div>
-              <div>
-                {this.props.history.location.search && (
-                  <Button>CONTEST LEADERBOARD</Button>
-                )}
-              </div>
-              <div>
-                <ResultsItemCard />
-              </div>
-              <div>
-                <Button onClick={this.playAgain} variant="contained">
-                  CLICK HERE TO PLAY AGAIN
-                </Button>
-              </div>
-              <div>
-                <Button variant="contained">CHECK OUT THE LEADERBOARD</Button>
-              </div>
-            </body>
-          </div>
+            <div>
+                <div>
+                    <Typography variant='h3'>GAME RESULTS</Typography>
+                </div>
+                <div>
+                    <Typography variant='h5'>
+                        SCORE: {this.props.gameWrongAnswers.length === undefined ? 15 : 15-this.props.gameWrongAnswers.length}/15 {parseInt(((15-this.props.gameWrongAnswers.length)/15)*100)}%
+          </Typography>
+                </div>
+                <div>
+                    <Typography variant='h5'>
+                        TIME: {this.props.gameTime}
+          </Typography>
+                </div>
+                <div>
+                    {this.props.history.location.search && <Button
+                    onClick={() => this.handleLeaderboardClick()}
+                    >CONTEST LEADERBOARD</Button>}
+                </div>
+                <div>
+                    <ResultsItemCard />
+                </div>
+                <div>
+                    <Button onClick={this.playAgain} variant='contained'>
+                        CLICK HERE TO PLAY AGAIN
+          </Button>
+                </div>
+            </div>
         );
     }
 }
