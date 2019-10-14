@@ -56,4 +56,22 @@ router.post('/', (req, res) => {
         })
 })
 
+//route to get team names from database
+router.get('/names/:id', (req, res) => {
+    const sqlText = `
+    SELECT * FROM "team"
+    JOIN "organization" on "organization".id = "team".organization_id
+    JOIN "contest" on "contest".organization_id = "organization".id
+    WHERE "contest".access_code = $1;
+    `;
+    pool.query(sqlText, [req.params.id])
+    .then((result) => {
+        res.send(result.rows);
+    })
+    .catch((error) => {
+        console.log('error in GET team names', error);
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router
