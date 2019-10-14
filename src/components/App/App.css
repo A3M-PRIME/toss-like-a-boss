@@ -8,7 +8,7 @@ body {
     margin: 50px;
 }
 
-form {
+.login {
     background-color: #f1f1f1;
     width: 30%;
     height: 250px;
