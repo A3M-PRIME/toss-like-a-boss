@@ -60,7 +60,7 @@ router.post('/add', (req, res) => {
 //GETS WHETHER COMPOST IS SELECTED FOR CONTEST
 router.get(`/compost/:id`,  (req, res) => {
     const sqlText = `
-    SELECT compost, organization_id from contest
+    SELECT compost, organization_id, id from contest
     WHERE access_code = $1;
     `;
     pool.query(sqlText, [req.params.id])
