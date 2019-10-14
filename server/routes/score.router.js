@@ -40,4 +40,20 @@ router.get("/leaderboard/:code", async (req, res) => {
   }
 });
 
-module.exports = router;
+router.post('/', (req, res) => {
+  const queryText = `
+  INSERT into "score" ("first_name", "last_name", "email_address", "score", "time", "contest_id", "team_id")
+  VALUES ($1, $2, $3, $4, $5, $6, $7);
+  `;
+  pool.query(queryText, [req.body.firstName, req.body.lastName, req.body.email, req.body.score, req.body.time,
+  req.body.contestIdNumber, req.body.organizationIdNumber])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.log('error in score router POST', error);
+      res.sendStatus(500);
+    })
+  })
+
+  module.exports = router;

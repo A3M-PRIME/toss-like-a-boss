@@ -15,8 +15,18 @@ function* getLeaderboard(action) {
   }
 }
 
+function* sendContestGameData(action) {
+  console.log('contest data payload', action.payload)
+  try {
+    yield axios.post(`api/score`, action.payload);
+  } catch (error) {
+    console.log('error in send contest game data POST', error);
+  }
+}
+
 function* watchMe() {
   yield takeEvery("FETCH_LEADERBOARD", getLeaderboard);
+  yield takeEvery('SEND_CONTEST_GAME_DATA', sendContestGameData);
 }
 
 export default watchMe;
