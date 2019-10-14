@@ -17,6 +17,7 @@ import contestUserInfoReducer from './contestUserInfoReducer';
 import contestCompostBooleanReducer from './contestCompostBooleanReducer';
 import correctSnackBarReducer from './correctSnackBarReducer';
 import organizationTeamNameReducer from './organizationTeamNameReducer';
+import incorrectSnackBarReducer from './incorrectSnackBarReducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   contestCompostBooleanReducer, //stores whether compost bin is in contest game
   correctSnackBarReducer, //sets status for snack bar open/close on correct answer
   organizationTeamNameReducer, //team names for dropdown on game launch
+  incorrectSnackBarReducer //sets status for snack bar open/close on incorrect answer
 });
 
 export default rootReducer;

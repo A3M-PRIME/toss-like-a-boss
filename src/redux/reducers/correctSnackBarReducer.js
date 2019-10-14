@@ -4,7 +4,7 @@ const correctSnackBarReducer = (state = false, action) => {
       return true;
     case "INCREMENT_CURRENT_GAME_VALUE":
       return true;
-    case "CLOSE_SNACK_BAR":
+    case "CLOSE_CORRECT_SNACK_BAR":
       return false;
     default:
       return state;
