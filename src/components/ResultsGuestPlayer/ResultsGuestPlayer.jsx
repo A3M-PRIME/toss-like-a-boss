@@ -23,6 +23,25 @@ const styles = {
 class ResultsGuestPlayer extends Component {
 
     componentDidMount() {
+        //if you are playing a contest game, send game data to saga
+        this.props.history.location.search && this.sendContestGameData()
+    }
+
+    sendContestGameData = () => {
+        let contestIdNumber = this.props.history.location.search.split('=').pop();
+        this.props.dispatch({
+            type: 'SEND_CONTEST_GAME_DATA',
+            payload: {
+                firstName: this.props.contestUserInfo.firstName,
+                lastName: this.props.contestUserInfo.lastName,
+                email: this.props.contestUserInfo.email,
+                score: this.props.gameScore,
+                time: this.props.gameTime,
+                contestIdNumber: contestIdNumber,
+                teamName: this.props.contestUserInfo.teamName,
+                organizationIdNumber: this.props.organizationInfo[0].organization_id
+            }
+        })
     }
 
     playAgain = action => {
@@ -87,6 +106,8 @@ const mapStateToProps = reduxStore => {
         gameScore: reduxStore.gameScoreReducer,
         gameWrongAnswers: reduxStore.gameWrongAnswerReducer,
         gameTime: reduxStore.gameTimeReducer,
+        contestUserInfo: reduxStore.contestUserInfoReducer,
+        organizationInfo: reduxStore.organizationTeamNameReducer,
     };
 };
 

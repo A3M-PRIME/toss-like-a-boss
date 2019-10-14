@@ -1,4 +1,4 @@
-const organizationTeamNamesReducer = (state = [], action) => {
+const organizationTeamNamesReducer = (state = [{team_name: ''}], action) => {
     switch (action.type) {
         case 'SET_TEAM_NAMES':
             return action.payload
