@@ -96,4 +96,20 @@ router.delete('/register/:id', (req, res) => {
     })
 })
 
+//WASTE WISE ADMIN USER PUT
+router.put('/register/edit', (req, res) => {
+  console.log('the register req.body is', req.body)
+  const password = encryptLib.encryptPassword(req.body.password);
+  const sqlText = `UPDATE "user"
+                  SET "first_name" = $1, "last_name" = $2, "username" = $3, "password" = $4
+                  WHERE "id" = $5;`;
+  pool.query(sqlText, [req.body.firstName, req.body.lastName, req.body.username, password, req.body.userId])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      res.sendStatus(500);
+    })
+})
+
 module.exports = router;

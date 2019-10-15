@@ -115,11 +115,13 @@ class Users extends Component {
 
     state = {
         toggleAdd: false,
+        userEditOpen: false,
         firstName: '',
         lastName: '',
         username: '',
         password: '',
         confirmPassword: '',
+        userId: 0
     }
 
     componentDidMount() {
@@ -183,6 +185,39 @@ class Users extends Component {
         })
     }
 
+    handleEdit = (event) => {
+        event.preventDefault();
+        this.props.dispatch({
+            type: 'UPDATE_USER',
+            payload: this.state
+        })
+        this.handleUserClose();
+    }
+
+    handleUserEditOpen = (userId, firstName, lastName, username) => {
+        this.setState({
+            userEditOpen: !this.state.userEditOpen,
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            password: '',
+            confirmPassword: '',
+            userId: userId
+        })
+    };
+
+    handleUserClose = () => {
+        this.setState({
+            userEditOpen: false,
+            firstName: '',
+            lastName: '',
+            username: '',
+            password: '',
+            confirmPassword: '',
+            userId: 0
+        })
+    };
+
     render() {
 
         const { classes } = this.props
@@ -191,7 +226,7 @@ class Users extends Component {
             return (
                 <tr>
                     <td className={classes.cardContentIconsLeft}>
-                        <Button onClick={() => this.handleUserEditOpen(user.first_name, user.last_name, user.username)}>
+                        <Button onClick={() => this.handleUserEditOpen(user.id, user.first_name, user.last_name, user.username)}>
                             <Edit />
                         </Button>
                     </td>
@@ -380,6 +415,161 @@ class Users extends Component {
                     <Grid item sm={2}>
                     </Grid>
                 </Grid>
+
+                <Modal
+                    aria-labelledby="edit user"
+                    aria-describedby="edit user"
+                    className={classes.modal}
+                    open={this.state.userEditOpen}
+                    onClose={this.handleUserClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
+
+                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
+                        <form onSubmit={this.handleEdit}>
+                            <div>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="first name"
+                                    className={classes.fieldMedium}
+                                    value={this.state.firstName}
+                                    onChange={this.handleChangeFor('firstName')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="last name"
+                                    className={classes.fieldMedium}
+                                    value={this.state.lastName}
+                                    onChange={this.handleChangeFor('lastName')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <br />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="email address"
+                                    className={classes.fieldLarge}
+                                    value={this.state.username}
+                                    onChange={this.handleChangeFor('username')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <br />
+                                <TextField
+                                    type="password"
+                                    align="left"
+                                    id="outlined-name"
+                                    label="password"
+                                    className={classes.fieldMedium}
+                                    value={this.state.password}
+                                    onChange={this.handleChangeFor('password')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    type="password"
+                                    align="left"
+                                    id="outlined-name"
+                                    label="confirm password"
+                                    className={classes.fieldMedium}
+                                    value={this.state.confirmPassword}
+                                    onChange={this.handleChangeFor('confirmPassword')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <Button
+                                    variant="contained"
+                                    name="cancel"
+                                    color="secondary"
+                                    onClick={() => this.handleUserClose()}
+                                    style={{ marginTop: 10, marginRight: 10 }}>
+                                    <Cancel style={{ marginRight: 3 }} />Cancel
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    type="submit"
+                                    name="submit"
+                                    color="primary"
+                                    style={{ marginTop: 10 }}>
+                                    <Save style={{ marginRight: 3 }} />Save
+                         </Button>
+                            </div>
+                        </form>
+
+                    </CardContent>
+                </Modal>
             </div>
         )
     }
