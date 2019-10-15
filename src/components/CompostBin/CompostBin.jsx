@@ -1,8 +1,10 @@
 import React from "react";
 import { DropTarget } from "react-dnd";
 import ItemTypes from "../ItemTypes/ItemTypes";
+import CompostSvg from "../../icons/Bin"
+
 const style = {
-  height: "12rem",
+  height: "auto",
   width: "12rem",
   marginRight: "1.5rem",
   marginBottom: "1.5rem",
@@ -11,11 +13,13 @@ const style = {
   textAlign: "center",
   fontSize: "1rem",
   lineHeight: "normal",
-  float: "left"
+  float: "left",
+  borderRadius: "20px",
+  fontFamily: "truckin"
 };
 const CompostBin = ({ canDrop, isOver, connectDropTarget }) => {
   const isActive = canDrop && isOver;
-  let backgroundColor = "#222";
+  let backgroundColor = "rgb(189,183,107,.6)";
   if (isActive) {
     backgroundColor = "darkgreen";
   } else if (canDrop) {
@@ -23,7 +27,8 @@ const CompostBin = ({ canDrop, isOver, connectDropTarget }) => {
   }
   return (
     <div ref={connectDropTarget} style={{ ...style, backgroundColor }}>
-      {isActive ? 'Release to drop' : 'Compost'}
+      <h2>Compost</h2>
+        <CompostSvg />
     </div>
   );
 };

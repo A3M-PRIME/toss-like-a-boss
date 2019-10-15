@@ -4,8 +4,8 @@ import GarbageBin from "../GarbageBin/GarbageBin";
 import CompostBin from "../CompostBin/CompostBin";
 import RecycleBin from "../RecycleBin/RecycleBin";
 import DraggableItem from "../DraggableItem/DraggableItem";
-import IncorrectSnackBar from "./IncorrectSnackBar"
-import CorrectSnackBar from "./CorrectSnackBar"
+import IncorrectSnackBar from "./IncorrectSnackBar";
+import CorrectSnackBar from "./CorrectSnackBar";
 
 //Material UI Components
 import Button from "@material-ui/core/Button";
@@ -47,11 +47,8 @@ const styles = {
     backgroundSize: "cover",
     backgroundPosition: "center",
     height: 900,
-    padding: 24,
+    padding: 24
     // opacity: 0.7,
-  },
-  gameItem: {
-    backgroundColor: 'red',
   }
 };
 
@@ -60,7 +57,7 @@ class Game extends Component {
     score: 0,
     time: 0,
     firstTry: true,
-    gameStarted: false,
+    gameStarted: false
   };
 
   componentDidMount() {
@@ -73,7 +70,7 @@ class Game extends Component {
     console.log("start a timer");
     this.setState({
       gameStarted: true
-    })
+    });
 
     this.timer = setInterval(
       () =>
@@ -88,8 +85,7 @@ class Game extends Component {
     if (this.props.currentGameValue > this.props.gameItemsReducer.length - 1) {
       this.props.history.push("/results");
     }
-
-  }
+  };
 
   // route the user back to the home page
   backToHome = () => {
@@ -115,8 +111,7 @@ class Game extends Component {
               container
               justify={"space-evenly"}
               spacing={12}
-              alignItems={"center"}
-            >
+              alignItems={"center"}>
               <h1>WASTE-WISE-R</h1>
               {/* conditionally render items remaining based on length of array, use 0 if no items */}
               <h3>Items Remaining :{15 - this.props.currentGameValue}</h3>{" "}
@@ -126,8 +121,7 @@ class Game extends Component {
                   container
                   justify={"space-evenly"}
                   spacing={10}
-                  alignItems={"center"}
-                ></Grid>
+                  alignItems={"center"}></Grid>
               </div>
             </Grid>
           </header>
@@ -138,19 +132,16 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={6}
-            alignItems={"center"}
-          >
+            alignItems={"center"}>
             <Button
               className={this.props.classes.Button}
-              onClick={this.howToPlay}
-            >
+              onClick={this.howToPlay}>
               How To Play
             </Button>
             <h2>Score : {this.props.gameScore}</h2>
             <Button
               className={this.props.classes.Button}
-              onClick={this.backToHome}
-            >
+              onClick={this.backToHome}>
               Back To Home
             </Button>
           </Grid>
@@ -159,13 +150,11 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={48}
-            alignItems={"center"}
-          >
+            alignItems={"center"}>
             {!this.state.gameStarted && (
               <Button
                 className={this.props.classes.Button}
-                onClick={() => this.handleTimerStart()}
-              >
+                onClick={() => this.handleTimerStart()}>
                 {" "}
                 READY?!{" "}
               </Button>
@@ -218,15 +207,12 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={48}
-            alignItems={"center"}
-          >
-            <div>
-              <GarbageBin />
-            </div>
-            <div>
-              <RecycleBin />
-            </div>
-            <div>{this.props.compostBin && <CompostBin />}</div>
+            alignItems={"center"}>
+            <GarbageBin />
+
+            <RecycleBin />
+
+            {this.props.compostBin && <CompostBin />}
           </Grid>
           <CorrectSnackBar />
           <IncorrectSnackBar />
@@ -243,7 +229,7 @@ const mapStateToProps = reduxStore => {
     gameItems: reduxStore.gameItemsReducer,
     compostBin: reduxStore.compostBinReducer,
     currentGameValue: reduxStore.currentGameValueReducer,
-    gameScore: reduxStore.gameScoreReducer,
+    gameScore: reduxStore.gameScoreReducer
   };
 };
 

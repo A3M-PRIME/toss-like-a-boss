@@ -1,8 +1,10 @@
 import React from 'react'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../ItemTypes/ItemTypes'
+import RecycleSvg from "../../icons/RecycleBin"
+
 const style = {
-    height: '12rem',
+    height: 'auto',
     width: '12rem',
     marginRight: '1.5rem',
     marginBottom: '1.5rem',
@@ -12,20 +14,23 @@ const style = {
     fontSize: '1rem',
     lineHeight: 'normal',
     float: 'left',
+    borderRadius: '20px',
+    fontFamily: "truckin"
 }
 const RecycleBin = ({ canDrop, isOver, connectDropTarget }) => {
     const isActive = canDrop && isOver
-    let backgroundColor = '#222'
+     let backgroundColor = "rgb(189,183,107,.6)";
     if (isActive) {
         backgroundColor = 'darkgreen'
     } else if (canDrop) {
         backgroundColor = 'darkkhaki'
     }
     return (
-        <div ref={connectDropTarget} style={{ ...style, backgroundColor }}>
-            {isActive ? 'Release to drop' : 'Recycle'}
-        </div>
-    )
+      <div ref={connectDropTarget} style={{ ...style, backgroundColor }}>
+        <h2>Recycle</h2>
+        <RecycleSvg />
+      </div>
+    );
 }
 export default DropTarget(
     ItemTypes.BOX,
