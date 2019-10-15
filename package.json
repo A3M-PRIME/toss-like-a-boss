@@ -19,6 +19,7 @@
     "pg": "^7.9.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-animations": "^1.0.0",
     "react-dnd": "^9.4.0",
     "react-dnd-html5-backend": "^9.4.0",
     "react-dom": "^16.8.6",
@@ -28,6 +29,7 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.2",
+    "styled-components": "^4.4.0",
     "sweetalert2": "^8.18.2",
     "sweetalert2-react-content": "^1.1.0",
     "typeface-roboto": "0.0.75"
