@@ -168,7 +168,7 @@ class NavGuest extends React.Component {
                 />
               }
             />
-            {/* {this.props.state.gameTime && */}
+            {this.props.user.id && !this.props.user.wastewise_admin && (
               <Tab
                 label="Leaderboard"
                 component={Link}
@@ -183,7 +183,7 @@ class NavGuest extends React.Component {
                   />
                 }
               />
-            {/* } */}
+            )}
             {this.props.user.id && (
               <Tab
                 label="LOGOUT"
