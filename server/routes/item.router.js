@@ -4,6 +4,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const FormData = require('form-data');
 const fs = require('fs');
+const multer = require('multer');
+const upload = multer();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 router.get('/', (req, res) => {
@@ -101,14 +103,21 @@ router.delete('/admin/:id', rejectUnauthenticated,  (req, res) => {
 
 //IMAGE UPLOAD
 
-router.post('/admin/upload', rejectUnauthenticated, (req, res) => {
+router.post('/admin/upload', rejectUnauthenticated, upload.any(), (req, res) => {
+    const {headers, files} = req;
+    const {buffer, originalname: filename} = files[0];
+    console.log('multer test', headers, files, buffer);
     console.log('the giant piece of is', req.body)
+    const formFile = new FormData();
+    formFile.append('image', buffer, {filename});
+
     // const form = new FormData();
     // const stream = fs.createReadStream(req.body);
     // form.append('image', req.body)
     console.log('the req is', req.body)
-    axios.post('https://api.imgur.com/3/image', req.body, {
+    axios.post('https://api.imgur.com/3/image', formFile, {
         headers: {
+            "Content-Type": 'multipart/form-data',
             "Authorization": `Client-ID ${process.env.API_KEY}`
         }
     })
