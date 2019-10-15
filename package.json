@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "express-fileupload": "^1.1.6-alpha.5",
     "form-data": "^2.5.1",
+    "multer": "^1.4.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^7.9.0",
@@ -41,9 +42,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "testServer": "jest server/test/*.test.js --forceExit",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "svgr": "svgr -d src/Icons/ assets/"
   },
   "devDependencies": {
+    "@svgr/cli": "^4.3.3",
     "nodemon": "^1.18.10",
     "supertest": "^4.0.2"
   },

@@ -79,7 +79,7 @@ class App extends Component {
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/howtoplay" component={HowToPlay} />
                     <Route exact path="/resources" component={Resources} />
-                    <Route exact path="/settingsorg" component={SettingsOrganization} />
+                    <ProtectedRoute exact path="/settingsorg" component={SettingsOrganization} />
 
                     <ProtectedRoute
                       exact

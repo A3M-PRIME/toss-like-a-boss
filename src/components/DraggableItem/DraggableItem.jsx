@@ -5,23 +5,29 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 const style = {
-  border: "1px dashed gray",
-  backgroundColor: "white",
+  border: "2px solid black",
   padding: "0.5rem 1rem",
   marginRight: "1.5rem",
   marginBottom: "1.5rem",
   cursor: "move",
-  float: "left"
+  float: "left",
+  width: 250,
+  height: 250,
+  backgroundSize: 'contain',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  backgroundColor: 'white',
+  borderRadius: 50,
 };
 
 let firstTry = true;
 
-const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
+const DraggableItem = ({ name, isDragging, connectDragSource, label, backgroundImageURL }) => {
   const opacity = isDragging ? 0 : 1;
-
+  console.log('imgurl is', backgroundImageURL);
   return (
-    <div ref={connectDragSource} style={{ ...style, opacity }}>
-      {label}
+    <div ref={connectDragSource} style={{ ...style, opacity, backgroundImage: `url("${backgroundImageURL}")`}}>
+        {label}
     </div>
   );
 };
@@ -29,7 +35,8 @@ const DraggableItem = ({ name, isDragging, connectDragSource, label }) => {
 let mapStateToProps = state => {
   return {
     items: state.gameItemsReducer,
-    currentGameValue: state.currentGameValueReducer
+    currentGameValue: state.currentGameValueReducer,
+    gameItems: state.gameItemsReducer,
   };
 };
 
