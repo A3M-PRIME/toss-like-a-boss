@@ -1,6 +1,8 @@
 import React from 'react'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../ItemTypes/ItemTypes'
+import GarbageSvg from '../../icons/GarbageFilled'
+
 const style = {
     height: '12rem',
     width: '12rem',
@@ -15,7 +17,7 @@ const style = {
 }
 const GarbageBin = ({ canDrop, isOver, connectDropTarget }) => {
     const isActive = canDrop && isOver
-    let backgroundColor = '#222'
+    let backgroundColor = 'rgb(0,0,0,.5)'
     if (isActive) {
         backgroundColor = 'darkgreen'
     } else if (canDrop) {
@@ -23,7 +25,7 @@ const GarbageBin = ({ canDrop, isOver, connectDropTarget }) => {
     }
     return (
         <div ref={connectDropTarget} style={{ ...style, backgroundColor }}>
-            {isActive ? 'Release to drop' : 'Garbage'}
+            <GarbageSvg />
         </div>
     )
 }

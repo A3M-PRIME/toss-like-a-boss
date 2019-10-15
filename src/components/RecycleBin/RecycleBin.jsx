@@ -1,6 +1,8 @@
 import React from 'react'
 import { DropTarget } from 'react-dnd'
 import ItemTypes from '../ItemTypes/ItemTypes'
+import RecycleSvg from "../../icons/Bin"
+
 const style = {
     height: '12rem',
     width: '12rem',
@@ -23,7 +25,7 @@ const RecycleBin = ({ canDrop, isOver, connectDropTarget }) => {
     }
     return (
         <div ref={connectDropTarget} style={{ ...style, backgroundColor }}>
-            {isActive ? 'Release to drop' : 'Recycle'}
+            <RecycleSvg />
         </div>
     )
 }

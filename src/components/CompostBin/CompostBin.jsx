@@ -1,6 +1,8 @@
 import React from "react";
 import { DropTarget } from "react-dnd";
 import ItemTypes from "../ItemTypes/ItemTypes";
+import CompostSvg from "../../icons/Compost"
+
 const style = {
   height: "12rem",
   width: "12rem",
@@ -23,7 +25,7 @@ const CompostBin = ({ canDrop, isOver, connectDropTarget }) => {
   }
   return (
     <div ref={connectDropTarget} style={{ ...style, backgroundColor }}>
-      {isActive ? 'Release to drop' : 'Compost'}
+      <CompostSvg />
     </div>
   );
 };
