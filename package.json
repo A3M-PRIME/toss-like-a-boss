@@ -40,9 +40,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "testServer": "jest server/test/*.test.js --forceExit",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "svgr": "svgr -d src/Icons/ assets/"
   },
   "devDependencies": {
+    "@svgr/cli": "^4.3.3",
     "nodemon": "^1.18.10",
     "supertest": "^4.0.2"
   },

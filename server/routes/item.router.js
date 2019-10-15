@@ -6,6 +6,7 @@ const FormData = require('form-data');
 const fs = require('fs');
 const multer = require('multer');
 const upload = multer();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 router.get('/', (req, res) => {
     //get 15 random items from list for the game
@@ -61,7 +62,7 @@ router.put('/incorrect', (req, res) => {
 
 //WASTE WISE ADMIN PAGE ONLY
 //ITEM GET
-router.get('/admin', (req, res) => {
+router.get('/admin', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT * FROM item ORDER BY "name" ASC;`;
     pool.query(sqlText)
         .then((result) => {
@@ -75,7 +76,7 @@ router.get('/admin', (req, res) => {
 });
 
 //ITEM ADD
-router.post('/admin', (req, res) => {
+router.post('/admin', rejectUnauthenticated,  (req, res) => {
     const sqlText = `INSERT INTO item ("name", "receptacle", "item_text", "url") VALUES ($1, $2, $3, $4);`;
     pool.query(sqlText, [req.body.itemName, req.body.receptacle, req.body.itemText, req.body.url])
         .then((result) => {
@@ -89,7 +90,7 @@ router.post('/admin', (req, res) => {
 })
 
 //ITEM DELETE
-router.delete('/admin/:id', (req, res) => {
+router.delete('/admin/:id', rejectUnauthenticated,  (req, res) => {
     const sqlText = `DELETE FROM item WHERE "id" = $1;`;
     pool.query(sqlText, [req.params.id])
         .then(result => {
@@ -102,7 +103,7 @@ router.delete('/admin/:id', (req, res) => {
 
 //IMAGE UPLOAD
 
-router.post('/admin/upload', upload.any(), (req, res) => {
+router.post('/admin/upload', rejectUnauthenticated, upload.any(), (req, res) => {
     const {headers, files} = req;
     const {buffer, originalname: filename} = files[0];
     console.log('multer test', headers, files, buffer);
