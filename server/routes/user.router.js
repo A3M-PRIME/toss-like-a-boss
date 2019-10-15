@@ -71,7 +71,7 @@ router.post('/register/admin', (req, res) => {
 
 //WASTE WISE ADMIN USER GET
 router.get('/register/admin', (req, res) => {
-  const sqlText = `SELECT * FROM "user" WHERE "wastewise_admin" = true;`;
+  const sqlText = `SELECT * FROM "user" WHERE "wastewise_admin" = true ORDER BY "first_name" ASC;`;
   pool.query(sqlText)
     .then((result) => {
       console.log('Waste Wise Admin User GET from database:', result);
@@ -82,5 +82,18 @@ router.get('/register/admin', (req, res) => {
       res.sendStatus(500);
     })
 });
+
+//WASTE WISE ADMIN USER DELETE
+router.delete('/register/:id', (req, res) => {
+  console.log('trying to delete user', req.params.id);
+  const sqlText = `DELETE FROM "user" WHERE "id" = $1;`;
+  pool.query(sqlText, [req.params.id])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      res.sendStatus(500);
+    })
+})
 
 module.exports = router;

@@ -27,7 +27,7 @@ function* addWasteWiseUser(action) {
     let response = yield axios.post('/api/user/register/admin', action.payload)
     console.log('Add Waste Wise user saga response:', action.payload);
     yield put({
-      type: 'FETCH_ADMIN_USERS',
+      type: 'FETCH_WASTE_WISE_USERS',
       payload: response.data
     })
   } catch (err) {
@@ -48,10 +48,24 @@ function* fetchWasteWiseUsers(action) {
   }
 }
 
+function* deleteUser(action) {
+  try {
+    let response = yield axios.delete(`/api/user/register/${action.payload}`)
+    console.log('Delete user saga response:', action.payload);
+    yield put({
+      type: 'FETCH_WASTE_WISE_USERS',
+      payload: response.data
+    })
+  } catch (err) {
+    console.log('error in USER DELETE', err);
+  }
+}
+
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
   yield takeLatest('ADD_WASTE_WISE_USER', addWasteWiseUser);
   yield takeLatest('FETCH_WASTE_WISE_USERS', fetchWasteWiseUsers);
+  yield takeLatest('DELETE_USER', deleteUser);
 }
 
 export default registrationSaga;
