@@ -5,8 +5,7 @@ class PerfectScore extends Component {
         return (
             <div>
                 <p>
-                    CONGRATULATIONS! YOU'VE DESTROYED THE VILE RED FALCON
-                    AND SAVED THE UNIVERSE. CONSIDER YOURSELF A HERO.
+                    CONGRATULATIONS! YOU SORTED EVERY ITEM INTO THE CORRECT BIN!
                 </p>
             </div>
         );

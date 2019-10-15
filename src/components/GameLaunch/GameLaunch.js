@@ -51,7 +51,15 @@ const styles = {
     margin: -24,
     padding: 24
   },
-  teamSelect: {
+  contestForm: {
+    backgroundColor: 'grey',
+    borderRadius: '25px',
+    margin: '5px',
+    maxWidth: '450px'
+  },
+  formInputs: {
+    padding: 5,
+    margin: 5
   }
 };
 
@@ -178,7 +186,8 @@ class GameLaunch extends Component {
             </Grid>
             {this.props.history.location.search && (
               <Grid item xs={3}>
-                <form onSubmit={this.handleSubmit}>
+                <form className={this.props.classes.contestForm} onSubmit={this.handleSubmit}>
+                  <FormControl className={this.props.classes.formInputs}>
                   <TextField
                     required
                     label="Email Address"
@@ -198,6 +207,7 @@ class GameLaunch extends Component {
                     value={this.state.lastName}
                     onChange={this.handleChange("lastName")}
                   />
+                  </FormControl>
                   {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
                   IF THERE ARE TEAM NAMES IN REDUCER */}
                   {this.props.teamNames[0] ? (

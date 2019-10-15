@@ -13,7 +13,28 @@ import Typography from '@material-ui/core/Typography';
 const styles = {
     media: {
         width: '100px',
-        height: '100px'
+        height: '100px',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+    },
+    card: {
+        display: 'inline-block',
+        justifyContent: 'space-around',
+        maxWidth: 200,
+        width: 200,
+        height: 350,
+        maxHeight: 350,
+        margin: 15
+    },
+    text: {
+        maxWidth: 200,
+        height: 200,
+        maxHeight: 200
+    },
+    itemHeader: {
+        height: 150,
+        maxHeight: 150
     }
 }
 
@@ -27,17 +48,18 @@ class ResultsItemCard extends Component {
         if (this.props.wrongAnswers && this.props.wrongAnswers[0]) {
             wrongAnswerArray = this.props.wrongAnswers.map(item => {
                 return (
-                    <div>
-                        <Card>
+                    <div className={this.props.classes.card}>
+                        <Card >
                             <CardHeader
+                                className={this.props.classes.itemHeader}
                                 title={item.name}
                             />
                             <CardContent>
                                 <CardMedia
                                     className={this.props.classes.media}
-                                    image={item.url}
+                                    image={item.url && item.url}
                                 />
-                                <Typography component="p">
+                                <Typography className={this.props.classes.text} component="p">
                                     {item.item_text}
                             </Typography>
                             </CardContent>
