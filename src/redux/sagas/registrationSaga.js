@@ -22,8 +22,36 @@ function* registerUser(action) {
   }
 }
 
+function* addWasteWiseUser(action) {
+  try {
+    let response = yield axios.post('/api/user/register/admin', action.payload)
+    console.log('Add Waste Wise user saga response:', action.payload);
+    yield put({
+      type: 'FETCH_ADMIN_USERS',
+      payload: response.data
+    })
+  } catch (err) {
+    console.log('error in ADD WASTE WISE USER POST', err);
+  }
+}
+
+function* fetchWasteWiseUsers(action) {
+  try {
+    let response = yield axios.get('/api/user/register/admin')
+    console.log('Saga response:', response.data)
+    yield put({
+      type: 'SET_ADMIN_USERS',
+      payload: response.data
+    })
+  } catch (err) {
+    console.log('error in USER GET', err);
+  }
+}
+
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
+  yield takeLatest('ADD_WASTE_WISE_USER', addWasteWiseUser);
+  yield takeLatest('FETCH_WASTE_WISE_USERS', fetchWasteWiseUsers);
 }
 
 export default registrationSaga;

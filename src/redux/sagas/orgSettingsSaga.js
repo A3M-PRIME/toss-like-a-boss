@@ -105,6 +105,32 @@ function* updateContest(action) {
     }
 }
 
+function* deleteContest(action) {
+    try {
+        let response = yield axios.delete(`/api/contest/${action.payload}`)
+        console.log('Delete contest saga response:', action.payload);
+        yield put({
+            type: 'FETCH_CONTESTS',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in CONTEST DELETE', err);
+    }
+}
+
+function* addContest(action) {
+    try {
+        let response = yield axios.post('/api/contest/add', action.payload)
+        console.log('Add contest saga response:', action.payload);
+        yield put({
+            type: 'FETCH_CONTESTS',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in ADD CONTEST POST', err);
+    }
+}
+
 function* orgSettingsSaga() {
     yield takeEvery('FETCH_ORGANIZATION', fetchOrganization);
     yield takeEvery('UPDATE_ORGANIZATION_NAME', updateOrganizationName);
@@ -115,6 +141,8 @@ function* orgSettingsSaga() {
     yield takeEvery('ADD_TEAM', addTeam);
     yield takeEvery('FETCH_CONTESTS', fetchContests);
     yield takeEvery('UPDATE_CONTEST', updateContest);
+    yield takeEvery('DELETE_CONTEST', deleteContest);
+    yield takeEvery('ADD_CONTEST', addContest);
 }
 
 export default orgSettingsSaga;

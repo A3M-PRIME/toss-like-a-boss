@@ -24,15 +24,10 @@ class ResultsItemCard extends Component {
         //stored in from redux and create cards to display information
         //to user
         //if there are no incorrect answers, render the PerfectScore component
-        if (this.props.wrongAnswers[0]) {
-            wrongAnswerArray = this.props.wrongAnswerReducer.map(item => {
+        if (this.props.wrongAnswers && this.props.wrongAnswers[0]) {
+            wrongAnswerArray = this.props.wrongAnswers.map(item => {
                 return (
                     <div>
-                        <div>
-                            <Typography variant="h6">
-                                These items were sorted incorrectly:
-                            </Typography>
-                        </div>
                         <Card>
                             <CardHeader
                                 title={item.name}
@@ -40,10 +35,10 @@ class ResultsItemCard extends Component {
                             <CardContent>
                                 <CardMedia
                                     className={this.props.classes.media}
-                                    image={this.url}
+                                    image={item.url}
                                 />
                                 <Typography component="p">
-                                    {this.item_text}
+                                    {item.item_text}
                             </Typography>
                             </CardContent>
                         </Card>
@@ -55,7 +50,14 @@ class ResultsItemCard extends Component {
         }
         return (
             <div>
+            <div>
+                <Typography variant="h6">
+                    These items were sorted incorrectly:
+                            </Typography>
+            </div>
+            <div>
                 {wrongAnswerArray && wrongAnswerArray}
+            </div>
             </div>
         );
     }

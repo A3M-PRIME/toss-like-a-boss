@@ -12,7 +12,13 @@ import contestSettings from './contestSettingsReducer';
 import compostBinReducer from './compostBinReducer';
 import currentGameValueReducer from './currentGameValueReducer';
 import item from './itemReducer';
-
+import gameTimeReducer from './gameTimeReducer';
+import contestUserInfoReducer from './contestUserInfoReducer';
+import contestCompostBooleanReducer from './contestCompostBooleanReducer';
+import correctSnackBarReducer from './correctSnackBarReducer';
+import wasteWiseAdminUsers from './wasteWiseAdminReducer';
+import organizationTeamNameReducer from './organizationTeamNameReducer';
+import incorrectSnackBarReducer from './incorrectSnackBarReducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -33,6 +39,13 @@ const rootReducer = combineReducers({
   compostBinReducer, //stores whether player has compost bin or not
   currentGameValueReducer, //stores value for knowing what index of game items array user is on
   item,
+  gameTimeReducer, //stores value of timer after game ends
+  contestUserInfoReducer, //stores user info for contest
+  contestCompostBooleanReducer, //stores whether compost bin is in contest game
+  correctSnackBarReducer, //sets status for snack bar open/close on correct answer
+  wasteWiseAdminUsers, //retrieves the users that are admin
+  organizationTeamNameReducer, //team names for dropdown on game launch
+  incorrectSnackBarReducer //sets status for snack bar open/close on incorrect answer
 });
 
 export default rootReducer;

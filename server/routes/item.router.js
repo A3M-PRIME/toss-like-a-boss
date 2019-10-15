@@ -1,6 +1,9 @@
+const axios = require('axios');
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const FormData = require('form-data');
+const fs = require('fs');
 
 router.get('/', (req, res) => {
     //get 15 random items from list for the game
@@ -87,6 +90,62 @@ router.post('/admin', (req, res) => {
 router.delete('/admin/:id', (req, res) => {
     const sqlText = `DELETE FROM item WHERE "id" = $1;`;
     pool.query(sqlText, [req.params.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
+//IMAGE UPLOAD
+
+router.post('/admin/upload', (req, res) => {
+    console.log('the giant piece of is', req.body)
+    // const form = new FormData();
+    // const stream = fs.createReadStream(req.body);
+    // form.append('image', req.body)
+    console.log('the req is', req.body)
+    axios.post('https://api.imgur.com/3/image', req.body, {
+        headers: {
+            "Authorization": `Client-ID ${process.env.API_KEY}`
+        }
+    })
+        .then(res => {
+            console.log('The response is:', res);
+            console.log('The specific response is', res.data.data.link)
+            // this.setState({
+            //     url: res.data.data.link
+            // })
+            res.send(res.data.data.link)
+        }).catch(error => {
+            console.log('the upload image error is', error)
+            res.sendStatus(500);
+        })
+})
+
+// router.get('/', (req, res) => {
+//     axios.get(`http://api.giphy.com/v1/gifs/random?api_key=${process.env.API_KEY}`)
+//         .then(response => {
+//             console.log(response.data);
+//             res.send(response.data)
+//         }).catch(err => {
+//             console.log(err);
+//         })
+// })
+
+
+
+
+
+
+
+//ITEM INFO PUT
+router.put('/admin', (req, res) => {
+    const sqlText = `UPDATE item
+                    SET "name" = $1, "receptacle" = $2, "item_text" = $3
+                    WHERE "id" = $4;`;
+    pool.query(sqlText, [req.body.itemName, req.body.receptacle, req.body.itemText, req.body.itemId])
         .then(result => {
             res.sendStatus(200);
         })

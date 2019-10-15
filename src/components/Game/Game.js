@@ -4,6 +4,8 @@ import GarbageBin from "../GarbageBin/GarbageBin";
 import CompostBin from "../CompostBin/CompostBin";
 import RecycleBin from "../RecycleBin/RecycleBin";
 import DraggableItem from "../DraggableItem/DraggableItem";
+import IncorrectSnackBar from "./IncorrectSnackBar"
+import CorrectSnackBar from "./CorrectSnackBar"
 
 //Material UI Components
 import Button from "@material-ui/core/Button";
@@ -39,7 +41,15 @@ const styles = {
       backgroundColor: "yellow",
       color: "black"
     }
-  }
+  },
+  background: {
+    backgroundImage: "url(/images/Lake.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    height: 900,
+    padding: 24,
+    // opacity: 0.7,
+  },
 };
 
 class Game extends Component {
@@ -71,6 +81,13 @@ class Game extends Component {
     );
   };
 
+  goToResults = () => {
+    if (this.props.currentGameValue > this.props.gameItemsReducer.length - 1) {
+      this.props.history.push("/results");
+    }
+
+  }
+
   // route the user back to the home page
   backToHome = () => {
     this.props.history.push("/");
@@ -88,27 +105,26 @@ class Game extends Component {
   render() {
     console.log(this.state);
     return (
-      <div>
+      <div className={this.props.classes.background}>
         <div>
           <header>
             <Grid
               container
               justify={"space-evenly"}
               spacing={12}
-              alignItems={"center"}>
+              alignItems={"center"}
+            >
               <h1>WASTE-WISE-R</h1>
               {/* conditionally render items remaining based on length of array, use 0 if no items */}
-              <h3>
-                items remaining :
-                {this.props.gameItems.length ? this.props.gameItems.length : 0}
-              </h3>{" "}
+              <h3>Items Remaining :{15 - this.props.currentGameValue}</h3>{" "}
               <h3>Elapsed Time showing : {this.state.time}</h3>
               <div className={this.props.classes.h1}>
                 <Grid
                   container
                   justify={"space-evenly"}
                   spacing={10}
-                  alignItems={"center"}></Grid>
+                  alignItems={"center"}
+                ></Grid>
               </div>
             </Grid>
           </header>
@@ -119,16 +135,19 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={6}
-            alignItems={"center"}>
+            alignItems={"center"}
+          >
             <Button
               className={this.props.classes.Button}
-              onClick={this.howToPlay}>
+              onClick={this.howToPlay}
+            >
               How To Play
             </Button>
-            <h2>Score : {this.state.score}</h2>
+            <h2>Score : {this.props.gameScore}</h2>
             <Button
               className={this.props.classes.Button}
-              onClick={this.backToHome}>
+              onClick={this.backToHome}
+            >
               Back To Home
             </Button>
           </Grid>
@@ -137,23 +156,55 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={48}
-            alignItems={"center"}>
-            {!this.state.gameStarted && <Button
-              className={this.props.classes.Button}
-              onClick={() => this.handleTimerStart()}>
-              {" "}
-              READY?!{" "}
-            </Button>}
+            alignItems={"center"}
+          >
+            {!this.state.gameStarted && (
+              <Button
+                className={this.props.classes.Button}
+                onClick={() => this.handleTimerStart()}
+              >
+                {" "}
+                READY?!{" "}
+              </Button>
+            )}
           </Grid>
           <Grid>
             <div>
               <div>
                 {/* id={this.props.gameItems[0].id} */}
-                {this.props.gameItems[this.props.currentGameValue].receptacle === 'compost' && !this.props.compostBin ? (
-                  this.props.gameItems[this.props.currentGameValue].receptacle && <DraggableItem name={'garbage'} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />) : (
-                    <DraggableItem name={this.props.gameItems[this.props.currentGameValue].receptacle} label={this.props.gameItems[this.props.currentGameValue].name} itemId={this.props.gameItems && this.props.gameItems[this.props.currentGameValue].id} />
-                )
-    }
+                {this.props.gameItems[this.props.currentGameValue]
+                  .receptacle === "compost" && !this.props.compostBin ? (
+                  this.props.gameItems[this.props.currentGameValue]
+                    .receptacle && (
+                    <DraggableItem
+                      name={"garbage"}
+                      label={
+                        this.props.gameItems[this.props.currentGameValue].name
+                      }
+                      itemId={
+                        this.props.gameItems &&
+                        this.props.gameItems[this.props.currentGameValue].id
+                      }
+                      goToResults={this.goToResults}
+                    />
+                  )
+                ) : (
+                  <DraggableItem
+                    name={
+                      this.props.gameItems[this.props.currentGameValue]
+                        .receptacle
+                    }
+                    label={
+                      this.props.gameItems[this.props.currentGameValue].name
+                    }
+                    itemId={
+                      this.props.gameItems &&
+                      this.props.gameItems[this.props.currentGameValue].id
+                    }
+                    goToResults={this.goToResults}
+                    gameTime={this.state.time}
+                  />
+                )}
               </div>
             </div>
           </Grid>
@@ -163,17 +214,18 @@ class Game extends Component {
             container
             justify={"space-evenly"}
             spacing={48}
-            alignItems={"center"}>
+            alignItems={"center"}
+          >
             <div>
               <GarbageBin />
             </div>
             <div>
               <RecycleBin />
             </div>
-            <div>
-              {this.props.compostBin && <CompostBin />}
-            </div>
+            <div>{this.props.compostBin && <CompostBin />}</div>
           </Grid>
+          <CorrectSnackBar />
+          <IncorrectSnackBar />
         </footer>
       </div>
     );
@@ -187,6 +239,7 @@ const mapStateToProps = reduxStore => {
     gameItems: reduxStore.gameItemsReducer,
     compostBin: reduxStore.compostBinReducer,
     currentGameValue: reduxStore.currentGameValueReducer,
+    gameScore: reduxStore.gameScoreReducer,
   };
 };
 

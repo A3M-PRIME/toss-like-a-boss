@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import NavOrganizationAdmin from '../Nav/NavOrganizationAdmin';
 import NavWasteWiseAdmin from '../Nav/NavWasteWiseAdmin';
 import NavGuest from '../Nav/NavGuest';
-import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import LoginPage from '../LoginPage/LoginPage';
@@ -79,18 +78,17 @@ class App extends Component {
                     <ProtectedRoute exact path="/home" component={UserPage} />
                     {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-
                     <Route exact path="/game" component={Game} />
                     <Route exact path="/gamelaunch" component={GameLaunch} />
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/howtoplay" component={HowToPlay} />
                     <Route exact path="/resources" component={Resources} />
-                    <Route exact path="/settingsorg" component={RegisterPage} />
+                    <Route exact path="/settingsorg" component={SettingsOrganization} />
 
-                    <ProtectedRoute 
-                      exact 
-                      path="/info" 
-                      component={InfoPage} 
+                    <ProtectedRoute
+                      exact
+                      path="/info"
+                      component={InfoPage}
                     />
                     <ProtectedRoute
                       exact
@@ -113,7 +111,6 @@ class App extends Component {
                   </Switch>
                 </Typography>
               </Container>
-              <Footer />
             </div>
           </Router>
         </ThemeProvider>

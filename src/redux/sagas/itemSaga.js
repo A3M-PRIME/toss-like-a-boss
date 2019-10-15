@@ -40,10 +40,38 @@ function* deleteItem(action) {
     }
 }
 
+function* uploadImage(action) {
+    try {
+        let response = yield axios.post('/api/item/admin/upload', action.payload)
+        console.log('Upload item saga response:', action.payload);
+        yield put({
+            type: 'FETCH_ITEMS',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in UPLOAD ITEM POST', err);
+    }
+}
+
+function* updateItem(action) {
+    try {
+        let response = yield axios.put('/api/item/admin', action.payload);
+        console.log('Item update saga response:', action.payload);
+        yield put({
+            type: 'FETCH_ITEMS',
+            payload: response.data
+        })
+    } catch (err) {
+        console.log('error in ITEM INFO PUT', err);
+    }
+}
+
 function* itemSaga() {
     yield takeEvery('FETCH_ITEMS', fetchItems);
     yield takeEvery('ADD_ITEM', addItem);
     yield takeEvery('DELETE_ITEM', deleteItem);
+    yield takeEvery('UPLOAD_IMAGE', uploadImage);
+    yield takeEvery('UPDATE_ITEM', updateItem)
 }
 
 export default itemSaga;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import { Backdrop, Card, CardActions, CardContent, Fab, Grid, MenuItem, Modal, TextField } from "@material-ui/core";
+import axios from 'axios';
+import { Backdrop, Card, CardActions, CardContent, Fab, FormControl, FormControlLabel, FormLabel, Grid, MenuItem, Modal, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { Add, AddCircle, Edit, Cancel, Save, Delete, Remove } from '@material-ui/icons';
 import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
@@ -119,7 +120,10 @@ class Items extends Component {
         itemName: '',
         receptacle: '',
         url: '',
-        itemText: ''
+        itemText: '',
+        itemId: 0,
+        selectedFile: null,
+        formData: new FormData()
     }
 
     componentDidMount() {
@@ -131,6 +135,7 @@ class Items extends Component {
             type: 'FETCH_ITEMS'
         })
     }
+    
     handleAddClick = () => {
         this.setState({
             toggleAdd: !this.state.toggleAdd
@@ -142,6 +147,16 @@ class Items extends Component {
             [propertyName]: event.target.value
         });
     }
+
+    handleItemEditOpen = (name, receptacle, text, id) => {
+        this.setState({
+            itemEditOpen: !this.state.itemEditOpen,
+            itemName: name,
+            receptacle: receptacle,
+            itemText: text,
+            itemId: id
+        })
+    };
 
     handleItemAdd = () => {
         this.props.dispatch({
@@ -181,6 +196,56 @@ class Items extends Component {
         })
     }
 
+    fileSelectedHandler = event => {
+        this.setState({
+            selectedFile: event.target.files[0]
+        })
+    }
+
+    fileUploadHandler = () => {
+        let formData = new FormData()
+        formData.append('image', this.state.selectedFile)
+        console.log('now the form data is', formData)
+        this.props.dispatch({
+            type: 'UPLOAD_IMAGE',
+            payload: formData
+        })
+
+        // this.state.formData.append("image", this.state.selectedFile);
+        // console.log('the form data now is', this.state.formData);
+        // axios.post('https://api.imgur.com/3/image', this.state.formData, {
+        //     headers: {
+        //         "Authorization": "Client-ID CLIENTID"
+        //     }
+        // })
+        //     .then(res => {
+        //         console.log('The response is:', res);
+        //         console.log('The specific response is', res.data.data.link)
+        //         this.setState({
+        //             url: res.data.data.link
+        //         })
+        //     })
+    }
+
+    handleEdit = (event) => {
+        event.preventDefault();
+        this.props.dispatch({
+            type: 'UPDATE_ITEM',
+            payload: this.state
+        })
+        this.handleItemClose();
+    }
+
+    handleItemClose = () => {
+        this.setState({
+            itemEditOpen: false,
+            itemName: '',
+            itemReceptacle: '',
+            itemUrl: '',
+            itemText: '',
+        })
+    };
+
     render() {
 
         const { classes } = this.props
@@ -189,7 +254,7 @@ class Items extends Component {
             return (
                 <tr>
                     <td className={classes.cardContentIconsLeft}>
-                        <Button onClick={() => this.handleItemEditOpen(item.name, item.url, item.receptacle, item.item_text)}>
+                        <Button onClick={() => this.handleItemEditOpen(item.name, item.receptacle, item.item_text, item.id)}>
                             <Edit />
                         </Button>
                     </td>
@@ -205,7 +270,7 @@ class Items extends Component {
                         {item.receptacle}
                     </td>
                     <td className={classes.cardContentItems}>
-                        <img className={classes.image} src={item.url}/>
+                        <img className={classes.image} src={item.url} />
                     </td>
                 </tr>
             )
@@ -214,7 +279,7 @@ class Items extends Component {
         return (
             <div>
                 <span className={classes.addItem}>Add Item</span>
-                <br/>
+                <br />
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" style={{ marginTop: 15 }} onClick={this.handleAddClick}>
                     <Add />
                 </Fab> :
@@ -222,7 +287,7 @@ class Items extends Component {
                         <Remove />
                     </Fab>
                 }
-                <br/><br/>
+                <br /><br />
                 {this.state.toggleAdd && <div>
                     <TextField
                         align="left"
@@ -279,12 +344,12 @@ class Items extends Component {
                         </MenuItem>
                         <MenuItem value="recycle">
                             Recycling
-                        </MenuItem> 
+                        </MenuItem>
                         <MenuItem value="compost">
                             Compost
-                        </MenuItem> 
+                        </MenuItem>
                     </TextField>
-                    <br/>
+                    <br />
                     <TextField
                         align="left"
                         id="outlined-name"
@@ -307,7 +372,10 @@ class Items extends Component {
                             shrink: true
                         }}
                     />
-                    <br/>
+                    <br />
+                    <input type="file" onChange={this.fileSelectedHandler} />
+                    <button onClick={this.fileUploadHandler}>Upload</button>
+                    <br />
                     <TextField
                         align="left"
                         id="outlined-name"
@@ -331,11 +399,11 @@ class Items extends Component {
                         }}
                     />
                     {/* <ImageUpload/> */}
-                    <br/><br/>
+                    <br /><br />
                     <Button className={classes.button} onClick={() => this.handleItemAdd()}
-                    variant="contained" name="items" color="primary">Submit Item</Button>
+                        variant="contained" name="items" color="primary">Submit Item</Button>
                 </div>}
-                <br/><br/>
+                <br /><br />
                 <Grid container spacing={4} justify="center">
                     <Grid item sm={2}>
                     </Grid>
@@ -371,6 +439,132 @@ class Items extends Component {
                     <Grid item sm={2}>
                     </Grid>
                 </Grid>
+
+                <Modal
+                    aria-labelledby="edit item"
+                    aria-describedby="edit item"
+                    className={classes.modal}
+                    open={this.state.itemEditOpen}
+                    onClose={this.handleContestClose}
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
+
+                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
+                        <form onSubmit={this.handleEdit}>
+                            <div>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="item name"
+                                    className={classes.fieldMedium}
+                                    value={this.state.itemName}
+                                    onChange={this.handleChangeFor('itemName')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    select
+                                    label="receptacle"
+                                    className={classes.fieldMedium}
+                                    value={this.state.receptacle}
+                                    onChange={this.handleChangeFor('receptacle')}
+                                    SelectProps={{
+                                        MenuProps: {
+                                            className: classes.status,
+                                        },
+                                    }}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                >
+                                    <MenuItem value="garbage">
+                                        Garbage
+                                    </MenuItem>
+                                    <MenuItem value="recycle">
+                                        Recycling
+                                    </MenuItem>
+                                    <MenuItem value="compost">
+                                        Compost
+                                    </MenuItem>
+                                </TextField>
+                            </div>
+                            <div>
+                                <TextField
+                                    align="left"
+                                    id="outlined-name"
+                                    label="reason for receptacle"
+                                    className={classes.fieldLarge}
+                                    value={this.state.itemText}
+                                    onChange={this.handleChangeFor('itemText')}
+                                    margin="normal"
+                                    variant="outlined"
+                                    InputProps={{
+                                        className: classes.input,
+                                        classes: {
+                                            root: classes.cssOutlinedInput,
+                                            focused: classes.cssFocused,
+                                            notchedOutline: classes.notchedOutline,
+                                        }
+                                    }}
+                                    InputLabelProps={{
+                                        className: classes.input,
+                                        shrink: true
+                                    }}
+                                />
+                            </div>
+                            <div>
+                                <Button
+                                    variant="contained"
+                                    name="cancel"
+                                    color="secondary"
+                                    onClick={() => this.handleItemClose()}
+                                    style={{ marginTop: 10, marginRight: 10 }}>
+                                    <Cancel style={{ marginRight: 3 }} />Cancel
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    type="submit"
+                                    name="submit"
+                                    color="primary"
+                                    style={{ marginTop: 10 }}>
+                                    <Save style={{ marginRight: 3 }} />Save
+                         </Button>
+                            </div>
+                        </form>
+
+                    </CardContent>
+                </Modal>
+
             </div>
         )
 

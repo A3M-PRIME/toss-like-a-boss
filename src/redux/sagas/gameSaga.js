@@ -1,18 +1,7 @@
 import { put, takeEvery } from "redux-saga/effects";
 import axios from "axios";
+import ResultsGuestPlayer from "../../components/ResultsGuestPlayer/ResultsGuestPlayer";
 
-function* addCorrectAnswer(action) {
-  //TODO add correct answer to DB for item here
-  try {
-    //yield axios put... goes here
-    //update game score reducer
-    yield put({
-      type: "UPDATE_GAME_SCORE"
-    });
-  } catch (error) {
-    console.log("error with add correct answer saga", error);
-  }
-}
 
 function* addWrongAnswer(action) {
   try {
@@ -44,6 +33,9 @@ function* firstTryCorrect(action) {
     yield put({
       type: "ADD_CORRECT_ANSWER"
     });
+    yield put({
+      type: "UPDATE_GAME_SCORE"
+    });
   } catch (error) {
     console.log("error with firstTryCorrect saga", error);
   }
@@ -57,12 +49,40 @@ function* firstTryIncorrect(action) {
   }
 }
 
+function* getContestCompostBoolean(action) {
+  try {
+    console.log('id of current game is', action.payload)
+    let id = action.payload
+    const response = yield axios.get(`/api/contest/compost/${id}`)
+    yield put ({
+      type: 'SET_CONTEST_COMPOST_BOOLEAN',
+      payload: response.data
+    })
+  } catch (error) {
+    console.log('error with getContestCompostBoolean saga', error)
+  }
+}
+
+function* getTeamNames(action) {
+  try {
+    let id = action.payload
+    const response = yield axios.get(`/api/team/names/${id}`)
+    yield put ({
+      type: 'SET_TEAM_NAMES',
+      payload: response.data
+    })
+  } catch (error) {
+    console.log('error with get team names saga', error)
+  }
+}
+
 function* gameSaga() {
-  yield takeEvery("ADD_CORRECT_ANSWER", addCorrectAnswer);
   yield takeEvery("FETCH_GAME_ITEMS", fetchGameItems);
   yield takeEvery("ADD_WRONG_ANSWER", addWrongAnswer);
   yield takeEvery("FIRST_TRY_CORRECT", firstTryCorrect);
   yield takeEvery("FIRST_TRY_INCORRECT", firstTryIncorrect);
+  yield takeEvery('GET_CONTEST_COMPOST_BOOLEAN', getContestCompostBoolean);
+  yield takeEvery('GET_TEAM_NAMES', getTeamNames)
 }
 
 export default gameSaga;
