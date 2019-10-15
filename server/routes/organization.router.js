@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //ORGANIZATION DATA GET
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT * FROM organization WHERE id = $1;`;
     pool.query(sqlText, [req.user.organization_id])
     .then((result) => {
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 });
 
 //ORGANIZATION NAME PUT
-router.put('/organizationName', (req, res) => {
+router.put('/organizationName', rejectUnauthenticated, (req, res) => {
     const sqlText = `UPDATE organization
     SET organization_name = $1
     WHERE "id" = $2;`;
