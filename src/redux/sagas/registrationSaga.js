@@ -61,11 +61,25 @@ function* deleteUser(action) {
   }
 }
 
+function* updateUser(action) {
+  try {
+    let response = yield axios.put('/api/user/register/edit', action.payload);
+    console.log('User update saga response:', action.payload);
+    yield put({
+      type: 'FETCH_WASTE_WISE_USERS',
+      payload: response.data
+    })
+  } catch (err) {
+    console.log('error in USER INFO PUT', err);
+  }
+}
+
 function* registrationSaga() {
   yield takeLatest('REGISTER', registerUser);
   yield takeLatest('ADD_WASTE_WISE_USER', addWasteWiseUser);
   yield takeLatest('FETCH_WASTE_WISE_USERS', fetchWasteWiseUsers);
   yield takeLatest('DELETE_USER', deleteUser);
+  yield takeLatest('UPDATE_USER', updateUser);
 }
 
 export default registrationSaga;
