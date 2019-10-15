@@ -5,18 +5,19 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 const style = {
-  border: "1px dashed gray",
+  border: "2px solid black",
   padding: "0.5rem 1rem",
   marginRight: "1.5rem",
   marginBottom: "1.5rem",
   cursor: "move",
   float: "left",
-  width: 275,
+  width: 250,
   height: 250,
-  backgroundSize: 'cover',
-  backgroundRepeat: 'noRepeat',
+  backgroundSize: 'contain',
+  backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   backgroundColor: 'white',
+  borderRadius: 50,
 };
 
 let firstTry = true;
@@ -25,12 +26,8 @@ const DraggableItem = ({ name, isDragging, connectDragSource, label, backgroundI
   const opacity = isDragging ? 0 : 1;
   console.log('imgurl is', backgroundImageURL);
   return (
-    <div>
     <div ref={connectDragSource} style={{ ...style, opacity, backgroundImage: `url("${backgroundImageURL}")`}}>
-      <div>
-          {label}
-      </div>
-    </div>
+        {label}
     </div>
   );
 };
