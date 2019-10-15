@@ -12,6 +12,9 @@ import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
+//animation components
+import styled, { keyframes } from "styled-components";
+import { shake, bounce } from "react-animations";
 
 const styles = {
   Button: {
@@ -51,6 +54,13 @@ const styles = {
     // opacity: 0.7,
   }
 };
+
+const Shake = styled.div`
+  animation: 0.75s ${keyframes`${shake}`};
+`;
+const Bounce = styled.div`
+  animation: 0.75s ${keyframes`${bounce}`};
+`;
 
 class Game extends Component {
   state = {
@@ -155,8 +165,7 @@ class Game extends Component {
               <Button
                 className={this.props.classes.Button}
                 onClick={() => this.handleTimerStart()}>
-                {" "}
-                READY?!{" "}
+                READY?!
               </Button>
             )}
           </Grid>
@@ -166,27 +175,10 @@ class Game extends Component {
                 {/* id={this.props.gameItems[0].id} */}
                 {this.props.gameItems[this.props.currentGameValue]
                   .receptacle === "compost" && !this.props.compostBin ? (
-                    this.props.gameItems[this.props.currentGameValue]
-                      .receptacle && (
-                      <DraggableItem
-                        name={"garbage"}
-                        label={
-                          this.props.gameItems[this.props.currentGameValue].name
-                        }
-                        itemId={
-                          this.props.gameItems &&
-                          this.props.gameItems[this.props.currentGameValue].id
-                        }
-                        goToResults={this.goToResults}
-                      />
-                    )
-                  ) : (
+                  this.props.gameItems[this.props.currentGameValue]
+                    .receptacle && (
                     <DraggableItem
-                      backgroundImageURL={this.props.gameItems[this.props.currentGameValue].url}
-                      name={
-                        this.props.gameItems[this.props.currentGameValue]
-                          .receptacle
-                      }
+                      name={"garbage"}
                       label={
                         this.props.gameItems[this.props.currentGameValue].name
                       }
@@ -195,9 +187,28 @@ class Game extends Component {
                         this.props.gameItems[this.props.currentGameValue].id
                       }
                       goToResults={this.goToResults}
-                      gameTime={this.state.time}
                     />
-                  )}
+                  )
+                ) : (
+                  <DraggableItem
+                    backgroundImageURL={
+                      this.props.gameItems[this.props.currentGameValue].url
+                    }
+                    name={
+                      this.props.gameItems[this.props.currentGameValue]
+                        .receptacle
+                    }
+                    label={
+                      this.props.gameItems[this.props.currentGameValue].name
+                    }
+                    itemId={
+                      this.props.gameItems &&
+                      this.props.gameItems[this.props.currentGameValue].id
+                    }
+                    goToResults={this.goToResults}
+                    gameTime={this.state.time}
+                  />
+                )}
               </div>
             </div>
           </Grid>
@@ -208,11 +219,46 @@ class Game extends Component {
             justify={"space-evenly"}
             spacing={48}
             alignItems={"center"}>
-            <GarbageBin />
+            {this.props.garbageAnimate === 1 ? <GarbageBin /> : null}
+            {this.props.garbageAnimate === 2 ? (
+              <Bounce>
+                <GarbageBin />
+              </Bounce>
+            ) : null}
+            {this.props.garbageAnimate === 3 ? (
+              <Shake>
+                <GarbageBin />
+              </Shake>
+            ) : null}
+            {/* Conditional Render of recycle bins with animations*/}
+            {this.props.recycleAnimate === 1 ? <RecycleBin /> : null}
+            {this.props.recycleAnimate === 2 ? (
+              <Bounce>
+                <RecycleBin />
+              </Bounce>
+            ) : null}
+            {this.props.recycleAnimate === 3 ? (
+              <Shake>
+                <RecycleBin />
+              </Shake>
+            ) : null}
 
-            <RecycleBin />
-
-            {this.props.compostBin && <CompostBin />}
+            {this.props.compostBin === true &&
+            this.props.compostAnimate === 1 ? (
+              <CompostBin />
+            ) : null}
+            {this.props.compostBin === true &&
+            this.props.compostAnimate === 2 ? (
+              <Bounce>
+                <CompostBin />
+              </Bounce>
+            ) : null}
+            {this.props.compostBin === true &&
+            this.props.compostAnimate === 3 ? (
+              <Shake>
+                <CompostBin />
+              </Shake>
+            ) : null}
           </Grid>
           <CorrectSnackBar />
           <IncorrectSnackBar />
@@ -229,7 +275,10 @@ const mapStateToProps = reduxStore => {
     gameItems: reduxStore.gameItemsReducer,
     compostBin: reduxStore.compostBinReducer,
     currentGameValue: reduxStore.currentGameValueReducer,
-    gameScore: reduxStore.gameScoreReducer
+    gameScore: reduxStore.gameScoreReducer,
+    garbageAnimate: reduxStore.animateGarbageReducer,
+    recycleAnimate: reduxStore.animateRecycleReducer,
+    compostAnimate: reduxStore.animateCompostReducer
   };
 };
 
