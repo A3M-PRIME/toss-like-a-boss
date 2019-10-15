@@ -162,14 +162,31 @@ class Game extends Component {
           </Grid>
           <Grid>
             <div>
-              <div>
+              <div className={this.props.classes.gameItem}>
                 {/* id={this.props.gameItems[0].id} */}
                 {this.props.gameItems[this.props.currentGameValue]
                   .receptacle === "compost" && !this.props.compostBin ? (
-                  this.props.gameItems[this.props.currentGameValue]
-                    .receptacle && (
+                    this.props.gameItems[this.props.currentGameValue]
+                      .receptacle && (
+                      <DraggableItem
+                        name={"garbage"}
+                        label={
+                          this.props.gameItems[this.props.currentGameValue].name
+                        }
+                        itemId={
+                          this.props.gameItems &&
+                          this.props.gameItems[this.props.currentGameValue].id
+                        }
+                        goToResults={this.goToResults}
+                      />
+                    )
+                  ) : (
                     <DraggableItem
-                      name={"garbage"}
+                      backgroundImageURL={this.props.gameItems[this.props.currentGameValue].url}
+                      name={
+                        this.props.gameItems[this.props.currentGameValue]
+                          .receptacle
+                      }
                       label={
                         this.props.gameItems[this.props.currentGameValue].name
                       }
@@ -178,25 +195,9 @@ class Game extends Component {
                         this.props.gameItems[this.props.currentGameValue].id
                       }
                       goToResults={this.goToResults}
+                      gameTime={this.state.time}
                     />
-                  )
-                ) : (
-                  <DraggableItem
-                    name={
-                      this.props.gameItems[this.props.currentGameValue]
-                        .receptacle
-                    }
-                    label={
-                      this.props.gameItems[this.props.currentGameValue].name
-                    }
-                    itemId={
-                      this.props.gameItems &&
-                      this.props.gameItems[this.props.currentGameValue].id
-                    }
-                    goToResults={this.goToResults}
-                    gameTime={this.state.time}
-                  />
-                )}
+                  )}
               </div>
             </div>
           </Grid>

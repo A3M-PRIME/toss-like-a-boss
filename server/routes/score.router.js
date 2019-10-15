@@ -42,6 +42,7 @@ router.get("/leaderboard/:id", (req, res) => {
 // });
 
 router.post('/', (req, res) => {
+  console.log('the body is', req.body)
   const queryText = `
   INSERT into "score" ("first_name", "last_name", "email_address", "score", "time", "contest_id", "team_id")
   VALUES ($1, $2, $3, $4, $5, $6, $7);
