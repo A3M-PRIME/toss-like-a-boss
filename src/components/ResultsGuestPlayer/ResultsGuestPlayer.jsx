@@ -28,7 +28,6 @@ class ResultsGuestPlayer extends Component {
     }
 
     sendContestGameData = () => {
-        let contestIdNumber = this.props.history.location.search.split('=').pop();
         this.props.dispatch({
             type: 'SEND_CONTEST_GAME_DATA',
             payload: {
@@ -37,8 +36,7 @@ class ResultsGuestPlayer extends Component {
                 email: this.props.contestUserInfo.email,
                 score: this.props.gameScore,
                 time: this.props.gameTime,
-                contestIdNumber: contestIdNumber,
-                teamName: this.props.contestUserInfo.teamName,
+                contestIdNumber: this.props.organizationInfo[0].id,
                 organizationIdNumber: this.props.organizationInfo[0].organization_id
             }
         })
@@ -108,6 +106,7 @@ const mapStateToProps = reduxStore => {
         gameTime: reduxStore.gameTimeReducer,
         contestUserInfo: reduxStore.contestUserInfoReducer,
         organizationInfo: reduxStore.organizationTeamNameReducer,
+        contestInfo: reduxStore.contestCompostBooleanReducer,
     };
 };
 
