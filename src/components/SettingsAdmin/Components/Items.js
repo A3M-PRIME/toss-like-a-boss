@@ -204,6 +204,7 @@ class Items extends Component {
 
     fileUploadHandler = () => {
         let formData = new FormData()
+        console.log('the file currently is', this.state.selectedFile)
         formData.append('image', this.state.selectedFile)
         console.log('now the form data is', formData)
         this.props.dispatch({
@@ -215,7 +216,7 @@ class Items extends Component {
         // console.log('the form data now is', this.state.formData);
         // axios.post('https://api.imgur.com/3/image', this.state.formData, {
         //     headers: {
-        //         "Authorization": "Client-ID CLIENTID"
+        //         "Authorization": "Client-ID 383707f7736fd80"
         //     }
         // })
         //     .then(res => {
@@ -374,6 +375,7 @@ class Items extends Component {
                     />
                     <br />
                     <input type="file" onChange={this.fileSelectedHandler} />
+                    <br/>
                     <button onClick={this.fileUploadHandler}>Upload</button>
                     <br />
                     <TextField
