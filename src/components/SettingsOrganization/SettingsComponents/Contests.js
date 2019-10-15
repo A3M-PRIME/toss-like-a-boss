@@ -237,7 +237,7 @@ class Contests extends Component {
                 break;
             }
         }
-        newUrl += '#/game?contest='
+        newUrl += '#/gamelaunch?contest='
         newUrl += code
         document.body.appendChild(dummy);
         dummy.value = newUrl;

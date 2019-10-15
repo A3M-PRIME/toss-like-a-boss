@@ -16,6 +16,7 @@ import gameTimeReducer from './gameTimeReducer';
 import contestUserInfoReducer from './contestUserInfoReducer';
 import contestCompostBooleanReducer from './contestCompostBooleanReducer';
 import correctSnackBarReducer from './correctSnackBarReducer';
+import wasteWiseAdminUsers from './wasteWiseAdminReducer';
 import organizationTeamNameReducer from './organizationTeamNameReducer';
 import incorrectSnackBarReducer from './incorrectSnackBarReducer'
 // rootReducer is the primary reducer for our entire project
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   contestUserInfoReducer, //stores user info for contest
   contestCompostBooleanReducer, //stores whether compost bin is in contest game
   correctSnackBarReducer, //sets status for snack bar open/close on correct answer
+  wasteWiseAdminUsers, //retrieves the users that are admin
   organizationTeamNameReducer, //team names for dropdown on game launch
   incorrectSnackBarReducer //sets status for snack bar open/close on incorrect answer
 });
