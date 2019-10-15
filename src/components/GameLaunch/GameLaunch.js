@@ -4,7 +4,6 @@ import CompostBinChoice from '../CompostBinChoice/CompostBinChoice';
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid, Select } from "@material-ui/core";
-import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';

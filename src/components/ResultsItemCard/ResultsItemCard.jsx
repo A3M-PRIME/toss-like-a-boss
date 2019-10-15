@@ -17,6 +17,8 @@ const styles = {
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
+        padding: 10,
+        margin: 'auto'
     },
     card: {
         display: 'inline-block',
@@ -25,16 +27,27 @@ const styles = {
         width: 200,
         height: 350,
         maxHeight: 350,
-        margin: 15
+        margin: 15,
     },
     text: {
         maxWidth: 200,
-        height: 200,
-        maxHeight: 200
+        height: 100,
+        maxHeight: 100,
+        padding: 5,
+        textAlign: 'center'
     },
     itemHeader: {
-        height: 150,
-        maxHeight: 150
+        height: 100,
+        maxHeight: 100,
+        textAlign: 'center'
+    },
+    cardBody: {
+        backgroundColor: '#eef1f1'
+    },
+    endText: {
+        textAlign: 'center',
+        padding: 10,
+        margin: 10
     }
 }
 
@@ -49,7 +62,7 @@ class ResultsItemCard extends Component {
             wrongAnswerArray = this.props.wrongAnswers.map(item => {
                 return (
                     <div className={this.props.classes.card}>
-                        <Card >
+                        <Card className={this.props.classes.cardBody} >
                             <CardHeader
                                 className={this.props.classes.itemHeader}
                                 title={item.name}
@@ -59,7 +72,7 @@ class ResultsItemCard extends Component {
                                     className={this.props.classes.media}
                                     image={item.url && item.url}
                                 />
-                                <Typography className={this.props.classes.text} component="p">
+                                <Typography variant="body2" className={this.props.classes.text} component="p">
                                     {item.item_text}
                             </Typography>
                             </CardContent>
@@ -73,8 +86,9 @@ class ResultsItemCard extends Component {
         return (
             <div>
             <div>
-                <Typography variant="h6">
-                    These items were sorted incorrectly:
+                <Typography className={this.props.classes.endText} variant="h6">
+                    Congratulations, you did a great job! Here is some more information on the items that were sorted
+                    incorrectly. Try again and see if you can get a better score!
                             </Typography>
             </div>
             <div>
