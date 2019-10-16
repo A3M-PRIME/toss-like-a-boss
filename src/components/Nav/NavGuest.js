@@ -45,35 +45,51 @@ class NavGuest extends React.Component {
   state = {
     value: 0
   };
+  
+  componentDidMount() {
+    this.handleSetDefaultValue();
+  }
 
   handleChange = (event, value) => {
     this.setState({ value });
   };
 
-  // handleSetDefaultValue() {
-  //   console.log("the url is", window.location.href);
-  //   if (window.location.href.includes("home")) {
-  //     this.setState({
-  //       value: 0
-  //     });
-  //   } else if (window.location.href.includes("visual")) {
-  //     this.setState({
-  //       value: 1
-  //     });
-  //   } else if (window.location.href.includes("live")) {
-  //     this.setState({
-  //       value: 2
-  //     });
-  //   } else if (window.location.href.includes("profile")) {
-  //     this.setState({
-  //       value: 3
-  //     });
-  //   } else {
-  //     this.setState({
-  //       value: false
-  //     });
-  //   }
-  // }
+  handleSetDefaultValue() {
+    console.log("the url is", window.location.href);
+    if (window.location.href.includes("home")) {
+      this.setState({
+        value: 0
+      });
+    } else if (window.location.href.includes("login")) {
+      this.setState({
+        value: 4
+      });
+      } else if (window.location.href.includes("settingsorg")) {
+      this.setState({
+        value: 1
+      });
+    } else if (window.location.href.includes("settingsadmin")) {
+      this.setState({
+        value: 1
+      });
+      } else if (window.location.href.includes("game")) {
+      this.setState({
+        value: 1
+      });
+    } else if (window.location.href.includes("resources")) {
+      this.setState({
+        value: 2
+      });
+      } else if (window.location.href.includes("register")) {
+      this.setState({
+        value: 3
+      });
+    } else {
+      this.setState({
+        value: false
+      });
+    }
+  }
 
   render() {
     const { classes } = this.props;
@@ -91,23 +107,7 @@ class NavGuest extends React.Component {
             textColor="primary"
           >
             <Tab label="Toss Like A Boss" />
-            {!this.props.user.id && (
-              <Tab
-                label="LOGIN"
-                component={Link}
-                to="/home"
-                icon={
-                  <Icon
-                    path={mdiDoorOpen}
-                    title="Controller Classic"
-                    size={3}
-                    horizontal
-                    rotate={360}
-                    color="red"
-                  />
-                }
-              />
-            )}
+            
             {!this.props.user.id && (
               <Tab
                 label="PLAY GAME"
@@ -120,7 +120,7 @@ class NavGuest extends React.Component {
                     size={3}
                     horizontal
                     rotate={360}
-                    color="red"
+                    color="green"
                   />
                 }
               />
@@ -137,7 +137,7 @@ class NavGuest extends React.Component {
                     size={3}
                     horizontal
                     rotate={360}
-                    color="red"
+                    color="green"
                   />
                 }
               />
@@ -154,27 +154,12 @@ class NavGuest extends React.Component {
                     size={3}
                     horizontal
                     rotate={360}
-                    color="red"
+                    color="green"
                   />
                 }
               />
             )}
-            {this.props.user.id && !this.props.user.wastewise_admin && (
-              <Tab
-                label="Leaderboard"
-                component={Link}
-                to="/leaderboard"
-                icon={
-                  <Icon
-                    path={mdiClipboardList}
-                    title="Controller Classic"
-                    size={3}
-                    rotate={360}
-                    color="red"
-                  />
-                }
-              />
-            )}
+            
             <Tab
               label="Resources"
               component={Link}
@@ -185,7 +170,7 @@ class NavGuest extends React.Component {
                   title="Controller Classic"
                   size={3}
                   rotate={360}
-                  color="red"
+                  color="green"
                 />
               }
             />
@@ -201,7 +186,7 @@ class NavGuest extends React.Component {
                     size={3}
                     horizontal
                     rotate={360}
-                    color="red"
+                    color="green"
                   />
                 }
               />
@@ -220,7 +205,24 @@ class NavGuest extends React.Component {
                     size={3}
                     horizontal
                     rotate={360}
-                    color="red"
+                    color="green"
+                  />
+                }
+              />
+            )}
+            {!this.props.user.id && (
+              <Tab
+                label="LOGIN"
+                component={Link}
+                to="/home"
+                icon={
+                  <Icon
+                    path={mdiDoorOpen}
+                    title="Controller Classic"
+                    size={3}
+                    horizontal
+                    rotate={360}
+                    color="green"
                   />
                 }
               />
