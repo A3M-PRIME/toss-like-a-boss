@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import Upload from './Upload'
 // import ImageUpload from './ImageUpload';
 
 const MySwal = withReactContent(Swal)
@@ -123,11 +124,21 @@ class Items extends Component {
         itemText: '',
         itemId: 0,
         selectedFile: null,
-        formData: new FormData()
+        attachment_url: '',
+        file: null
     }
 
     componentDidMount() {
         this.getItems();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.image !== prevProps.image) {
+            console.log('there has been a change in props!')
+            this.setState({
+                url: this.props.image
+            })
+        }
     }
 
     getItems() {
@@ -202,31 +213,18 @@ class Items extends Component {
         })
     }
 
-    fileUploadHandler = () => {
-        let formData = new FormData()
-        console.log('the file currently is', this.state.selectedFile)
-        formData.append('image', this.state.selectedFile)
-        console.log('now the form data is', formData)
-        this.props.dispatch({
-            type: 'UPLOAD_IMAGE',
-            payload: formData
-        })
+    handleUploadInputChange = e => {
+        this.setState({ file: e.target.files[0] });
+    };
 
-        // this.state.formData.append("image", this.state.selectedFile);
-        // console.log('the form data now is', this.state.formData);
-        // axios.post('https://api.imgur.com/3/image', this.state.formData, {
-        //     headers: {
-        //         "Authorization": "Client-ID 383707f7736fd80"
-        //     }
-        // })
-        //     .then(res => {
-        //         console.log('The response is:', res);
-        //         console.log('The specific response is', res.data.data.link)
-        //         this.setState({
-        //             url: res.data.data.link
-        //         })
-        //     })
-    }
+    handleUpload = event => {
+        event.preventDefault();
+
+         this.props.dispatch({
+            type: 'ADD_ITEM_IMAGE',
+            payload: this.state
+        });
+    };
 
     handleEdit = (event) => {
         event.preventDefault();
@@ -373,11 +371,15 @@ class Items extends Component {
                             shrink: true
                         }}
                     />
-                    <br />
-                    <input type="file" onChange={this.fileSelectedHandler} />
-                    <br/>
-                    <button onClick={this.fileUploadHandler}>Upload</button>
-                    <br />
+                    <br/><br/>
+                    <TextField
+                        type='file'
+                        onChange={this.handleUploadInputChange}
+                        />
+                    <Button variant='contained' color='primary' onClick={this.handleUpload}>
+                        Upload
+					</Button>
+                    <br/><br/>
                     <TextField
                         align="left"
                         id="outlined-name"
@@ -579,7 +581,8 @@ const mapStateToProps = (reduxStore) => {
         user: reduxStore.user,
         team: reduxStore.teamSettings,
         organization: reduxStore.orgSettings,
-        item: reduxStore.item
+        item: reduxStore.item,
+        image: reduxStore.imageUrlReducer
     }
 }
 export default connect(mapStateToProps)(withStyles(styles)(Items));
