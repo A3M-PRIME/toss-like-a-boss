@@ -86,7 +86,8 @@ class StartGameModal extends Component {
             //         </div>
             //     </Modal>
             // </div>
-            <div>
+            <div
+                onClick={this.handleClose}>
                 <Dialog
                     onClick={this.props.handleTimerStart}
                     open={this.state.open}
@@ -97,9 +98,6 @@ class StartGameModal extends Component {
                     aria-describedby="alert-dialog-slide-description"
                 >
                     <div className={this.props.classes.dialogBox}>
-                        {/* <DialogTitle className={this.props.classes.dialogText} id="alert-dialog-slide-title">
-                            {"START GAME"}
-                        </DialogTitle> */}
                         <DialogContent>
                             <DialogContentText
                                 className={this.props.classes.dialogText}
