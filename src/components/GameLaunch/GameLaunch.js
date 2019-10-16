@@ -23,7 +23,7 @@ const styles = {
     border: "2px solid black",
     fontSize: "calc(15px + 2vmin)",
     padding: "5px",
-    margin: "50px",
+    // margin: "50px",
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
@@ -39,7 +39,7 @@ const styles = {
     padding: "10px auto 10px auto",
     margin: "50px",
     width: "75%",
-    borderRadius: "50%",
+    borderRadius: "20px",
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
@@ -55,7 +55,7 @@ const styles = {
     padding: "10px 100px 10px 50px",
     margin: "50px",
     width: "75%",
-    borderRadius: "50%",
+    borderRadius: "20px",
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
@@ -201,22 +201,21 @@ class GameLaunch extends Component {
                   <Help />
                   How To Play
                 </Button>
+                <Button
+                  className={this.props.classes.PlayButton}
+                  onClick={this.toGame}>
+                  <PlayArrow className={this.props.classes.svgIcon} />
+                  PLAY!
+                </Button>
+                {/* conditionally render CompostBinChoice when play is clicked */}
+                {this.state.timeToPlay && <CompostBinChoice />}
               </Grid>
             </Grid>
             <br></br>
-            <Grid item xs={12}>
-              <Button
-                className={this.props.classes.PlayButton}
-                onClick={this.toGame}>
-                <PlayArrow className={this.props.classes.svgIcon} />
-                PLAY!
-              </Button>
-              {/* conditionally render CompostBinChoice when play is clicked */}
-              {this.state.timeToPlay && <CompostBinChoice />}
-            </Grid>
+            <Grid item xs={12}></Grid>
 
             {this.props.history.location.search && (
-              <Grid item xs={4}>
+              <Grid item xs={12}>
                 <form
                   className={this.props.classes.contestForm}
                   onSubmit={this.handleSubmit}>
