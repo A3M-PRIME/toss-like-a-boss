@@ -46,8 +46,8 @@ const styles = theme => ({
         textAlign: 'center'
     },
     image: {
-        height: 75,
-        width: 75
+        height: 100,
+        width: 100
     },
     icon: {
         width: 35,
@@ -83,6 +83,13 @@ const styles = theme => ({
     },
     receptacle: {
         width: "20%"
+    },
+    upload: {
+        marginLeft: 10
+    },
+    pleaseWait: {
+        color: "red",
+        fontWeight: "bold"
     },
     modal: {
         display: 'flex',
@@ -125,7 +132,8 @@ class Items extends Component {
         itemId: 0,
         selectedFile: null,
         attachment_url: '',
-        file: null
+        file: null,
+        pleaseWait: false
     }
 
     componentDidMount() {
@@ -136,7 +144,8 @@ class Items extends Component {
         if (this.props.image !== prevProps.image) {
             console.log('there has been a change in props!')
             this.setState({
-                url: this.props.image
+                url: this.props.image,
+                pleaseWait: false
             })
         }
     }
@@ -179,7 +188,8 @@ class Items extends Component {
             itemName: '',
             receptacle: '',
             url: '',
-            itemText: ''
+            itemText: '',
+            file: ''
         })
     }
 
@@ -224,6 +234,10 @@ class Items extends Component {
             type: 'ADD_ITEM_IMAGE',
             payload: this.state
         });
+
+        this.setState({
+            pleaseWait: !this.state.pleaseWait
+        })
     };
 
     handleEdit = (event) => {
@@ -376,9 +390,11 @@ class Items extends Component {
                         type='file'
                         onChange={this.handleUploadInputChange}
                         />
-                    <Button variant='contained' color='primary' onClick={this.handleUpload}>
+                    <Button className={classes.upload} variant='contained' color='secondary' onClick={this.handleUpload}>
                         Upload
 					</Button>
+                    {this.state.pleaseWait && <br/>}
+                    {this.state.pleaseWait && <span className={classes.pleaseWait}>Please wait...</span>}
                     <br/><br/>
                     <TextField
                         align="left"
