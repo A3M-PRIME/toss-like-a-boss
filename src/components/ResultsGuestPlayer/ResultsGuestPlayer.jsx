@@ -37,6 +37,22 @@ class ResultsGuestPlayer extends Component {
         this.props.history.location.search && this.sendContestGameData()
     }
 
+    componentWillUnmount() {
+        console.log('UNMOUNTEDDDDD')
+        this.props.dispatch({
+            type: "RESET_CURRENT_GAME_VALUE"
+        });
+        this.props.dispatch({
+            type: 'RESET_GAME_TIME'
+        });
+        this.props.dispatch({
+            type: 'RESET_GAME_SCORE'
+        });
+        this.props.dispatch({
+            type: 'CLEAR_WRONG_ANSWERS'
+        });
+    }
+
     sendContestGameData = () => {
         this.props.dispatch({
             type: 'SEND_CONTEST_GAME_DATA',
@@ -53,18 +69,6 @@ class ResultsGuestPlayer extends Component {
     }
 
     playAgain = action => {
-        this.props.dispatch({
-            type: "RESET_CURRENT_GAME_VALUE"
-        });
-        this.props.dispatch({
-            type: 'RESET_GAME_TIME'
-        });
-        this.props.dispatch({
-            type: 'RESET_GAME_SCORE'
-        });
-        this.props.dispatch({
-            type: 'CLEAR_WRONG_ANSWERS'
-        });
         this.props.history.push("/gamelaunch");
     };
 
