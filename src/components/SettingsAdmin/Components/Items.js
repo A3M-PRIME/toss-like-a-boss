@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import Upload from './Upload'
 // import ImageUpload from './ImageUpload';
 
 const MySwal = withReactContent(Swal)
@@ -123,7 +124,9 @@ class Items extends Component {
         itemText: '',
         itemId: 0,
         selectedFile: null,
-        formData: new FormData()
+        formData: new FormData(),
+        attachment_url: '',
+        file: null
     }
 
     componentDidMount() {
@@ -201,6 +204,19 @@ class Items extends Component {
             selectedFile: event.target.files[0]
         })
     }
+
+    handleUploadInputChange = e => {
+        this.setState({ file: e.target.files[0] });
+    };
+
+    handleUpload = event => {
+        event.preventDefault();
+
+         this.props.dispatch({
+            type: 'ADD_ITEM_IMAGE',
+            payload: this.state
+        });
+    };
 
     fileUploadHandler = () => {
         let formData = new FormData()
@@ -373,11 +389,21 @@ class Items extends Component {
                             shrink: true
                         }}
                     />
-                    <br />
+                    {/* <br />
                     <input type="file" onChange={this.fileSelectedHandler} />
                     <br/>
-                    <button onClick={this.fileUploadHandler}>Upload</button>
+                    <button onClick={this.fileUploadHandler}>Upload</button> */}
                     <br />
+                    {/* <Upload/> */}
+                    <TextField
+                        type='file'
+                        onChange={this.handleUploadInputChange}
+                        />
+                        <br/><br/>
+                    <Button variant='contained' color='primary' onClick={this.handleUpload}>
+                        Upload
+					</Button>
+                    <br/><br/>
                     <TextField
                         align="left"
                         id="outlined-name"
