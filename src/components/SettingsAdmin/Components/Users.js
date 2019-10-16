@@ -146,7 +146,74 @@ class Users extends Component {
         });
     }
 
-    handleUserAdd = () => {
+    addFieldValidation() {
+
+        if (!this.state.firstName) {
+            alert('Please enter a value for First Name.')
+            return false;
+        }
+        if (!this.state.lastName) {
+            alert('Please enter a value for Last Name.')
+            return false;
+        }
+        if (!this.state.username) {
+            alert('Please enter a value for Email Address.')
+            return false;
+        }
+        if (!this.state.password) {
+            alert('Please enter a value for Password.')
+            return false;
+        }
+        if (!this.state.confirmPassword) {
+            alert('Please enter a value for Confirm Password.')
+            return false;
+        }
+        if (this.state.password.length < 8) {
+            alert('Please ensure your password is at least eight characters.');
+            return false;
+        }
+        if (this.state.password !== this.state.confirmPassword) {
+            alert('The passwords do not match.  Please try again.');
+            return false;
+        }
+
+        this.handleUserAdd();
+    }
+
+    editFieldValidation = (event) => {
+
+        event.preventDefault();
+
+        if (!this.state.firstName) {
+            alert('Please enter a value for First Name.')
+            return false;
+        }
+        if (!this.state.lastName) {
+            alert('Please enter a value for Last Name.')
+            return false;
+        }
+        if (!this.state.username) {
+            alert('Please enter a value for Email Address.')
+            return false;
+        }
+        if (!this.state.password) {
+            this.handleEditWithoutPassword();
+            return true;
+        }
+        if (this.state.password.length < 8) {
+            alert('Please ensure your password is at least eight characters.');
+            return false;
+        }
+        if (this.state.password !== this.state.confirmPassword) {
+            alert('The passwords do not match.  Please try again.');
+            return false;
+        }
+
+        this.handleEdit();
+
+    }
+
+    handleUserAdd() {
         this.props.dispatch({
             type: 'ADD_WASTE_WISE_USER',
             payload: this.state
@@ -185,10 +252,17 @@ class Users extends Component {
         })
     }
 
-    handleEdit = (event) => {
-        event.preventDefault();
+    handleEdit() {
         this.props.dispatch({
             type: 'UPDATE_USER',
+            payload: this.state
+        })
+        this.handleUserClose();
+    }
+
+    handleEditWithoutPassword() {
+        this.props.dispatch({
+            type: 'UPDATE_USER_WITHOUT_PASSWORD',
             payload: this.state
         })
         this.handleUserClose();
@@ -376,7 +450,7 @@ class Users extends Component {
                         }}
                     />
                     <br /><br />
-                    <Button className={classes.button} onClick={() => this.handleUserAdd()}
+                    <Button className={classes.button} onClick={() => this.addFieldValidation()}
                         variant="contained" name="items" color="primary">Submit User</Button>
                 </div>}
                 <br /><br />
@@ -431,7 +505,7 @@ class Users extends Component {
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
 
                         {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
-                        <form onSubmit={this.handleEdit}>
+                        <form onSubmit={this.editFieldValidation}>
                             <div>
                                 <TextField
                                     align="left"

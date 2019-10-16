@@ -96,7 +96,7 @@ router.delete('/register/:id', (req, res) => {
     })
 })
 
-//WASTE WISE ADMIN USER PUT
+//WASTE WISE ADMIN USER PUT (WITH PASSWORD)
 router.put('/register/edit', (req, res) => {
   console.log('the register req.body is', req.body)
   const password = encryptLib.encryptPassword(req.body.password);
@@ -104,6 +104,21 @@ router.put('/register/edit', (req, res) => {
                   SET "first_name" = $1, "last_name" = $2, "username" = $3, "password" = $4
                   WHERE "id" = $5;`;
   pool.query(sqlText, [req.body.firstName, req.body.lastName, req.body.username, password, req.body.userId])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      res.sendStatus(500);
+    })
+})
+
+//WASTE WISE ADMIN USER PUT (WITHOUT PASSWORD)
+router.put('/register/editnopassword', (req, res) => {
+  console.log('the register req.body is', req.body)
+  const sqlText = `UPDATE "user"
+                  SET "first_name" = $1, "last_name" = $2, "username" = $3
+                  WHERE "id" = $4;`;
+  pool.query(sqlText, [req.body.firstName, req.body.lastName, req.body.username, req.body.userId])
     .then(result => {
       res.sendStatus(200);
     })
