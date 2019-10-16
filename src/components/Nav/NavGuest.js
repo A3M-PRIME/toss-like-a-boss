@@ -12,6 +12,7 @@ import { mdiGamepadSquare } from "@mdi/js";
 import { mdiSettingsBox } from "@mdi/js";
 import { mdiHelpCircle } from "@mdi/js";
 import { mdiClipboardList } from "@mdi/js";
+import { mdiAccountPlus } from "@mdi/js";
 import { mdiDoorClosedLock } from "@mdi/js";
 
 import { Link } from "react-router-dom";
@@ -184,6 +185,21 @@ class NavGuest extends React.Component {
                 }
               />
             )}
+            <Tab
+              label="REGISTER"
+              component={Link}
+              to="/register"
+              icon={
+                <Icon
+                  path={mdiAccountPlus}
+                  title="Controller Classic"
+                  size={3}
+                  horizontal
+                  rotate={360}
+                  color="red"
+                />
+              }
+            />
             {this.props.user.id && (
               <Tab
                 label="LOGOUT"
