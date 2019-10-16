@@ -63,7 +63,7 @@ class LoginPage extends Component {
                 justify={"flex-start"}
                 alignItems={"center"}
               >
-                <h1>Login</h1>
+                <h1 onClick={() => this.setState({username: "humancreative@icloud.com", password:"090909090"})}>Login</h1>
               </Grid>
               <div>
                 <b>
