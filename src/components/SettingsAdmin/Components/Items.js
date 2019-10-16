@@ -124,13 +124,21 @@ class Items extends Component {
         itemText: '',
         itemId: 0,
         selectedFile: null,
-        formData: new FormData(),
         attachment_url: '',
         file: null
     }
 
     componentDidMount() {
         this.getItems();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.image !== prevProps.image) {
+            console.log('there has been a change in props!')
+            this.setState({
+                url: this.props.image
+            })
+        }
     }
 
     getItems() {
@@ -217,32 +225,6 @@ class Items extends Component {
             payload: this.state
         });
     };
-
-    fileUploadHandler = () => {
-        let formData = new FormData()
-        console.log('the file currently is', this.state.selectedFile)
-        formData.append('image', this.state.selectedFile)
-        console.log('now the form data is', formData)
-        this.props.dispatch({
-            type: 'UPLOAD_IMAGE',
-            payload: formData
-        })
-
-        // this.state.formData.append("image", this.state.selectedFile);
-        // console.log('the form data now is', this.state.formData);
-        // axios.post('https://api.imgur.com/3/image', this.state.formData, {
-        //     headers: {
-        //         "Authorization": "Client-ID 383707f7736fd80"
-        //     }
-        // })
-        //     .then(res => {
-        //         console.log('The response is:', res);
-        //         console.log('The specific response is', res.data.data.link)
-        //         this.setState({
-        //             url: res.data.data.link
-        //         })
-        //     })
-    }
 
     handleEdit = (event) => {
         event.preventDefault();
@@ -389,17 +371,11 @@ class Items extends Component {
                             shrink: true
                         }}
                     />
-                    {/* <br />
-                    <input type="file" onChange={this.fileSelectedHandler} />
-                    <br/>
-                    <button onClick={this.fileUploadHandler}>Upload</button> */}
-                    <br />
-                    {/* <Upload/> */}
+                    <br/><br/>
                     <TextField
                         type='file'
                         onChange={this.handleUploadInputChange}
                         />
-                        <br/><br/>
                     <Button variant='contained' color='primary' onClick={this.handleUpload}>
                         Upload
 					</Button>
@@ -605,7 +581,8 @@ const mapStateToProps = (reduxStore) => {
         user: reduxStore.user,
         team: reduxStore.teamSettings,
         organization: reduxStore.orgSettings,
-        item: reduxStore.item
+        item: reduxStore.item,
+        image: reduxStore.imageUrlReducer
     }
 }
 export default connect(mapStateToProps)(withStyles(styles)(Items));
