@@ -6,12 +6,16 @@ import RecycleBin from "../RecycleBin/RecycleBin";
 import DraggableItem from "../DraggableItem/DraggableItem";
 import IncorrectSnackBar from "./IncorrectSnackBar";
 import CorrectSnackBar from "./CorrectSnackBar";
+import StartGameModal from '../StartGameModal/StartGameModal';
+
 
 //Material UI Components
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
+
 //animation components
 import styled, { keyframes } from "styled-components";
 import { shake, bounce } from "react-animations";
@@ -21,7 +25,9 @@ const styles = {
     backgroundColor: "green",
     color: "white",
     border: "2px solid black",
-    fontSize: "calc(10px + 2vmin)"
+    fontSize: "calc(10px + 2vmin)",
+    height: 500,
+    width: 500
   },
   bin: {
     width: "100px",
@@ -52,6 +58,54 @@ const styles = {
     height: 900,
     padding: 24
     // opacity: 0.7,
+  },
+  scoreboard: {
+    fontFamily: 'scoreboard',
+    color: 'gold',
+    blur: 20,
+    padding: 4,
+    margin: 'auto',
+    textAlign: 'center'
+  },
+  scoreboardBackground: {
+    backgroundColor: 'black',
+    width: 500,
+    borderRadius: 10,
+    border: '2px solid gold'
+  },
+  scoreboardHolder: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  scoreboardSmallText: {
+    fontFamily: 'scoreboard',
+    color: 'gold',
+    blur: 20,
+    padding: 4,
+    margin: 'auto',
+    textAlign: 'center',
+    fontSize: 30
+  },
+  scoreboardGameItemText: {
+    fontFamily: 'scoreboard',
+    color: 'gold',
+    blur: 20,
+    padding: 4,
+    margin: 'auto',
+    textAlign: 'center',
+    fontSize: 50
+  },
+  timerText: {
+
+  },
+  itemName: {
+    backgroundColor: 'tan',
+    margin: 'auto',
+    textAlign: 'center',
+    width: 200,
+  },
+  gameItem: {
+    margin: 'auto'
   }
 };
 
@@ -67,13 +121,14 @@ class Game extends Component {
     score: 0,
     time: 0,
     firstTry: true,
-    gameStarted: false
+    gameStarted: false,
+    open: true,
   };
 
   componentDidMount() {
     this.props.dispatch({
       type: "FETCH_GAME_ITEMS"
-    });
+    })
   }
 
   handleTimerStart = () => {
@@ -112,105 +167,81 @@ class Game extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className={this.props.classes.background}>
-        <div>
-          <header>
-            <Grid
-              container
-              justify={"space-evenly"}
-              spacing={12}
-              alignItems={"center"}>
-              <h1>WASTE-WISE-R</h1>
-              {/* conditionally render items remaining based on length of array, use 0 if no items */}
-              <h3>Items Remaining :{15 - this.props.currentGameValue}</h3>{" "}
-              <h3>Elapsed Time showing : {this.state.time}</h3>
-              <div className={this.props.classes.h1}>
-                <Grid
-                  container
-                  justify={"space-evenly"}
-                  spacing={10}
-                  alignItems={"center"}></Grid>
-              </div>
-            </Grid>
+        <div className={this.props.classes.scoreboardHolder}>
+          <header className={this.props.classes.scoreboardBackground}>
+            <div>
+              <Grid
+                container>
+                <Typography className={this.props.classes.scoreboard} variant="h1">
+                  Score : {this.props.gameScore}
+                </Typography>
+              </Grid>
+              <Grid
+                container
+                justify={"space-evenly"}
+                spacing={12}
+                alignItems={"center"}>
+                {/* conditionally render items remaining based on length of array, use 0 if no items */}
+                <Typography className={this.props.classes.scoreboardSmallText}>Items Remaining:{15 - this.props.currentGameValue}
+                </Typography>
+                <Typography className={this.props.classes.scoreboardSmallText}>Elapsed Time:
+                <span className={this.props.classes.timerText}>{this.state.time}</span>
+                </Typography>
+              </Grid>
+              <Grid
+                container
+                justify={"space-evenly"}
+                spacing={12}
+                alignItems={"center"}>
+                {/* conditionally render items remaining based on length of array, use 0 if no items */}
+                <Typography className={this.props.classes.scoreboardGameItemText}>{this.props.gameItems[this.props.currentGameValue].name}
+                </Typography>
+              </Grid>
+            </div>
           </header>
         </div>
 
         <div>
-          <Grid
-            container
-            justify={"space-evenly"}
-            spacing={6}
-            alignItems={"center"}>
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.howToPlay}>
-              How To Play
-            </Button>
-            <h2>Score : {this.props.gameScore}</h2>
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.backToHome}>
-              Back To Home
-            </Button>
-          </Grid>
           <br />
           <Grid
             container
-            justify={"space-evenly"}
-            spacing={48}
-            alignItems={"center"}>
-            {!this.state.gameStarted && (
-              <Button
-                className={this.props.classes.Button}
-                onClick={() => this.handleTimerStart()}>
-                READY?!
-              </Button>
-            )}
-          </Grid>
-          <Grid>
-            <div>
+            alignItems={"center"}
+          >
               <div className={this.props.classes.gameItem}>
                 {/* id={this.props.gameItems[0].id} */}
                 {this.props.gameItems[this.props.currentGameValue]
                   .receptacle === "compost" && !this.props.compostBin ? (
-                  this.props.gameItems[this.props.currentGameValue]
-                    .receptacle && (
+                    this.props.gameItems[this.props.currentGameValue]
+                      .receptacle && (
+                      <DraggableItem
+                        name={"garbage"}
+                        itemId={
+                          this.props.gameItems &&
+                          this.props.gameItems[this.props.currentGameValue].id
+                        }
+                        goToResults={this.goToResults}
+                      />
+                    )
+                  ) : (
                     <DraggableItem
-                      name={"garbage"}
-                      label={
-                        this.props.gameItems[this.props.currentGameValue].name
+                      backgroundImageURL={
+                        this.props.gameItems[this.props.currentGameValue].url
+                      }
+                      name={
+                        this.props.gameItems[this.props.currentGameValue]
+                          .receptacle
                       }
                       itemId={
                         this.props.gameItems &&
                         this.props.gameItems[this.props.currentGameValue].id
                       }
                       goToResults={this.goToResults}
+                      gameTime={this.state.time}
                     />
-                  )
-                ) : (
-                  <DraggableItem
-                    backgroundImageURL={
-                      this.props.gameItems[this.props.currentGameValue].url
-                    }
-                    name={
-                      this.props.gameItems[this.props.currentGameValue]
-                        .receptacle
-                    }
-                    label={
-                      this.props.gameItems[this.props.currentGameValue].name
-                    }
-                    itemId={
-                      this.props.gameItems &&
-                      this.props.gameItems[this.props.currentGameValue].id
-                    }
-                    goToResults={this.goToResults}
-                    gameTime={this.state.time}
-                  />
-                )}
+                  )}
               </div>
-            </div>
           </Grid>
         </div>
         <footer>
@@ -244,22 +275,23 @@ class Game extends Component {
             ) : null}
 
             {this.props.compostBin === true &&
-            this.props.compostAnimate === 1 ? (
-              <CompostBin />
-            ) : null}
-            {this.props.compostBin === true &&
-            this.props.compostAnimate === 2 ? (
-              <Bounce>
+              this.props.compostAnimate === 1 ? (
                 <CompostBin />
-              </Bounce>
-            ) : null}
+              ) : null}
             {this.props.compostBin === true &&
-            this.props.compostAnimate === 3 ? (
-              <Shake>
-                <CompostBin />
-              </Shake>
-            ) : null}
+              this.props.compostAnimate === 2 ? (
+                <Bounce>
+                  <CompostBin />
+                </Bounce>
+              ) : null}
+            {this.props.compostBin === true &&
+              this.props.compostAnimate === 3 ? (
+                <Shake>
+                  <CompostBin />
+                </Shake>
+              ) : null}
           </Grid>
+          <StartGameModal handleTimerStart={this.handleTimerStart} />
           <CorrectSnackBar />
           <IncorrectSnackBar />
         </footer>
@@ -278,7 +310,8 @@ const mapStateToProps = reduxStore => {
     gameScore: reduxStore.gameScoreReducer,
     garbageAnimate: reduxStore.animateGarbageReducer,
     recycleAnimate: reduxStore.animateRecycleReducer,
-    compostAnimate: reduxStore.animateCompostReducer
+    compostAnimate: reduxStore.animateCompostReducer,
+    gameTime: reduxStore.gameTimeReducer
   };
 };
 
