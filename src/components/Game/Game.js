@@ -6,6 +6,7 @@ import RecycleBin from "../RecycleBin/RecycleBin";
 import DraggableItem from "../DraggableItem/DraggableItem";
 import IncorrectSnackBar from "./IncorrectSnackBar";
 import CorrectSnackBar from "./CorrectSnackBar";
+import Typography from '@material-ui/core/Typography';
 
 //Material UI Components
 import Button from "@material-ui/core/Button";
@@ -52,6 +53,36 @@ const styles = {
     height: 900,
     padding: 24
     // opacity: 0.7,
+  },
+  scoreboard: {
+    fontFamily: 'scoreboard',
+    color: 'gold',
+    blur: 20,
+    padding: 4,
+    margin: 'auto',
+    textAlign: 'center'
+  },
+  scoreboardBackground: {
+    backgroundColor: 'black',
+    width: 500,
+    borderRadius: 10,
+    border: '2px solid gold'
+  },
+  scoreboardHolder: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  scoreboardSmallText: {
+    fontFamily: 'scoreboard',
+    color: 'gold',
+    blur: 20,
+    padding: 4,
+    margin: 'auto',
+    textAlign: 'center',
+    fontSize: 30
+  },
+  timerText: {
+
   }
 };
 
@@ -115,46 +146,32 @@ class Game extends Component {
     console.log(this.state);
     return (
       <div className={this.props.classes.background}>
-        <div>
-          <header>
-            <Grid
+        <div className={this.props.classes.scoreboardHolder}>
+          <header className={this.props.classes.scoreboardBackground}>
+            <div>
+              <Grid
+                container>
+                <Typography className={this.props.classes.scoreboard} variant="h1">
+                  Score : {this.props.gameScore}
+                </Typography>
+              </Grid>
+              <Grid
               container
               justify={"space-evenly"}
               spacing={12}
               alignItems={"center"}>
-              <h1>WASTE-WISE-R</h1>
               {/* conditionally render items remaining based on length of array, use 0 if no items */}
-              <h3>Items Remaining :{15 - this.props.currentGameValue}</h3>{" "}
-              <h3>Elapsed Time showing : {this.state.time}</h3>
-              <div className={this.props.classes.h1}>
-                <Grid
-                  container
-                  justify={"space-evenly"}
-                  spacing={10}
-                  alignItems={"center"}></Grid>
-              </div>
+                <Typography className={this.props.classes.scoreboardSmallText}>Items Remaining:{15 - this.props.currentGameValue}
+                </Typography>
+                <Typography className={this.props.classes.scoreboardSmallText}>Elapsed Time: 
+                <span className={this.props.classes.timerText}>{this.state.time}</span>
+                </Typography>
             </Grid>
+            </div>
           </header>
         </div>
 
         <div>
-          <Grid
-            container
-            justify={"space-evenly"}
-            spacing={6}
-            alignItems={"center"}>
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.howToPlay}>
-              How To Play
-            </Button>
-            <h2>Score : {this.props.gameScore}</h2>
-            <Button
-              className={this.props.classes.Button}
-              onClick={this.backToHome}>
-              Back To Home
-            </Button>
-          </Grid>
           <br />
           <Grid
             container
