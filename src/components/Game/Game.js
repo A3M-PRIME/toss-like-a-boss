@@ -128,7 +128,7 @@ class Game extends Component {
   componentDidMount() {
     this.props.dispatch({
       type: "FETCH_GAME_ITEMS"
-    });
+    })
   }
 
   handleTimerStart = () => {
@@ -167,7 +167,6 @@ class Game extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className={this.props.classes.background}>
         <div className={this.props.classes.scoreboardHolder}>
@@ -311,7 +310,8 @@ const mapStateToProps = reduxStore => {
     gameScore: reduxStore.gameScoreReducer,
     garbageAnimate: reduxStore.animateGarbageReducer,
     recycleAnimate: reduxStore.animateRecycleReducer,
-    compostAnimate: reduxStore.animateCompostReducer
+    compostAnimate: reduxStore.animateCompostReducer,
+    gameTime: reduxStore.gameTimeReducer
   };
 };
 
