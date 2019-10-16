@@ -59,19 +59,13 @@ class App extends Component {
                     {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
 
-                    <Route exact path="/about" component={AboutPage} />
-                    <Route exact path="/about" component={AboutPage} />
-                    <Route
-                      exact
-                      path="/results"
-                      component={ResultsGuestPlayer}
-                    />
+                    <Route exact path="/results"component={ResultsGuestPlayer} />
                     <Route exact path="/leaderboard" component={Leaderboard} />
                     {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-                    <ProtectedRoute exact path="/home" component={UserPage} />
+                    <ProtectedRoute exact path="/home" component={SettingsOrganization} />
                     {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
                     <Route exact path="/game" component={Game} />

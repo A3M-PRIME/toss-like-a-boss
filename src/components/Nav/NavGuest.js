@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 
 import Icon from "@mdi/react";
 import { mdiDoorOpen } from "@mdi/js";
-import { mdiAccount } from "@mdi/js";
+// import { mdiAccount } from "@mdi/js";
 import { mdiGamepadSquare } from "@mdi/js";
 import { mdiSettingsBox } from "@mdi/js";
 import { mdiHelpCircle } from "@mdi/js";
@@ -91,39 +91,43 @@ class NavGuest extends React.Component {
             textColor="primary"
           >
             <Tab label="Toss Like A Boss" />
-            <Tab
-              label="LOGIN"
-              component={Link}
-              to="/home"
-              icon={
-                <Icon
-                  path={mdiDoorOpen}
-                  title="Controller Classic"
-                  size={3}
-                  horizontal
-                  rotate={360}
-                  color="red"
-                />
-              }
-            />
-            <Tab
-              label="PLAY GAME"
-              component={Link}
-              to="/gamelaunch"
-              icon={
-                <Icon
-                  path={mdiGamepadSquare}
-                  title="Controller Classic"
-                  size={3}
-                  horizontal
-                  rotate={360}
-                  color="red"
-                />
-              }
-            />
+            {!this.props.user.id && (
+              <Tab
+                label="LOGIN"
+                component={Link}
+                to="/home"
+                icon={
+                  <Icon
+                    path={mdiDoorOpen}
+                    title="Controller Classic"
+                    size={3}
+                    horizontal
+                    rotate={360}
+                    color="red"
+                  />
+                }
+              />
+            )}
+            {!this.props.user.id && (
+              <Tab
+                label="PLAY GAME"
+                component={Link}
+                to="/gamelaunch"
+                icon={
+                  <Icon
+                    path={mdiGamepadSquare}
+                    title="Controller Classic"
+                    size={3}
+                    horizontal
+                    rotate={360}
+                    color="red"
+                  />
+                }
+              />
+            )}
             {this.props.user.wastewise_admin && (
               <Tab
-                label="Settings"
+                label="Admin Settings"
                 component={Link}
                 to="/settingsadmin"
                 icon={
@@ -140,7 +144,7 @@ class NavGuest extends React.Component {
             )}
             {this.props.user.id && !this.props.user.wastewise_admin && (
               <Tab
-                label="Settings"
+                label="Organization Settings"
                 component={Link}
                 to="/settingsorg"
                 icon={
@@ -149,6 +153,22 @@ class NavGuest extends React.Component {
                     title="Controller Classic"
                     size={3}
                     horizontal
+                    rotate={360}
+                    color="red"
+                  />
+                }
+              />
+            )}
+            {this.props.user.id && !this.props.user.wastewise_admin && (
+              <Tab
+                label="Leaderboard"
+                component={Link}
+                to="/leaderboard"
+                icon={
+                  <Icon
+                    path={mdiClipboardList}
+                    title="Controller Classic"
+                    size={3}
                     rotate={360}
                     color="red"
                   />
@@ -169,41 +189,29 @@ class NavGuest extends React.Component {
                 />
               }
             />
-            {this.props.user.id && !this.props.user.wastewise_admin && (
+            {!this.props.user.id && (
               <Tab
-                label="Leaderboard"
+                label="REGISTER"
                 component={Link}
-                to="/leaderboard"
+                to="/register"
                 icon={
                   <Icon
-                    path={mdiClipboardList}
+                    path={mdiAccountPlus}
                     title="Controller Classic"
                     size={3}
+                    horizontal
                     rotate={360}
                     color="red"
                   />
                 }
               />
             )}
-            <Tab
-              label="REGISTER"
-              component={Link}
-              to="/register"
-              icon={
-                <Icon
-                  path={mdiAccountPlus}
-                  title="Controller Classic"
-                  size={3}
-                  horizontal
-                  rotate={360}
-                  color="red"
-                />
-              }
-            />
             {this.props.user.id && (
               <Tab
+                onClick={() => this.props.dispatch({ type: "LOGOUT" })}
                 label="LOGOUT"
-                component={Link}
+                // component={Link}
+                // component={LogOutButton}
                 to="/home"
                 icon={
                   <Icon
