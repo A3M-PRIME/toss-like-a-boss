@@ -80,12 +80,17 @@ function* addItemImage(action) {
             const returnData = awsSignedResponse.data.data.returnData;
             const signedRequest = returnData.signedRequest;
             const url = returnData.url;
+            console.log('the image url happens to be:', url)
             action.payload.attachment_url = url;
             yield axios.put(signedRequest, action.payload.file, {
                 headers: {
                     'Content-Type': action.payload.fileType
                 }
             });
+            yield put({
+                type: 'SET_IMAGE_URL',
+                payload: url
+            })
             // yield put ({
             //     type: 'FETCH_IMAGE_URL'
             // })
