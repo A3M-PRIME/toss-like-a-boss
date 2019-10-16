@@ -18,7 +18,7 @@ const MySwal = withReactContent(Swal);
 
 const styles = {
   HowToPlayButton: {
-    backgroundColor: "#002650",
+    backgroundColor: "green",
     color: "white",
     border: "2px solid black",
     fontSize: "calc(15px + 2vmin)",
@@ -27,12 +27,12 @@ const styles = {
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
-      backgroundColor: "#3a6ca2",
+      backgroundColor: "#009E0A",
       color: "black"
     }
   },
   PlayButton: {
-    backgroundColor: "#002650",
+    backgroundColor: "green",
     color: "white",
     border: "2px solid black",
     fontSize: "calc(35px + 2vmin)",
@@ -43,12 +43,12 @@ const styles = {
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
-      backgroundColor: "#3a6ca2",
+      backgroundColor: "#009E0A",
       color: "black"
     }
   },
   contestPlayButton: {
-    backgroundColor: "#002650",
+    backgroundColor: "green",
     color: "white",
     border: "2px solid black",
     fontSize: "calc(35px + 2vmin)",
@@ -59,7 +59,7 @@ const styles = {
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
-      backgroundColor: "#3a6ca2",
+      backgroundColor: "#009E0A",
       color: "black"
     }
   },
