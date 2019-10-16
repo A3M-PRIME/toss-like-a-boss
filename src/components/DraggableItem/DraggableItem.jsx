@@ -11,8 +11,8 @@ const style = {
   marginBottom: "1.5rem",
   cursor: "move",
   float: "left",
-  width: 250,
-  height: 250,
+  width: 180,
+  height: 180,
   backgroundSize: "contain",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
@@ -64,7 +64,7 @@ let DragNDrop = withRouter(
           const item = monitor.getItem();
           const dropResult = monitor.getDropResult();
           //check to see if game is over, if so, push to results
-          if (props.currentGameValue === props.items.length - 1) {
+          if (props.currentGameValue === props.items.length - 1 && dropResult && dropResult.name === item.name) {
             props.dispatch({
               type: "SET_GAME_END_TIME",
               payload: props.gameTime

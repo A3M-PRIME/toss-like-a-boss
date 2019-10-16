@@ -2,6 +2,10 @@
   font-family: truckin;
   src: url(../../font/KeeponTruckin.ttf);
 }
+@font-face {
+  font-family: scoreboard;
+  src: url(../../font/scoreboardfont.ttf);
+}
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
