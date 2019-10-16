@@ -8,8 +8,6 @@ import {
 
 import { connect } from 'react-redux';
 
-import NavOrganizationAdmin from '../Nav/NavOrganizationAdmin';
-import NavWasteWiseAdmin from '../Nav/NavWasteWiseAdmin';
 import NavGuest from '../Nav/NavGuest';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -52,14 +50,12 @@ class App extends Component {
           <CssBaseline />
           <Router>
             <div>
-              {/* <NavOrganizationAdmin />
-              <NavWasteWiseAdmin /> */}
               <NavGuest />
               <Container>
                 <Typography color="secondary">
                   <Switch>
                     {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-                    <Redirect exact from="/" to="/home" />
+                    <Redirect exact from="/" to="/gamelaunch" />
                     {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
 
@@ -83,13 +79,14 @@ class App extends Component {
                     <Route exact path="/login" component={LoginPage} />
                     <Route exact path="/howtoplay" component={HowToPlay} />
                     <Route exact path="/resources" component={Resources} />
-                    <ProtectedRoute exact path="/settingsorg" component={SettingsOrganization} />
-
+                    <Route exact path="/register" component={RegisterPage} />
                     <ProtectedRoute
                       exact
-                      path="/info"
-                      component={InfoPage}
+                      path="/settingsorg"
+                      component={SettingsOrganization}
                     />
+
+                    <ProtectedRoute exact path="/info" component={InfoPage} />
                     <ProtectedRoute
                       exact
                       path="/settingsorg"

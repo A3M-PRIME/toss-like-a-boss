@@ -112,7 +112,7 @@ class Game extends Component {
   };
 
   render() {
-    console.log(this.state);
+    console.log(this.props);
     return (
       <div className={this.props.classes.background}>
         <div>
