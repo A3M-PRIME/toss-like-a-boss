@@ -131,6 +131,11 @@ class Game extends Component {
     })
   }
 
+  //stops timer when game is completed
+  componentWillUnmount() {
+    clearInterval(this.timer)
+  }
+
   handleTimerStart = () => {
     console.log("start a timer");
     this.setState({
@@ -145,6 +150,8 @@ class Game extends Component {
       1000
     );
   };
+
+
 
   goToResults = () => {
     if (this.props.currentGameValue > this.props.gameItemsReducer.length - 1) {
@@ -167,6 +174,11 @@ class Game extends Component {
   };
 
   render() {
+    console.log('image url', this.props.gameItems[this.props.currentGameValue].url)
+    console.log('game items', this.props.gameItems)
+    console.log('current game value', this.props.currentGameValue)
+
+
     return (
       <div className={this.props.classes.background}>
         <div className={this.props.classes.scoreboardHolder}>
