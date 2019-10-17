@@ -6,6 +6,10 @@
   font-family: scoreboard;
   src: url(../../font/scoreboardfont.ttf);
 }
+@font-face {
+  font-family: chunk;
+  src: url(../../font/chunk.otf);
+}
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
