@@ -1,126 +1,163 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withStyles } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Box, Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
-const styles = {
-  background: {
-    backgroundImage: "url(/images/Forest.jpg)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    height: 900,
-    padding: 24
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  card: {
+    textAlign: 'center',
+    background: '#EEF1F1',
+    color: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  login: {
+    width: 300,
+    '&:hover:not($disabled):not($cssFocused):not($error) $notchedOutline': {
+      borderColor: "black"
+    }
+  },
+  input: {
+    color: "black"
+  },
+
+  cssLabel: {
+    '&$cssFocused': {
+      color: "black",
+    },
+  },
+  cssOutlinedInput: {
+    '&$cssFocused $notchedOutline': {
+      borderColor: "black",
+    },
+  },
+  cssFocused: {},
+  notchedOutline: { borderColor: "black" },
+  h1: {
+    color: "black"
   }
-};
+});
 
 class LoginPage extends Component {
+
   state = {
-    username: "",
-    password: ""
+    username: '',
+    password: '',
   };
 
-  login = event => {
+  login = (event) => {
     event.preventDefault();
 
     if (this.state.username && this.state.password) {
       this.props.dispatch({
-        type: "LOGIN",
+        type: 'LOGIN',
         payload: {
           username: this.state.username,
-          password: this.state.password
-        }
+          password: this.state.password,
+        },
       });
     } else {
-      this.props.dispatch({ type: "LOGIN_INPUT_ERROR" });
+      this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
-  }; // end login
+  } // end login
 
-  handleInputChangeFor = propertyName => event => {
+  handleInputChangeFor = propertyName => (event) => {
     this.setState({
-      [propertyName]: event.target.value
+      [propertyName]: event.target.value,
     });
-  };
+  }
 
   render() {
+
+    const { classes } = this.props
+
     return (
-      <div>
-        <body className={this.props.classes.background}>
-          {this.props.errors.loginMessage && (
-            <h2 className="alert" role="alert">
-              {this.props.errors.loginMessage}
-            </h2>
-          )}
-          <Grid
-            container
-            direction={"column"}
-            justify={"flex-start"}
-            alignItems={"center"}
-          >
-            <form class="login" onSubmit={this.login}>
-              <Grid
-                container
-                direction={"column"}
-                justify={"flex-start"}
-                alignItems={"center"}
-              >
-                <h1>Login</h1>
+
+      <body style={{backgroundImage: "url(/images/Forest.jpg)", backgroundSize: "cover", backgroundPosition: "center", height: 900, padding: 24}}>
+        <Box textAlign="center">
+          <div style={{ marginTop: 90, padding: 30 }}>
+            <Grid container spacing={2} justify="center" style={{ marginTop: 6 }}>
+              <Grid item sm={5}>
+                <Card style={{ backgroundColor: "#EEF1F1" }}>
+                  <CardContent>
+                    {this.props.errors.loginMessage && (
+                      <h2
+                        className="alert"
+                        role="alert"
+                      >
+                        {this.props.errors.loginMessage}
+                      </h2>
+                    )}
+                    <form onSubmit={this.login}>
+                      <h1 className={classes.h1}>Toss Like a Boss</h1>
+                      <div>
+                        <TextField
+                          align="left"
+                          id="outlined-name"
+                          label="email"
+                          className={classes.login}
+                          value={this.state.username}
+                          onChange={this.handleInputChangeFor('username')}
+                          margin="normal"
+                          variant="outlined"
+                          InputProps={{
+                            className: classes.input,
+                            classes: {
+                              root: classes.cssOutlinedInput,
+                              focused: classes.cssFocused,
+                              notchedOutline: classes.notchedOutline,
+                            }
+                          }}
+                          InputLabelProps={{
+                            className: classes.input,
+                            shrink: true
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <TextField
+                          type="password"
+                          align="left"
+                          id="outlined-name"
+                          label="password"
+                          className={classes.login}
+                          value={this.state.password}
+                          onChange={this.handleInputChangeFor('password')}
+                          margin="normal"
+                          variant="outlined"
+                          InputProps={{
+                            className: classes.input,
+                            classes: {
+                              root: classes.cssOutlinedInput,
+                              focused: classes.cssFocused,
+                              notchedOutline: classes.notchedOutline,
+                            }
+                          }}
+                          InputLabelProps={{
+                            className: classes.input,
+                            shrink: true
+                          }}
+                        />
+                      </div>
+                      <div style={{ marginTop: 10 }}>
+                        <Button variant="contained" color="primary" type="submit" name="submit" value="Login">
+                          Login
+                      </Button>
+                      </div>
+                    </form>
+                  </CardContent>
+                </Card>
               </Grid>
-              <div>
-                <b>
-                  <label htmlFor="username">
-                    Username:
-                    <input
-                      type="text"
-                      name="username"
-                      value={this.state.username}
-                      onChange={this.handleInputChangeFor("username")}
-                    />
-                  </label>
-                </b>
-              </div>
-              <div>
-                <b>
-                  <label htmlFor="password">
-                    Password:
-                    <input
-                      type="password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.handleInputChangeFor("password")}
-                    />
-                  </label>
-                </b>
-              </div>
-              <Grid
-                container
-                direction={"column"}
-                justify={"flex-start"}
-                alignItems={"center"}
-              >
-                <div>
-                  <input
-                    className="log-in"
-                    type="submit"
-                    name="submit"
-                    value="Log In"
-                  />
-                </div>
-              </Grid>
-            </form>
-            <center>
-              <button
-                type="button"
-                className="link-button"
-                onClick={() => {
-                  this.props.dispatch({ type: "SET_TO_REGISTER_MODE" });
-                }}
-              >
-                Register
-              </button>
-            </center>
-          </Grid>
-        </body>
-      </div>
+            </Grid>
+          </div>
+        </Box>
+      </body>
     );
   }
 }
@@ -129,7 +166,7 @@ class LoginPage extends Component {
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
-  errors: state.errors
+  errors: state.errors,
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(LoginPage));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(LoginPage)));
