@@ -57,7 +57,8 @@ router.post('/', rejectUnauthenticated,  (req, res) => {
         })
 })
 
-//route to get team names from database
+//route to get team names from database when playing game,
+//does not need authentication middleware
 router.get('/names/:id', (req, res) => {
     const sqlText = `
     SELECT * FROM "team"
