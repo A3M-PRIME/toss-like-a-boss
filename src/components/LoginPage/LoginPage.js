@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -77,6 +78,7 @@ class LoginPage extends Component {
     const { classes } = this.props
 
     return (
+
       <body style={{backgroundImage: "url(/images/Forest.jpg)", backgroundSize: "cover", backgroundPosition: "center", height: 900, padding: 24}}>
         <Box textAlign="center">
           <div style={{ marginTop: 90, padding: 30 }}>

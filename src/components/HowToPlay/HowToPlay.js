@@ -6,10 +6,11 @@ import fourth from "../../img/fourthHowToSlide.png";
 import fifth from "../../img/fifthHowToSlide.png";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const styles = {
   howToDiv: {
-    backgroundColor: "grey",
+    backgroundColor: "rgb(245,245,245,.5)",
     borderRadius: "25px",
     textAlign: "center"
   },
@@ -18,7 +19,9 @@ const styles = {
   },
   button: {
     width: "80%",
-    backgroundColor: "green"
+    fontSize: "2em",
+    backgroundColor: "green",
+    marginBottom: "5px"
   }
 };
 
@@ -48,7 +51,7 @@ class HowToPlay extends Component {
 
   render() {
     return (
-      <>
+      <div>
         {this.state.pageNumber === 1 && (
           <div className={this.props.classes.howToDiv}>
             <h1 className={this.props.classes.header}>
@@ -145,7 +148,7 @@ class HowToPlay extends Component {
             <img src={fifth} alt='How To Play' height='80%' width='80%' />
           </div>
         )}
-      </>
+      </div>
     );
   }
 }
