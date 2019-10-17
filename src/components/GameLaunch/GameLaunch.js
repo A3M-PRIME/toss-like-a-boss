@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import CompostBinChoice from "../CompostBinChoice/CompostBinChoice";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-import { Grid, Select } from "@material-ui/core";
+import { Card, CardContent, Grid, Select } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -13,6 +13,7 @@ import withReactContent from "sweetalert2-react-content";
 import Help from "@material-ui/icons/Help";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import CompostBinModal from "../CompostBinModal/CompostBinModal"
+import Moment from 'react-moment';
 
 const MySwal = withReactContent(Swal);
 
@@ -105,7 +106,7 @@ class GameLaunch extends Component {
     firstName: "",
     lastName: "",
     contestPlayReady: false,
-    teamName: ""
+    teamName: "",
   };
   componentDidMount() {
     //this will get the id of the contest game from url params
@@ -118,6 +119,21 @@ class GameLaunch extends Component {
       });
 
     this.handleTeamNames();
+    this.getContestInfo(contestIdNumber);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.currentContest !== prevProps.currentContest) {
+      console.log('there has been a change in props!')
+    }
+  }
+
+  getContestInfo(contestId) {
+    console.log('currently the contest id is', contestId)
+    this.props.dispatch({
+      type: "FETCH_CURRENT_CONTEST_INFO",
+      payload: contestId
+    })
   }
 
   //gets team names from database to populate dropdown
@@ -183,6 +199,27 @@ class GameLaunch extends Component {
       return <MenuItem value={name.team_name}>{name.team_name}</MenuItem>;
     });
 
+    let moment = require('moment');
+    let contestStartDate = this.props.currentContest.start_date
+    let contestStartTime = this.props.currentContest.start_time
+    let contestEndDate = this.props.currentContest.end_date
+    let contestEndTime = this.props.currentContest.end_time
+
+    let convertedStartDate = moment(contestStartDate).valueOf();
+    let convertedEndDate = moment(contestEndDate).valueOf();
+    let convertedStartTime = contestStartTime * 3600000
+    let convertedEndTime = contestEndTime * 3600000
+
+    let start = convertedStartDate + convertedStartTime
+    let end = convertedEndDate + convertedEndTime
+    let current = Date.now();
+
+    let activeContest = false;
+
+    if (current > start &&  current < end) {
+      activeContest = true;
+    }
+
     return (
       <div>
         <br></br>
@@ -219,9 +256,20 @@ class GameLaunch extends Component {
                 <form
                   className={this.props.classes.contestForm}
                   onSubmit={this.handleSubmit}>
-                  <h2>Fill out form fields for contest entry</h2>
-                  <h4>(YOU ONLY GET ONE TRY!)</h4>
-                  <FormControl className={this.props.classes.formInputs}>
+                  {!activeContest &&
+                  <Card>
+                    <CardContent>
+                  <div style={{fontSize: 18}}>
+                    The contest you are trying to access has either expired, or has not yet started.
+                    <br/><br/>
+                    Please feel free to play the game for fun!
+                  </div>
+                    </CardContent>
+                  </Card>
+                  }
+                  {activeContest && <h2>Contest Entry</h2>}
+                  {activeContest && <h4>(YOU ONLY GET ONE TRY!)</h4>}
+                  {activeContest && <FormControl className={this.props.classes.formInputs}>
                     <TextField
                       required
                       label='Email Address'
@@ -241,10 +289,10 @@ class GameLaunch extends Component {
                       value={this.state.lastName}
                       onChange={this.handleChange("lastName")}
                     />
-                  </FormControl>
+                  </FormControl>}
                   {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
                   IF THERE ARE TEAM NAMES IN REDUCER */}
-                  {this.props.teamNames[0] ? (
+                  {activeContest && this.props.teamNames[0] ? (
                     <FormControl
                       required
                       className={this.props.classes.teamSelect}>
@@ -263,14 +311,14 @@ class GameLaunch extends Component {
                   ) : (
                     <></>
                   )}
-                  <Button
+                  {activeContest && <Button
                     type='submit'
                     className={this.props.classes.contestPlayButton}
                     // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
                   >
                     <PlayArrow className={this.props.classes.svgIcon} />
                     CONTEST PLAY!{" "}
-                  </Button>
+                  </Button>}
                 </form>
               </Grid>
             )}
@@ -287,7 +335,8 @@ const mapStateToProps = reduxStore => {
   return {
     reduxStore,
     compostBoolean: reduxStore.contestCompostBooleanReducer,
-    teamNames: reduxStore.organizationTeamNameReducer
+    teamNames: reduxStore.organizationTeamNameReducer,
+    currentContest: reduxStore.currentContestInfo
   };
 };
 
