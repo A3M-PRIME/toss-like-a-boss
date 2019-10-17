@@ -259,6 +259,14 @@ class Items extends Component {
         })
     };
 
+    setDefaultItem = () => {
+        this.setState({
+            itemName: 'Laundry Detergent',
+            receptacle: 'recycle',
+            itemText: 'These can be recycled!  Put the lid back on.',
+        })
+    }
+
     render() {
 
         const { classes } = this.props
@@ -291,7 +299,7 @@ class Items extends Component {
 
         return (
             <div>
-                <span className={classes.addItem}>Add Item</span>
+                <span onClick={() => this.setDefaultItem()} className={classes.addItem}>Add Item</span>
                 <br />
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" style={{ marginTop: 15 }} onClick={this.handleAddClick}>
                     <Add />
@@ -423,6 +431,7 @@ class Items extends Component {
                     <Button className={classes.button} onClick={() => this.handleItemAdd()}
                         variant="contained" name="items" color="primary">Submit Item</Button>
                 </div>}
+
                 <br /><br />
                 <Grid container spacing={4} justify="center">
                     <Grid item sm={2}>
@@ -584,7 +593,6 @@ class Items extends Component {
 
                     </CardContent>
                 </Modal>
-
             </div>
         )
 

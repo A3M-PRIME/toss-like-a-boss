@@ -67,16 +67,7 @@ const styles = {
       color: "black"
     }
   },
-  background: {
-    // backgroundImage: "url(/images/River.jpg)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    height: 800,
-    margin: -24,
-    padding: 24,
-    textAlign: "center",
-    display: "block"
-  },
+  
   contestForm: {
     backgroundColor: "grey",
     borderRadius: "25px",

@@ -51,11 +51,13 @@ class SettingsOrganization extends Component {
 
       <div className={classes.root}>
         <h1 className={classes.h1}>Settings<Settings className={classes.icon} /></h1>
-        <h2>Organization<AccountBalance className={classes.icon} /></h2>
+        {/* <h2>Organization<AccountBalance className={classes.icon} /></h2> */}
           <OrganizationName/>
-        <h2>Teams<People className={classes.icon} /></h2>
+          <br/><br/>
+        {/* <h2>Teams<People className={classes.icon} /></h2> */}
           <Teams/>
-        <h2>Contests<VideogameAsset className={classes.icon} /></h2>
+        <br /><br />
+        {/* <h2>Contests<VideogameAsset className={classes.icon} /></h2> */}
           <Contests/>
       </div>
 
