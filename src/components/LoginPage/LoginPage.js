@@ -4,13 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
 const styles = {
-  background: {
-    backgroundImage: "url(/images/Forest.jpg)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    height: 900,
-    padding: 24
-  }
+
 };
 
 class LoginPage extends Component {
@@ -44,7 +38,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <body className={this.props.classes.background}>
+        <body>
           {this.props.errors.loginMessage && (
             <h2 className="alert" role="alert">
               {this.props.errors.loginMessage}

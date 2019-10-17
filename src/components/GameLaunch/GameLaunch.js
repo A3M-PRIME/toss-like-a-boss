@@ -64,16 +64,6 @@ const styles = {
       color: "black"
     }
   },
-  background: {
-    backgroundImage: "url(/images/Forest.jpg)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    height: 1200,
-    margin: -24,
-    padding: 24,
-    textAlign: "center",
-    display: "block"
-  },
   contestForm: {
     backgroundColor: "grey",
     borderRadius: "25px",

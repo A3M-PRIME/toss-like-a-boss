@@ -48,7 +48,6 @@ class App extends Component {
     return (
       <DndProvider backend={HTML5Backend}>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
           <Router>
             <div>
               <NavGuest />
