@@ -35,7 +35,7 @@ class CorrectSnackBar extends Component {
           autoHideDuration={70000}
           onClose={this.handleClose}
           ContentProps={{
-            "aria-describedby": "message-id"
+            "aria-describedby": "message"
           }}
           message={<span id='message-id'>TRY AGAIN!</span>}
           className={this.props.classes.root}

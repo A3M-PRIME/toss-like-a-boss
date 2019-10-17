@@ -79,7 +79,7 @@ class LoginPage extends Component {
 
     return (
 
-      <body style={{backgroundImage: "url(/images/Forest.jpg)", backgroundSize: "cover", backgroundPosition: "center", height: 900, padding: 24}}>
+      <body>
         <Box textAlign="center">
           <div style={{ marginTop: 90, padding: 30 }}>
             <Grid container spacing={2} justify="center" style={{ marginTop: 6 }}>
