@@ -10,7 +10,8 @@ import { connect } from 'react-redux';
 
 import NavGuest from '../Nav/NavGuest';
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import AdminRoute from '../AdminRoute/AdminRoute';
 import LoginPage from '../LoginPage/LoginPage';
 import GameLaunch from "../GameLaunch/GameLaunch";
 import Game from "../Game/Game";
@@ -86,7 +87,7 @@ class App extends Component {
                       path="/settingsorg"
                       component={SettingsOrganization}
                     />
-                    <ProtectedRoute
+                    <AdminRoute
                       exact
                       path="/settingsadmin"
                       component={SettingsAdmin}
@@ -96,7 +97,6 @@ class App extends Component {
                       path="/leaderboard"
                       component={Leaderboard}
                     />
-
                     {/* If none of the other routes matched, we will show a 404. */}
                     <Route render={() => <h1>404</h1>} />
                   </Switch>
