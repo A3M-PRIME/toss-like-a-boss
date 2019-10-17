@@ -22,14 +22,6 @@ const styles = {
     fontSize: "2em",
     backgroundColor: "green",
     marginBottom: "5px"
-  },
-  background: {
-    backgroundImage: "url(/images/Lake.jpg)",
-    backgroundSize: "100% 100%",
-    backgroundPosition: "center",
-    width: "100%",
-    height: "100%",
-    padding: "0"
   }
 };
 
