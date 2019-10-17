@@ -60,6 +60,7 @@ class StartGameModal extends Component {
 
     handleClose = () => {
         this.setState({ open: false });
+        this.props.handleTimerStart()
     };
 
     render() {
@@ -86,20 +87,17 @@ class StartGameModal extends Component {
             //         </div>
             //     </Modal>
             // </div>
-            <div>
+            <div
+                onClick={this.handleClose}>
                 <Dialog
-                    onClick={this.props.handleTimerStart}
                     open={this.state.open}
                     TransitionComponent={Transition}
                     keepMounted
-                    onClose={this.handleClose}
+                    // onClose={this.handleClose}
                     aria-labelledby="alert-dialog-slide-title"
                     aria-describedby="alert-dialog-slide-description"
                 >
                     <div className={this.props.classes.dialogBox}>
-                        {/* <DialogTitle className={this.props.classes.dialogText} id="alert-dialog-slide-title">
-                            {"START GAME"}
-                        </DialogTitle> */}
                         <DialogContent>
                             <DialogContentText
                                 className={this.props.classes.dialogText}
