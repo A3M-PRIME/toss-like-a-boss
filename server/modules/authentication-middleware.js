@@ -10,4 +10,17 @@ const rejectUnauthenticated = (req, res, next) => {
   }
 };
 
-module.exports = { rejectUnauthenticated };
+const rejectNotAdmin = (req, res, next) => {
+  //check if admin
+  console.log('admin is ', req.user.wastewise_admin);
+  if (req.user.wastewise_admin) {
+    // user is an admin, proceed forward
+    next();
+  } else {
+    console.log('NOT AN ADMIN')
+    // failure best handled on the server. do redirect here.
+    res.sendStatus(403);
+  }
+}
+
+module.exports = { rejectUnauthenticated, rejectNotAdmin };
