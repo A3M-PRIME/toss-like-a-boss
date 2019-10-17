@@ -23,6 +23,7 @@ import animateGarbageReducer from './animateGarbageReducer';
 import animateRecycleReducer from './animateRecycleReducer';
 import animateCompostReducer from './animateCompostReducer';
 import imageUrlReducer from './imageUrlReducer';
+import currentContestInfo from './currentContestInfoReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -54,6 +55,7 @@ const rootReducer = combineReducers({
   animateRecycleReducer, // set animation for Recycling
   animateCompostReducer, // set animation for compost
   imageUrlReducer, //returns image url from AWS
+  currentContestInfo, //grabs current contest info for date/time validation
 });
 
 export default rootReducer;

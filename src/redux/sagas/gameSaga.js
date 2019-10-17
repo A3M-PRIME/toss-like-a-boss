@@ -76,13 +76,28 @@ function* getTeamNames(action) {
   }
 }
 
+function* fetchCurrentContestInfo(action) {
+  try {
+    console.log('the action.payload for current contest is', action.payload)
+    let response = yield axios.get(`/api/contest/currentcontest/${action.payload}`)
+    console.log('Current contest saga response:', response.data)
+    yield put({
+      type: 'SET_CURRENT_CONTEST_INFO',
+      payload: response.data[0]
+    })
+  } catch (err) {
+    console.log('error in CURRENT CONTEST GET', err);
+  }
+}
+
 function* gameSaga() {
   yield takeEvery("FETCH_GAME_ITEMS", fetchGameItems);
   yield takeEvery("ADD_WRONG_ANSWER", addWrongAnswer);
   yield takeEvery("FIRST_TRY_CORRECT", firstTryCorrect);
   yield takeEvery("FIRST_TRY_INCORRECT", firstTryIncorrect);
   yield takeEvery('GET_CONTEST_COMPOST_BOOLEAN', getContestCompostBoolean);
-  yield takeEvery('GET_TEAM_NAMES', getTeamNames)
+  yield takeEvery('GET_TEAM_NAMES', getTeamNames);
+  yield takeEvery('FETCH_CURRENT_CONTEST_INFO', fetchCurrentContestInfo);
 }
 
 export default gameSaga;
