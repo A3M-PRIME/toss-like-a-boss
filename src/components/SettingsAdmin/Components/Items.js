@@ -259,6 +259,14 @@ class Items extends Component {
         })
     };
 
+    setDefaultItem = () => {
+        this.setState({
+            itemName: 'Laundry Detergent',
+            receptacle: 'recycle',
+            itemText: 'These can be recycled!  Put the lid back on.',
+        })
+    }
+
     render() {
 
         const { classes } = this.props
@@ -291,7 +299,7 @@ class Items extends Component {
 
         return (
             <div>
-                <span className={classes.addItem}>Add Item</span>
+                <span onClick={() => this.setDefaultItem()} className={classes.addItem}>Add Item</span>
                 <br />
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" style={{ marginTop: 15 }} onClick={this.handleAddClick}>
                     <Add />
