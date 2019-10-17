@@ -292,6 +292,16 @@ class Users extends Component {
         })
     };
 
+    setDefaultUser = () => {
+        this.setState({
+            firstName: 'Patrick',
+            lastName: `O'Malley`,
+            username: 'patricko@gmail.com',
+            password: 'testtest',
+            confirmPassword: 'testtest',
+        })
+    }
+
     render() {
 
         const { classes } = this.props
@@ -324,7 +334,7 @@ class Users extends Component {
 
         return (
             <div>
-                <span className={classes.addItem}>Add Waste Wise Admin User</span>
+                <span onClick={() => this.setDefaultUser()} className={classes.addItem}>Add Waste Wise Admin User</span>
                 <br />
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" style={{ marginTop: 15 }} onClick={this.handleAddClick}>
                     <Add />
