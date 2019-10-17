@@ -54,4 +54,77 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+//ADD WASTE WISE ADMIN USER POST
+router.post('/register/admin', (req, res) => {
+  const password = encryptLib.encryptPassword(req.body.password);
+  const sqlText = `INSERT INTO "user" ("first_name", "last_name", "username", "password", "wastewise_admin") VALUES ($1, $2, $3, $4, $5);`;
+  pool.query(sqlText, [req.body.firstName, req.body.lastName, req.body.username, password, true])
+    .then((result) => {
+      console.log('ADD ADMIN USER POST from database:', result);
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log(`Error POSTing new admin user:`, error);
+      res.sendStatus(500);
+    })
+});
+
+//WASTE WISE ADMIN USER GET
+router.get('/register/admin', (req, res) => {
+  const sqlText = `SELECT * FROM "user" WHERE "wastewise_admin" = true ORDER BY "first_name" ASC;`;
+  pool.query(sqlText)
+    .then((result) => {
+      console.log('Waste Wise Admin User GET from database:', result);
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(`Error getting Waste Wise Admin User from database`, error);
+      res.sendStatus(500);
+    })
+});
+
+//WASTE WISE ADMIN USER DELETE
+router.delete('/register/:id', (req, res) => {
+  console.log('trying to delete user', req.params.id);
+  const sqlText = `DELETE FROM "user" WHERE "id" = $1;`;
+  pool.query(sqlText, [req.params.id])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      res.sendStatus(500);
+    })
+})
+
+//WASTE WISE ADMIN USER PUT (WITH PASSWORD)
+router.put('/register/edit', (req, res) => {
+  console.log('the register req.body is', req.body)
+  const password = encryptLib.encryptPassword(req.body.password);
+  const sqlText = `UPDATE "user"
+                  SET "first_name" = $1, "last_name" = $2, "username" = $3, "password" = $4
+                  WHERE "id" = $5;`;
+  pool.query(sqlText, [req.body.firstName, req.body.lastName, req.body.username, password, req.body.userId])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      res.sendStatus(500);
+    })
+})
+
+//WASTE WISE ADMIN USER PUT (WITHOUT PASSWORD)
+router.put('/register/editnopassword', (req, res) => {
+  console.log('the register req.body is', req.body)
+  const sqlText = `UPDATE "user"
+                  SET "first_name" = $1, "last_name" = $2, "username" = $3
+                  WHERE "id" = $4;`;
+  pool.query(sqlText, [req.body.firstName, req.body.lastName, req.body.username, req.body.userId])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      res.sendStatus(500);
+    })
+})
+
 module.exports = router;

@@ -16,7 +16,13 @@ import gameTimeReducer from './gameTimeReducer';
 import contestUserInfoReducer from './contestUserInfoReducer';
 import contestCompostBooleanReducer from './contestCompostBooleanReducer';
 import correctSnackBarReducer from './correctSnackBarReducer';
+import wasteWiseAdminUsers from './wasteWiseAdminReducer';
 import organizationTeamNameReducer from './organizationTeamNameReducer';
+import incorrectSnackBarReducer from './incorrectSnackBarReducer';
+import animateGarbageReducer from './animateGarbageReducer';
+import animateRecycleReducer from './animateRecycleReducer';
+import animateCompostReducer from './animateCompostReducer';
+import imageUrlReducer from './imageUrlReducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -41,7 +47,13 @@ const rootReducer = combineReducers({
   contestUserInfoReducer, //stores user info for contest
   contestCompostBooleanReducer, //stores whether compost bin is in contest game
   correctSnackBarReducer, //sets status for snack bar open/close on correct answer
+  wasteWiseAdminUsers, //retrieves the users that are admin
   organizationTeamNameReducer, //team names for dropdown on game launch
+  incorrectSnackBarReducer, //sets status for snack bar open/close on incorrect answer
+  animateGarbageReducer, // set animation for garbage
+  animateRecycleReducer, // set animation for Recycling
+  animateCompostReducer, // set animation for compost
+  imageUrlReducer, //returns image url from AWS
 });
 
 export default rootReducer;

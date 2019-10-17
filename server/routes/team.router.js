@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //TEAM DATA GET
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT * FROM team WHERE organization_id = $1 ORDER BY team_name ASC;`;
     pool.query(sqlText, [req.user.organization_id])
         .then((result) => {
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 });
 
 //TEAM NAME PUT
-router.put('/teamName', (req, res) => {
+router.put('/teamName', rejectUnauthenticated, (req, res) => {
     const sqlText = `UPDATE team
     SET team_name = $1
     WHERE "id" = $2;`;
@@ -31,7 +32,7 @@ router.put('/teamName', (req, res) => {
 })
 
 //TEAM DELETE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `DELETE FROM team WHERE "id" = $1;`;
     pool.query(sqlText, [req.params.id])
         .then(result => {
@@ -43,7 +44,7 @@ router.delete('/:id', (req, res) => {
 })
 
 //NEW TEAM POST
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated,  (req, res) => {
     const sqlText = `INSERT INTO team ("team_name", "organization_id") VALUES ($1, $2);`;
     pool.query(sqlText, [req.body.teamName, req.user.organization_id])
         .then((result) => {

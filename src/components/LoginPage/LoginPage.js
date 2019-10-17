@@ -56,7 +56,7 @@ class LoginPage extends Component {
             justify={"flex-start"}
             alignItems={"center"}
           >
-            <form onSubmit={this.login}>
+            <form class="login" onSubmit={this.login}>
               <Grid
                 container
                 direction={"column"}

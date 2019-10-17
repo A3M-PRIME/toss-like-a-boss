@@ -114,7 +114,7 @@ ALTER TABLE "score" ADD CONSTRAINT "score_fk1" FOREIGN KEY ("team_id") REFERENCE
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
 VALUES
-  ('Aluminum Container', 'https://previews.dropbox.com/p/thumb/AAmxgKBa8cywRFeMGVIjG_084-k3zbGqKxhBLaGf6mAw2gT3491RYietJ_MLAyE1tXf2yPG8909UGmKzM7Hh7K8ImP0Ygn1eU14oZUspXmZeKv1F2Tc8XWCpTJ4ENtDHvWLuUNgIFJmQZUQUG0pjXqKK0sj1PABX-YXellPOy6FGFY6NqE8fIRF5gRaNPbAAoP9GLQkltxjtibgdXlbW0-lJBBBS3DVAGo0oN0rfcyZWlby4SlaowgXmMqFrF06rL0TYYAgbOz5oOd5M2ksX9oX3mjVpgI7mVvR-DebbHrgmpG8WBFnsQXer-sqZiIcFKwX7b-VbjpepgRyd3V6NylR8/p.jpeg?fv_content=true&size_mode=5', 'recycling', '0', '0', 'More than just aluminum cans are recyclable. Make sure foil and other aluminum containers are relatively clean before recycling');
+  ('Aluminum Container', 'https://previews.dropbox.com/p/thumb/AAmxgKBa8cywRFeMGVIjG_084-k3zbGqKxhBLaGf6mAw2gT3491RYietJ_MLAyE1tXf2yPG8909UGmKzM7Hh7K8ImP0Ygn1eU14oZUspXmZeKv1F2Tc8XWCpTJ4ENtDHvWLuUNgIFJmQZUQUG0pjXqKK0sj1PABX-YXellPOy6FGFY6NqE8fIRF5gRaNPbAAoP9GLQkltxjtibgdXlbW0-lJBBBS3DVAGo0oN0rfcyZWlby4SlaowgXmMqFrF06rL0TYYAgbOz5oOd5M2ksX9oX3mjVpgI7mVvR-DebbHrgmpG8WBFnsQXer-sqZiIcFKwX7b-VbjpepgRyd3V6NylR8/p.jpeg?fv_content=true&size_mode=5', 'recycle', '0', '0', 'More than just aluminum cans are recyclable. Make sure foil and other aluminum containers are relatively clean before recycle');
 
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
@@ -134,7 +134,7 @@ VALUES
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
 VALUES
-  ('Milk Carton', 'https://previews.dropbox.com/p/thumb/AAl-kXNUI-94IT8pva8KYGwkHhc6abRBgS5uXybgVG7GkAIFZ3IHCQVa460zZD_LM-r33qSjyghQEzN7dcwywE9T0tcBOd7cCboKPt3TiPos1tJCSHj5fK--ntfnpoYBN3ClE3B9ETmi4iEwNZX_894O9xYGzGDN_cAvgyeYTJb54iXeglFcE9Z2d51aIRteVxh-NH2_8LARox4gSwVqMlW2jKVTvGaPCWOvO_5tFuBJ-m6nsyWldJD4mimbzPPFe6Og67Xds34xIHSe0aPHgb_JRin33rOIq7OMg9mMuhVNr7OtJzYUZSy2PFuN6VC1PE9DJHJBkxBGUBt1sSZD7Tz8/p.jpeg?fv_content=true&size_mode=5', 'recycling', '0', '0', 'Cartons and TetraPak are recyclable in most of Minnesota');
+  ('Milk Carton', 'https://previews.dropbox.com/p/thumb/AAl-kXNUI-94IT8pva8KYGwkHhc6abRBgS5uXybgVG7GkAIFZ3IHCQVa460zZD_LM-r33qSjyghQEzN7dcwywE9T0tcBOd7cCboKPt3TiPos1tJCSHj5fK--ntfnpoYBN3ClE3B9ETmi4iEwNZX_894O9xYGzGDN_cAvgyeYTJb54iXeglFcE9Z2d51aIRteVxh-NH2_8LARox4gSwVqMlW2jKVTvGaPCWOvO_5tFuBJ-m6nsyWldJD4mimbzPPFe6Og67Xds34xIHSe0aPHgb_JRin33rOIq7OMg9mMuhVNr7OtJzYUZSy2PFuN6VC1PE9DJHJBkxBGUBt1sSZD7Tz8/p.jpeg?fv_content=true&size_mode=5', 'recycle', '0', '0', 'Cartons and TetraPak are recyclable in most of Minnesota');
 
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
@@ -169,7 +169,7 @@ VALUES
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
 VALUES
-  ('Envelope with Window', 'https://previews.dropbox.com/p/thumb/AAmsAhp1kbgPiIAvup55bDETq-YVRoqMoz2KRvlrVjtqIsSGqH8e6lbihSBZdp_98XXKRkX9TfrKsThQIQ37vTLGU9_lwB__ajWx0_KJ5cFU3SM0WRR3SUpGsHIiuObIhZKeq4e5-bToCGflHcRtQO2trLpjBy_CC1YCcT26DId7TWhOEdm6twneuNu3Z53aqRpxS975GZ_40IlirdUsTLewg0ovxCdknmhWAB6HRbuHP_a707O0MFyUPrs61dBlXu6-N8Yf-ZA8MIYhw-Nkjh-owWtaGvddXji_B88o_bz7Bjb_JE4_Md0jVpeqydQ8pyWVRATRXFAWEhFH3txlTg0k/p.jpeg?fv_content=true&size_mode=5', 'recycling', '0', '0', 'Envelopes can be recycled, you do not even need to remove the cellophane window!');
+  ('Envelope with Window', 'https://previews.dropbox.com/p/thumb/AAmsAhp1kbgPiIAvup55bDETq-YVRoqMoz2KRvlrVjtqIsSGqH8e6lbihSBZdp_98XXKRkX9TfrKsThQIQ37vTLGU9_lwB__ajWx0_KJ5cFU3SM0WRR3SUpGsHIiuObIhZKeq4e5-bToCGflHcRtQO2trLpjBy_CC1YCcT26DId7TWhOEdm6twneuNu3Z53aqRpxS975GZ_40IlirdUsTLewg0ovxCdknmhWAB6HRbuHP_a707O0MFyUPrs61dBlXu6-N8Yf-ZA8MIYhw-Nkjh-owWtaGvddXji_B88o_bz7Bjb_JE4_Md0jVpeqydQ8pyWVRATRXFAWEhFH3txlTg0k/p.jpeg?fv_content=true&size_mode=5', 'recycle', '0', '0', 'Envelopes can be recycled, you do not even need to remove the cellophane window!');
 
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
@@ -194,12 +194,12 @@ VALUES
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
 VALUES
-  ('Toilet Paper Roll', 'https://previews.dropbox.com/p/thumb/AAkRfx9B9bTcbvNu8gI5oFRR7HMHxC9Z01Bag2JIO82HLJIvrbSJ-a6xKXTXxlONe_3NGri8FopEPbnPqeQg2WiNYyVlaZ8DCFY03NSBE8otR1rKKbRxeU0Jsy19ijw54-hqyT-SEy_VjGEooGBzM9O_x-CJV5s1Db-wIW2zzfJ5gaKXjnp3oo4LliQEbry230av7Zt3TRxh_DEcjeyhghjkdxuGKxLUQdB-f44x7g500hx_Tanyv2A9AdEAnYGuLA9roAc_YDqcLz9CH9TJFdL0a_7JZuc3strvKGABxsa-V_a2guNggRClSMO1KZlnixFFRujKo0CZ5NN-avlrZlm2/p.png?fv_content=true&size_mode=5', 'recycling', '0', '0', 'The rolls of paper towel and toilet paper can be recycled.');
+  ('Toilet Paper Roll', 'https://previews.dropbox.com/p/thumb/AAkRfx9B9bTcbvNu8gI5oFRR7HMHxC9Z01Bag2JIO82HLJIvrbSJ-a6xKXTXxlONe_3NGri8FopEPbnPqeQg2WiNYyVlaZ8DCFY03NSBE8otR1rKKbRxeU0Jsy19ijw54-hqyT-SEy_VjGEooGBzM9O_x-CJV5s1Db-wIW2zzfJ5gaKXjnp3oo4LliQEbry230av7Zt3TRxh_DEcjeyhghjkdxuGKxLUQdB-f44x7g500hx_Tanyv2A9AdEAnYGuLA9roAc_YDqcLz9CH9TJFdL0a_7JZuc3strvKGABxsa-V_a2guNggRClSMO1KZlnixFFRujKo0CZ5NN-avlrZlm2/p.png?fv_content=true&size_mode=5', 'recycle', '0', '0', 'The rolls of paper towel and toilet paper can be recycled.');
 
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")
 VALUES
-  ('Tuna Can', 'https://previews.dropbox.com/p/thumb/AAmqlwT5Ihf7_htwY9uDJvGdTKmhrDRp-60uT3LWrzxLsM3mHkbskHSOed-9Y6Ls9aXWkpifCBDDGVL5N_dFEoD3M9Gec7TSC19jaU5GwkQuEM0RcV4_fd56TFD2tPvdEywvRZ0rwWbDj8Go4mWxTylgHK-QZmOBlHv1vKBrtU_z6au_ju4Hqmmlr_JyqO17JgXlWNV4SnmMbUCBafWdlE-z7glKImYWYcG0Z9L5vIJoCaWeuxuRdTeCRH5_xcxijgSKpEyvpMNrLes0MXWIfRobvGzurM48wmdXkzr-7Wns709UEpTtWgxWqlYDCMMqShDRUdPxJXWjJJQFbwdNj2_o/p.jpeg?fv_content=true&size_mode=5', 'recycling', '0', '0', 'Steel and tin cans are highly recyclable and valuable');
+  ('Tuna Can', 'https://previews.dropbox.com/p/thumb/AAmqlwT5Ihf7_htwY9uDJvGdTKmhrDRp-60uT3LWrzxLsM3mHkbskHSOed-9Y6Ls9aXWkpifCBDDGVL5N_dFEoD3M9Gec7TSC19jaU5GwkQuEM0RcV4_fd56TFD2tPvdEywvRZ0rwWbDj8Go4mWxTylgHK-QZmOBlHv1vKBrtU_z6au_ju4Hqmmlr_JyqO17JgXlWNV4SnmMbUCBafWdlE-z7glKImYWYcG0Z9L5vIJoCaWeuxuRdTeCRH5_xcxijgSKpEyvpMNrLes0MXWIfRobvGzurM48wmdXkzr-7Wns709UEpTtWgxWqlYDCMMqShDRUdPxJXWjJJQFbwdNj2_o/p.jpeg?fv_content=true&size_mode=5', 'recycle', '0', '0', 'Steel and tin cans are highly recyclable and valuable');
 
 INSERT into "item"
   ("name", "url", "receptacle", "correct_count", "number_of_instances", "item_text")

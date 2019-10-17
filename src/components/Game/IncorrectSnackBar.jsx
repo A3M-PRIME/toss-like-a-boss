@@ -2,22 +2,21 @@ import React, {Component} from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import Button from "@material-ui/core/Button";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CloseIcon from "@material-ui/icons/Close";
-import green from "@material-ui/core/colors/green";
-import IconButton from "@material-ui/core/IconButton";
+import amber from "@material-ui/core/colors/green";
+import ErrorIcon from "@material-ui/icons/Error";
 import Snackbar from "@material-ui/core/Snackbar";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 import { withStyles } from "@material-ui/core/styles";
 
 const variantIcon = {
-  success: CheckCircleIcon
+  error: ErrorIcon
 };
 
 const styles1 = theme => ({
-  success: {
-    backgroundColor: green[600]
+  error: {
+    backgroundColor: "#ff9900",
+    minWidth: "fit-content"
   },
   icon: {
     fontSize: 20
@@ -32,10 +31,10 @@ const styles1 = theme => ({
   },
   message: {
     fontSize: "1.5rem",
-    width: "100%",
+    width: "100%"
   },
   snackBar: {
-      width: "100%"
+    width: "100%"
   }
 });
 
@@ -53,15 +52,6 @@ function MySnackbarContent(props) {
           {message}
         </span>
       }
-      action={[
-        <IconButton
-          key='close'
-          aria-label='Close'
-          color='inherit'
-          className={classes.close}
-          onClick={onClose}>
-        </IconButton>
-      ]}
       {...other}
     />
   );
@@ -83,21 +73,13 @@ const styles2 = theme => ({
   }
 });
 
-class SuccessSnackBar extends Component {
-  state = {
-    open: false
-  };
+class IncorrectSnackBar extends Component {
 
-  handleClick = () => {
-    this.setState({ open: true });
-  };
 
-  handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    this.setState({ open: false });
+  handleClose = () => {
+    this.props.dispatch({
+      type: "CLOSE_INCORRECT_SNACK_BAR"
+    });
   };
 
   render() {
@@ -106,19 +88,19 @@ class SuccessSnackBar extends Component {
     return (
       <div>
         <Snackbar
-        className={classes.snackBar}
+          className={classes.snackBar}
           anchorOrigin={{
             vertical: "bottom",
             horizontal: "center"
           }}
-          open={this.props.store.correctSnackBarReducer}
-          autoHideDuration={70000}
+          open={this.props.store.incorrectSnackBarReducer}
+          autoHideDuration={700}
           onClose={this.handleClose}>
           <MySnackbarContentWrapper
-          className={classes.message}
+            className={classes.message}
             onClose={this.handleClose}
-            variant='success'
-            message='CORRECT!'
+            variant='error'
+            message='TRY AGAIN!'
           />
         </Snackbar>
         {/* <MySnackbarContentWrapper
@@ -131,7 +113,7 @@ class SuccessSnackBar extends Component {
   }
 }
 
-SuccessSnackBar.propTypes = {
+IncorrectSnackBar.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -139,4 +121,4 @@ const mapStateToProps = store => ({
   store
 });
 
-export default connect(mapStateToProps)(withStyles(styles2)(SuccessSnackBar));
+export default connect(mapStateToProps)(withStyles(styles2)(IncorrectSnackBar));

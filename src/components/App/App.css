@@ -1,3 +1,12 @@
+@font-face {
+  font-family: truckin;
+  src: url(../../font/KeeponTruckin.ttf);
+}
+@font-face {
+  font-family: scoreboard;
+  src: url(../../font/scoreboardfont.ttf);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 10px;
@@ -8,7 +17,7 @@ body {
     margin: 50px;
 }
 
-form {
+.login {
     background-color: #f1f1f1;
     width: 30%;
     height: 250px;
@@ -34,7 +43,7 @@ input {
   cursor: pointer;
   align-content: center;
 
-  
+
 }
 
 .log-in:hover, .log-out:hover, .register:hover {
@@ -50,6 +59,6 @@ input {
     padding:0;
     font: inherit;
     outline:0;
-    border-bottom:1px solid #444; 
+    border-bottom:1px solid #444;
     cursor: pointer;
 }

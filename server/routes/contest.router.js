@@ -1,9 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //CONTEST DATA GET
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT * FROM contest WHERE organization_id = $1
                     ORDER BY contest_name ASC;`;
     pool.query(sqlText, [req.user.organization_id])
@@ -18,7 +19,7 @@ router.get('/', (req, res) => {
 });
 
 //CONTEST INFO PUT
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
     const sqlText = `UPDATE contest
                     SET "contest_name" = $1, "start_date" = $2, "start_time" = $3, "end_date" = $4, "end_time" = $5, "compost" = $6
                     WHERE "id" = $7;`;
@@ -32,7 +33,7 @@ router.put('/', (req, res) => {
 })
 
 //CONTEST DELETE
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `DELETE FROM contest WHERE "id" = $1;`;
     pool.query(sqlText, [req.params.id])
         .then(result => {
@@ -44,7 +45,7 @@ router.delete('/:id', (req, res) => {
 })
 
 //NEW CONTEST POST
-router.post('/add', (req, res) => {
+router.post('/add', rejectUnauthenticated, (req, res) => {
     const sqlText = `INSERT INTO contest ("contest_name", "start_date", "start_time", "end_date", "end_time", "access_code", "compost", "organization_id") VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
     pool.query(sqlText, [req.body.contestName, req.body.contestStartDate, req.body.contestStartTime, req.body.contestEndDate, req.body.contestEndTime, req.body.contestAccessCode, req.body.contestCompostBin, req.user.organization_id])
         .then((result) => {
@@ -60,13 +61,12 @@ router.post('/add', (req, res) => {
 //GETS WHETHER COMPOST IS SELECTED FOR CONTEST
 router.get(`/compost/:id`,  (req, res) => {
     const sqlText = `
-    SELECT compost from contest
+    SELECT compost, organization_id, id from contest
     WHERE access_code = $1;
     `;
     pool.query(sqlText, [req.params.id])
     .then(result => {
-        console.log('result is ', result.rows[0].compost)
-        res.send(result.rows[0].compost);
+        res.send(result.rows);
     })
     .catch(error => {
         console.log('error in /compost/:id GET', error)

@@ -66,7 +66,7 @@ class RegisterPage extends Component {
     confirmPassword: '',
     organizationName: '',
     contestName: '',
-    compostBin: false,
+    compostBin: '',
     contestStartDate: '',
     contestStartTime: '',
     contestEndDate: '',
@@ -74,11 +74,76 @@ class RegisterPage extends Component {
     accessCode: ''
   };
 
-  registerUser = (event) => {
+  fieldValidation = (event) => {
 
     event.preventDefault();
 
-    this.passwordValidation();
+    if (!this.state.firstName) {
+      alert('Please enter a value for First Name.')
+      return false;
+    }
+    if (!this.state.lastName) {
+      alert('Please enter a value for Last Name.')
+      return false;
+    }
+    if (!this.state.username) {
+      alert('Please enter a value for Email Address.')
+      return false;
+    }
+    if (!this.state.password) {
+      alert('Please enter a value for Password.')
+      return false;
+    }
+    if (!this.state.confirmPassword) {
+      alert('Please enter a value for Confirm Password.')
+      return false;
+    }
+    if (!this.state.organizationName) {
+      alert('Please enter a value for Organization Name.')
+      return false;
+    }
+    if (!this.state.contestName) {
+      alert('Please enter a value for Contest Name.')
+      return false;
+    }
+    if (this.state.compostBin === '') {
+      alert('Please select whether a Compost Bin will be used.')
+      return false;
+    }
+    if (!this.state.contestStartDate) {
+      alert('Please enter a value for Contest Start Date.')
+      return false;
+    }
+    if (!this.state.contestStartTime) {
+      alert('Please enter a value for Contest Start Time.')
+      return false;
+    }
+    if (!this.state.contestEndDate) {
+      alert('Please enter a value for Contest End Date.')
+      return false;
+    }
+    if (!this.state.contestEndTime) {
+      alert('Please enter a value for Contest End Time.')
+      return false;
+    }
+    if (this.state.password.length < 8) {
+      alert('Please ensure your password is at least eight characters.');
+      return false;
+    }
+    if (this.state.password !== this.state.confirmPassword) {
+      alert('The passwords do not match.  Please try again.');
+      return false;
+    }
+
+    this.registerUser();
+
+  }
+
+  registerUser() {
+
+    // event.preventDefault();
+
+    // this.passwordValidation();
 
     this.generateAccessId();
 
@@ -184,7 +249,7 @@ class RegisterPage extends Component {
                       {this.props.errors.registrationMessage}
                     </h2>
                   )}
-                  <form onSubmit={this.registerUser}>
+                  <form onSubmit={this.fieldValidation}>
                     <h1>Organization Registration</h1>
                     <h3>Your Information</h3>
                     <div>
