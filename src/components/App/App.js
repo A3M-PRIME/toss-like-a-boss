@@ -80,7 +80,7 @@ class App extends Component {
                       component={SettingsOrganization}
                     />
 
-                    <ProtectedRoute exact path="/info" component={InfoPage} />
+                    {/* <ProtectedRoute exact path="/info" component={InfoPage} /> */}
                     <ProtectedRoute
                       exact
                       path="/settingsorg"

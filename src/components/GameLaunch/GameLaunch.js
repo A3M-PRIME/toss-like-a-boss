@@ -12,51 +12,54 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Help from "@material-ui/icons/Help";
 import PlayArrow from "@material-ui/icons/PlayArrow";
+import CompostBinModal from "../CompostBinModal/CompostBinModal"
 
 const MySwal = withReactContent(Swal);
 
 const styles = {
   HowToPlayButton: {
-    backgroundColor: "#002650",
+    backgroundColor: "green",
     color: "white",
     border: "2px solid black",
     fontSize: "calc(15px + 2vmin)",
     padding: "5px",
-    margin: "50px",
+    // margin: "50px",
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
-      backgroundColor: "#3a6ca2",
+      backgroundColor: "#009E0A",
       color: "black"
     }
   },
   PlayButton: {
-    backgroundColor: "#002650",
+    backgroundColor: "green",
     color: "white",
     border: "2px solid black",
     fontSize: "calc(35px + 2vmin)",
     padding: "10px auto 10px auto",
     margin: "50px",
-    width: "50%",
+    width: "75%",
+    borderRadius: "20px",
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
-      backgroundColor: "#3a6ca2",
+      backgroundColor: "#009E0A",
       color: "black"
     }
   },
   contestPlayButton: {
-    backgroundColor: "#002650",
+    backgroundColor: "green",
     color: "white",
     border: "2px solid black",
     fontSize: "calc(35px + 2vmin)",
-    padding: "10px 70px 10px 70px",
+    padding: "10px 100px 10px 50px",
     margin: "50px",
-    width: "65%",
+    width: "75%",
+    borderRadius: "20px",
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
-      backgroundColor: "#3a6ca2",
+      backgroundColor: "#009E0A",
       color: "black"
     }
   },
@@ -76,7 +79,7 @@ const styles = {
     margin: "5px",
     maxWidth: "450px",
     display: "inline-block",
-    marginLeft: "auto",
+    marginLeft: "10px",
     marginRight: "auto"
   },
   formInputs: {
@@ -87,7 +90,8 @@ const styles = {
     width: "30%"
   },
   svgIcon: {
-    fontSize: "calc(35px + 2vmin)"
+    fontSize: "calc(35px + 2vmin)",
+    paddingRight: "-40px"
   },
   gridContainer: {
     display: "inline-block"
@@ -197,26 +201,26 @@ class GameLaunch extends Component {
                   <Help />
                   How To Play
                 </Button>
+                <Button
+                  className={this.props.classes.PlayButton}
+                  onClick={this.toGame}>
+                  <PlayArrow className={this.props.classes.svgIcon} />
+                  PLAY!
+                </Button>
+                {/* conditionally render CompostBinChoice when play is clicked */}
+                {this.state.timeToPlay && <CompostBinChoice />}
               </Grid>
             </Grid>
             <br></br>
-            <Grid item xs={12}>
-              <Button
-                className={this.props.classes.PlayButton}
-                onClick={this.toGame}>
-                <PlayArrow className={this.props.classes.svgIcon} />
-                PLAY!
-              </Button>
-              {/* conditionally render CompostBinChoice when play is clicked */}
-              {this.state.timeToPlay && <CompostBinChoice />}
-            </Grid>
+            <Grid item xs={12}></Grid>
 
             {this.props.history.location.search && (
-              <Grid item xs={4}>
+              <Grid item xs={12}>
                 <form
                   className={this.props.classes.contestForm}
                   onSubmit={this.handleSubmit}>
                   <h2>Fill out form fields for contest entry</h2>
+                  <h4>(YOU ONLY GET ONE TRY!)</h4>
                   <FormControl className={this.props.classes.formInputs}>
                     <TextField
                       required
@@ -264,8 +268,8 @@ class GameLaunch extends Component {
                     className={this.props.classes.contestPlayButton}
                     // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
                   >
-                    CONTEST PLAY!{" "}
                     <PlayArrow className={this.props.classes.svgIcon} />
+                    CONTEST PLAY!{" "}
                   </Button>
                 </form>
               </Grid>
