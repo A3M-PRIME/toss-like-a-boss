@@ -33,7 +33,7 @@ const theme = createMuiTheme({
       main: red.A400
     },
     background: {
-      default: "url(../img/Lake.JPG)"
+      default: "#fff"
     },
     text: {
       default: "#fff"
