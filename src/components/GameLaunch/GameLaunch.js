@@ -98,6 +98,13 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     margin: '15px auto 15px auto'
+  },
+  contestDiv: {
+    justifyContent: 'center',
+    display: 'grid'
+  },
+  contestFormHeader: {
+    textAlign: 'center'
   }
 };
 
@@ -290,6 +297,7 @@ class GameLaunch extends Component {
             </div>
           </Grid>
           <br></br>
+          <div className={this.props.classes.contestDiv}>
           <Grid item xs={12}></Grid>
 
           {this.props.history.location.search && (
@@ -308,8 +316,10 @@ class GameLaunch extends Component {
                     </CardContent>
                   </Card>
                 }
+                <div className={this.props.classes.contestFormHeader}>
                 {activeContest && <h2>Contest Entry</h2>}
                 {activeContest && <h4>(YOU ONLY GET ONE TRY!)</h4>}
+                  </div>
                 {activeContest && <FormControl className={this.props.classes.formInputs}>
                   <TextField
                     required
@@ -363,6 +373,7 @@ class GameLaunch extends Component {
               </form>
             </Grid>
           )}
+        </div>
         </div>
         <br></br>
       </div>
