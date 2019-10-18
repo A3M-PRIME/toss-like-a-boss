@@ -12,6 +12,9 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Help from "@material-ui/icons/Help";
 import PlayArrow from "@material-ui/icons/PlayArrow";
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import CompostBinModal from "../CompostBinModal/CompostBinModal"
 import Moment from 'react-moment';
 
@@ -24,7 +27,7 @@ const styles = {
     border: "2px solid black",
     fontSize: "calc(15px + 2vmin)",
     padding: "5px",
-    // margin: "50px",
+    borderRadius: 50,
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
@@ -38,9 +41,9 @@ const styles = {
     border: "2px solid black",
     fontSize: "calc(35px + 2vmin)",
     padding: "10px auto 10px auto",
-    margin: "50px",
-    width: "75%",
-    borderRadius: "20px",
+    // margin: 20,
+    width: "50%",
+    borderRadius: "200px",
     "&:hover": {
       // change to both KEY and the
       // textDecoration: "underline",
@@ -64,6 +67,7 @@ const styles = {
       color: "black"
     }
   },
+  
   contestForm: {
     backgroundColor: "grey",
     borderRadius: "25px",
@@ -84,8 +88,23 @@ const styles = {
     fontSize: "calc(35px + 2vmin)",
     paddingRight: "-40px"
   },
-  gridContainer: {
-    display: "inline-block"
+  mainDiv: {
+    backgroundColor: 'lightGrey'
+  },
+  nameHeader: {
+    fontFamily: 'chunk'
+  },
+  playButtonDiv: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '15px auto 15px auto'
+  },
+  contestDiv: {
+    justifyContent: 'center',
+    display: 'grid'
+  },
+  contestFormHeader: {
+    textAlign: 'center'
   }
 };
 
@@ -206,114 +225,156 @@ class GameLaunch extends Component {
 
     let activeContest = false;
 
-    if (current > start &&  current < end) {
+    if (current > start && current < end) {
       activeContest = true;
     }
 
     return (
-      <div>
-        <br></br>
-        <body className={this.props.classes.background}>
-          <div className={this.props.classes.gridContainer}>
-            <Grid
-              container
-              justify={"space-evenly"}
-              spacing={3}
-              alignItems={"center"}
-              alignContent={"center"}>
-              <Grid item xs={12} className={this.props.classes.gridContainer}>
-                <Button
-                  className={this.props.classes.HowToPlayButton}
-                  onClick={this.howToPlay}>
-                  <Help />
-                  How To Play
-                </Button>
+      <div className={this.props.classes.mainDiv}>
+        <Typography classes={this.props.classes.nameHeader} component="div">
+          <Box fontFamily='chunk' fontSize="h1.fontSize" textAlign="center">
+            TOSS LIKE A BOSS
+                  </Box>
+        </Typography>
+        <div>
+          <Grid
+            container
+            alignItems={"center"}
+            alignContent={"center"}
+            justify="center"
+          >
+            <Grid item xs={12}>
+              <div>
+                <Typography component="div" gutterBottom>
+                  <Box fontSize="h5.fontSize" textAlign="center">
+                    Welcome to TOSS LIKE A BOSS, the drag and drop game that tests your recycling skills
+                  </Box>
+                </Typography>
+              </div>
+            </Grid>
+            <div>
+              <Typography component="div" gutterBottom>
+                <Box fontSize={16} textAlign="center">
+                  Click PLAY to get started, or HOW TO PLAY to view the tutorial
+                </Box>
+              </Typography>
+              <Typography component="div" gutterBottom>
+                <Box fontSize={16} textAlign="center">
+                  If you want to create a contest for your organization, click REGISTER
+                </Box>
+              </Typography>
+
+            </div>
+          </Grid>
+        </div>
+        <div>
+          <Grid
+            container
+            justify="center"
+            alignItems="center"
+            alignContent="center">
+            <Grid item xs={12}>
+              <div className={this.props.classes.playButtonDiv}>
                 <Button
                   className={this.props.classes.PlayButton}
                   onClick={this.toGame}>
                   <PlayArrow className={this.props.classes.svgIcon} />
                   PLAY!
                 </Button>
-                {/* conditionally render CompostBinChoice when play is clicked */}
-                {this.state.timeToPlay && <CompostBinChoice />}
-              </Grid>
+              </div>
+              {/* conditionally render CompostBinChoice when play is clicked */}
+              {this.state.timeToPlay && <CompostBinChoice />}
             </Grid>
-            <br></br>
-            <Grid item xs={12}></Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <div className={this.props.classes.playButtonDiv}>
+              <Button
+                className={this.props.classes.HowToPlayButton}
+                onClick={this.howToPlay}>
+                <Help />
+                How To Play
+                </Button>
+            </div>
+          </Grid>
+          <br></br>
+          <div className={this.props.classes.contestDiv}>
+          <Grid item xs={12}></Grid>
 
-            {this.props.history.location.search && (
-              <Grid item xs={12}>
-                <form
-                  className={this.props.classes.contestForm}
-                  onSubmit={this.handleSubmit}>
-                  {!activeContest &&
+          {this.props.history.location.search && (
+            <Grid item xs={12}>
+              <form
+                className={this.props.classes.contestForm}
+                onSubmit={this.handleSubmit}>
+                {!activeContest &&
                   <Card>
                     <CardContent>
-                  <div style={{fontSize: 18}}>
-                    The contest you are trying to access has either expired, or has not yet started.
-                    <br/><br/>
-                    Please feel free to play the game for fun!
+                      <div style={{ fontSize: 18 }}>
+                        The contest you are trying to access has either expired, or has not yet started.
+                    <br /><br />
+                        Please feel free to play the game for fun!
                   </div>
                     </CardContent>
                   </Card>
-                  }
-                  {activeContest && <h2>Contest Entry</h2>}
-                  {activeContest && <h4>(YOU ONLY GET ONE TRY!)</h4>}
-                  {activeContest && <FormControl className={this.props.classes.formInputs}>
-                    <TextField
-                      required
-                      label='Email Address'
-                      type='email'
-                      value={this.state.email}
-                      onChange={this.handleChange("email")}
-                    />
-                    <TextField
-                      required
-                      label='First Name'
-                      value={this.state.firstName}
-                      onChange={this.handleChange("firstName")}
-                    />
-                    <TextField
-                      required
-                      label='Last Name'
-                      value={this.state.lastName}
-                      onChange={this.handleChange("lastName")}
-                    />
-                  </FormControl>}
-                  {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
+                }
+                <div className={this.props.classes.contestFormHeader}>
+                {activeContest && <h2>Contest Entry</h2>}
+                {activeContest && <h4>(YOU ONLY GET ONE TRY!)</h4>}
+                  </div>
+                {activeContest && <FormControl className={this.props.classes.formInputs}>
+                  <TextField
+                    required
+                    label='Email Address'
+                    type='email'
+                    value={this.state.email}
+                    onChange={this.handleChange("email")}
+                  />
+                  <TextField
+                    required
+                    label='First Name'
+                    value={this.state.firstName}
+                    onChange={this.handleChange("firstName")}
+                  />
+                  <TextField
+                    required
+                    label='Last Name'
+                    value={this.state.lastName}
+                    onChange={this.handleChange("lastName")}
+                  />
+                </FormControl>}
+                {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
                   IF THERE ARE TEAM NAMES IN REDUCER */}
-                  {activeContest && this.props.teamNames[0] ? (
-                    <FormControl
-                      required
-                      className={this.props.classes.teamSelect}>
-                      <InputLabel>Team Select</InputLabel>
-                      <Select
-                        label='Team Name'
-                        value={this.state.teamName}
-                        onChange={this.handleChange("teamName")}>
-                        <MenuItem default value='None'>
-                          <em>Select Team</em>
-                        </MenuItem>
-                        {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
-                        {this.props.teamNames && teamNameArray}
-                      </Select>
-                    </FormControl>
-                  ) : (
+                {activeContest && this.props.teamNames[0] ? (
+                  <FormControl
+                    required
+                    className={this.props.classes.teamSelect}>
+                    <InputLabel>Team Select</InputLabel>
+                    <Select
+                      label='Team Name'
+                      value={this.state.teamName}
+                      onChange={this.handleChange("teamName")}>
+                      <MenuItem default value='None'>
+                        <em>Select Team</em>
+                      </MenuItem>
+                      {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
+                      {this.props.teamNames && teamNameArray}
+                    </Select>
+                  </FormControl>
+                ) : (
                     <></>
                   )}
-                  {activeContest && <Button
-                    type='submit'
-                    className={this.props.classes.contestPlayButton}
-                    // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
-                  >
-                    <PlayArrow className={this.props.classes.svgIcon} />
-                    CONTEST PLAY!{" "}
-                  </Button>}
-                </form>
-              </Grid>
-            )}
-          </div>
-        </body>
+                {activeContest && <Button
+                  type='submit'
+                  className={this.props.classes.contestPlayButton}
+                // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                >
+                  <PlayArrow className={this.props.classes.svgIcon} />
+                  CONTEST PLAY!{" "}
+                </Button>}
+              </form>
+            </Grid>
+          )}
+        </div>
+        </div>
         <br></br>
       </div>
     );
