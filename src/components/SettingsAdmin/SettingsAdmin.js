@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 import Items from './Components/Items';
 import Users from './Components/Users';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const styles = theme => ({
     root: {
@@ -60,6 +61,7 @@ class SettingsAdmin extends Component {
 
         return (
             <div className={classes.root}>
+                <CssBaseline />
                 <h1 className={classes.h1}>Waste Wise Settings<Settings className={classes.icon} /></h1>
                 <div className={classes.buttonRow}>
                     {this.state.items && <Button className={classes.button} variant="contained" name="items" color="primary">Items</Button>}

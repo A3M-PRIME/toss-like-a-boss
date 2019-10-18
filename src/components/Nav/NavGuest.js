@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
-
+import mainlogo from "../../img/mainlogo.png";
 import Icon from "@mdi/react";
 import { mdiDoorOpen } from "@mdi/js";
 // import { mdiAccount } from "@mdi/js";
@@ -97,7 +97,7 @@ class NavGuest extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static" color="default">
+        <AppBar position="static" color="#EEF1F1">
           <Tabs
             value={value}
             onChange={this.handleChange}
@@ -106,18 +106,21 @@ class NavGuest extends React.Component {
             indicatorColor="primary"
             textColor="primary"
           >
-            <Tab label="Toss Like A Boss" />
-            
+            {/* <Tab label="Toss Like A Boss" /> */}
+            <img src={mainlogo} style={{width: 149, height: 100}}/>
+            {/* /Users/maxmaher/Documents/prime/tier3/GROUP-PROJECT/waste-wise-game/src/components/Nav/NavGuest.js */}
+            /Users/maxmaher/Documents/prime/tier3/GROUP-PROJECT/waste-wise-game/src/img/mainlogo.png
+            {/* <span>Toss Like A Boss</span> */}
             {!this.props.user.id && (
               <Tab
-                label="PLAY GAME"
+                label="PLAY"
                 component={Link}
                 to="/gamelaunch"
                 icon={
                   <Icon
                     path={mdiGamepadSquare}
-                    title="Controller Classic"
-                    size={3}
+                    title="Play"
+                    size={2}
                     horizontal
                     rotate={360}
                     color="green"
@@ -127,14 +130,14 @@ class NavGuest extends React.Component {
             )}
             {this.props.user.wastewise_admin && (
               <Tab
-                label="Admin Settings"
+                label="Settings"
                 component={Link}
                 to="/settingsadmin"
                 icon={
                   <Icon
                     path={mdiSettingsBox}
-                    title="Controller Classic"
-                    size={3}
+                    title="Settings"
+                    size={2}
                     horizontal
                     rotate={360}
                     color="green"
@@ -144,14 +147,14 @@ class NavGuest extends React.Component {
             )}
             {this.props.user.id && !this.props.user.wastewise_admin && (
               <Tab
-                label="Organization Settings"
+                label="Settings"
                 component={Link}
                 to="/settingsorg"
                 icon={
                   <Icon
                     path={mdiSettingsBox}
-                    title="Controller Classic"
-                    size={3}
+                    title="Settings"
+                    size={2}
                     horizontal
                     rotate={360}
                     color="green"
@@ -167,8 +170,8 @@ class NavGuest extends React.Component {
               icon={
                 <Icon
                   path={mdiHelpCircle}
-                  title="Controller Classic"
-                  size={3}
+                  title="Resources"
+                  size={2}
                   rotate={360}
                   color="green"
                 />
@@ -182,8 +185,8 @@ class NavGuest extends React.Component {
                 icon={
                   <Icon
                     path={mdiAccountPlus}
-                    title="Controller Classic"
-                    size={3}
+                    title="Register"
+                    size={2}
                     horizontal
                     rotate={360}
                     color="green"
@@ -201,8 +204,8 @@ class NavGuest extends React.Component {
                 icon={
                   <Icon
                     path={mdiDoorClosedLock}
-                    title="Controller Classic"
-                    size={3}
+                    title="Logout"
+                    size={2}
                     horizontal
                     rotate={360}
                     color="green"
@@ -218,8 +221,8 @@ class NavGuest extends React.Component {
                 icon={
                   <Icon
                     path={mdiDoorOpen}
-                    title="Controller Classic"
-                    size={3}
+                    title="Login"
+                    size={2}
                     horizontal
                     rotate={360}
                     color="green"

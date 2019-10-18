@@ -431,6 +431,7 @@ class Items extends Component {
                     <Button className={classes.button} onClick={() => this.handleItemAdd()}
                         variant="contained" name="items" color="primary">Submit Item</Button>
                 </div>}
+
                 <br /><br />
                 <Grid container spacing={4} justify="center">
                     <Grid item sm={2}>
@@ -592,7 +593,6 @@ class Items extends Component {
 
                     </CardContent>
                 </Modal>
-
             </div>
         )
 

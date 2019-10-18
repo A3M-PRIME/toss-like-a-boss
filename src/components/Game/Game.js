@@ -15,6 +15,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 //animation components
 import styled, { keyframes } from "styled-components";
@@ -50,14 +51,6 @@ const styles = {
       backgroundColor: "yellow",
       color: "black"
     }
-  },
-  background: {
-    backgroundImage: "url(/images/Lake.jpg)",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    height: 900,
-    padding: 24
-    // opacity: 0.7,
   },
   scoreboard: {
     fontFamily: 'scoreboard',
