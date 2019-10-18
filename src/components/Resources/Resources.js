@@ -6,18 +6,17 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
-
 const styles = {
   link: {
-    fontSize: 30,
+    fontSize: 31,
     padding: "30px",
     color: "black",
-    // "&:hover": {
-    //   color: "white"
-    // },
+    "&:hover": {
+      color: "white"
+    },
     backgroundColor: "green",
     opacity: 0.9,
-    borderRadius: "10px",
+    borderRadius: "10px"
   },
   p: {
     fontSize: 18,
@@ -31,15 +30,28 @@ const styles = {
   },
   mainDiv: {
     backgroundColor: "lightGrey",
-    opacity: 0.8
+    opacity: 0.95,
+    textAlign: "center"
   },
   Button: {
     backgroundColor: "green",
+    width: "30%",
+    height: "10%",
+    fontSize: "1.3em",
+    opacity: "1",
+    marginBottom: "50px",
+    "&:hover": {
+      backgroundColor: "darkgreen",
+      color: "white"
+    }
   }
 };
 
-
 class Resources extends Component {
+
+goToWasteWise = () => {
+  window.open("http://www.mnwastewise.org/", "_blank");
+}
 
   render() {
     return (
@@ -54,16 +66,48 @@ class Resources extends Component {
           </p>
         </Grid>
         <Grid container justify={"center"}>
-          <Button className={this.props.classes.Button} >
-            <a
-              href="http://www.mnwastewise.org"
-              target="_blank"
-              className={this.props.classes.link}
-            >
-              WasteWise MN
-            </a>
+          <Button
+            className={this.props.classes.Button}
+            onClick={this.goToWasteWise}>
+            Go to WasteWise MN Website
           </Button>
         </Grid>
+        <h4>Credit for game icons</h4>
+        <div>
+          Icons made by{" "}
+          <a
+            href='https://www.flaticon.com/authors/smashicons'
+            title='Smashicons'>
+            Smashicons
+          </a>{" "}
+          from{" "}
+          <a href='https://www.flaticon.com/' title='Flaticon'>
+            www.flaticon.com
+          </a>
+        </div>
+
+        <div>
+          Icons made by{" "}
+          <a href='https://www.flaticon.com/authors/monkik' title='monkik'>
+            monkik
+          </a>{" "}
+          from{" "}
+          <a href='https://www.flaticon.com/' title='Flaticon'>
+            www.flaticon.com
+          </a>
+        </div>
+        <div>
+          Icons made by{" "}
+          <a
+            href='https://www.flaticon.com/authors/payungkead'
+            title='Payungkead'>
+            Payungkead
+          </a>{" "}
+          from{" "}
+          <a href='https://www.flaticon.com/' title='Flaticon'>
+            www.flaticon.com
+          </a>
+        </div>
       </div>
     );
   }
