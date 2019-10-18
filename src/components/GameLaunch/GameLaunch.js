@@ -14,6 +14,11 @@ import Help from "@material-ui/icons/Help";
 import PlayArrow from "@material-ui/icons/PlayArrow";
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
 import Paper from '@material-ui/core/Paper';
 import CompostBinModal from "../CompostBinModal/CompostBinModal"
 import Moment from 'react-moment';
@@ -67,7 +72,7 @@ const styles = {
       color: "black"
     }
   },
-  
+
   contestForm: {
     backgroundColor: "grey",
     borderRadius: "25px",
@@ -82,7 +87,7 @@ const styles = {
     margin: 5
   },
   teamSelect: {
-    width: "30%"
+    width: 'auto',
   },
   svgIcon: {
     fontSize: "calc(35px + 2vmin)",
@@ -97,7 +102,7 @@ const styles = {
   playButtonDiv: {
     display: 'flex',
     justifyContent: 'center',
-    margin: '15px auto 15px auto'
+    margin: '5px auto 15px auto'
   },
   contestDiv: {
     justifyContent: 'center',
@@ -105,7 +110,10 @@ const styles = {
   },
   contestFormHeader: {
     textAlign: 'center'
-  }
+  },
+  dialogHeader: {
+    textAlign: 'center'
+  },
 };
 
 class GameLaunch extends Component {
@@ -116,7 +124,9 @@ class GameLaunch extends Component {
     lastName: "",
     contestPlayReady: false,
     teamName: "",
+    modalOpen: false,
   };
+
   componentDidMount() {
     //this will get the id of the contest game from url params
     let contestIdNumber = this.props.history.location.search.split("=").pop();
@@ -171,8 +181,7 @@ class GameLaunch extends Component {
     MySwal.fire({
       title: `Are you sure you are ready? You only get one
       chance to play to record a score!`,
-      text: `You can practice all you want by clicking the Play
-      button to the left.`,
+      text: `You can practice all you want by clicking cancel and then clicking Play.`,
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -200,6 +209,18 @@ class GameLaunch extends Component {
       [name]: event.target.value
     });
   };
+
+  handleOpen = () => {
+    this.setState({
+      modalOpen: true
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      modalOpen: false
+    })
+  }
 
   render() {
     console.log(this.state);
@@ -237,6 +258,16 @@ class GameLaunch extends Component {
                   </Box>
         </Typography>
         <div>
+          <Grid item xs={12}>
+            <div className={this.props.classes.playButtonDiv}>
+              <Button
+                className={this.props.classes.HowToPlayButton}
+                onClick={this.howToPlay}>
+                <Help />
+                How To Play
+                </Button>
+            </div>
+          </Grid>
           <Grid
             container
             alignItems={"center"}
@@ -286,94 +317,155 @@ class GameLaunch extends Component {
               {this.state.timeToPlay && <CompostBinChoice />}
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <div className={this.props.classes.playButtonDiv}>
-              <Button
-                className={this.props.classes.HowToPlayButton}
-                onClick={this.howToPlay}>
-                <Help />
-                How To Play
-                </Button>
-            </div>
-          </Grid>
-          <br></br>
-          <div className={this.props.classes.contestDiv}>
-          <Grid item xs={12}></Grid>
-
-          {this.props.history.location.search && (
-            <Grid item xs={12}>
-              <form
-                className={this.props.classes.contestForm}
-                onSubmit={this.handleSubmit}>
-                {!activeContest &&
-                  <Card>
-                    <CardContent>
-                      <div style={{ fontSize: 18 }}>
-                        The contest you are trying to access has either expired, or has not yet started.
+          {activeContest && <Button
+            onClick={this.handleOpen}
+            className={this.props.classes.contestPlayButton}
+          >
+            <PlayArrow className={this.props.classes.svgIcon} />
+            CONTEST PLAY!{" "}
+          </Button>}
+          {!activeContest && this.props.history.location.search &&
+            <Card>
+              <CardContent>
+                <div style={{ fontSize: 18 }}>
+                  The contest you are trying to access has either expired, or has not yet started.
                     <br /><br />
-                        Please feel free to play the game for fun!
+                  Please feel free to play the game for fun!
                   </div>
-                    </CardContent>
-                  </Card>
-                }
-                <div className={this.props.classes.contestFormHeader}>
-                {activeContest && <h2>Contest Entry</h2>}
-                {activeContest && <h4>(YOU ONLY GET ONE TRY!)</h4>}
-                  </div>
-                {activeContest && <FormControl className={this.props.classes.formInputs}>
-                  <TextField
-                    required
-                    label='Email Address'
-                    type='email'
-                    value={this.state.email}
-                    onChange={this.handleChange("email")}
-                  />
-                  <TextField
-                    required
-                    label='First Name'
-                    value={this.state.firstName}
-                    onChange={this.handleChange("firstName")}
-                  />
-                  <TextField
-                    required
-                    label='Last Name'
-                    value={this.state.lastName}
-                    onChange={this.handleChange("lastName")}
-                  />
-                </FormControl>}
-                {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
+              </CardContent>
+            </Card>
+          }
+          <div className={this.props.classes.contestDiv}>
+            <Grid item xs={12}></Grid>
+
+            {this.props.history.location.search && (
+              <Grid item xs={12}>
+                {/* <form
+                  className={this.props.classes.contestForm}
+                  onSubmit={this.handleSubmit}> */}
+                  
+                  {/* <div className={this.props.classes.contestFormHeader}> */}
+                    <div>
+                    <Dialog open={this.state.modalOpen} onClose={this.handleClose}>
+                        <DialogTitle className={this.props.classes.dialogHeader}>
+                          Are you sure you are ready? You only get one 
+                          chance to play to record a score! You can practice 
+                          all you want by clicking cancel and then clicking Play.
+                      </DialogTitle>
+                      
+                        <form
+                          className={this.props.classes.contestForm}
+                          onSubmit={this.handleSubmit}>
+                      <FormControl className={this.props.classes.formInputs}>
+                        <TextField
+                          required
+                          label='Email Address'
+                          type='email'
+                          value={this.state.email}
+                          onChange={this.handleChange("email")}
+                        />
+                        <TextField
+                          required
+                          label='First Name'
+                          value={this.state.firstName}
+                          onChange={this.handleChange("firstName")}
+                        />
+                        <TextField
+                          required
+                          label='Last Name'
+                          value={this.state.lastName}
+                          onChange={this.handleChange("lastName")}
+                        />
+                      </FormControl>
+                      {activeContest && this.props.teamNames[0] ? (
+                        <FormControl
+                          required
+                          className={this.props.classes.teamSelect}>
+                          <InputLabel>Team Select</InputLabel>
+                          <Select
+                            label='Team Name'
+                            value={this.state.teamName}
+                            onChange={this.handleChange("teamName")}>
+                            <MenuItem default value='None'>
+                              <em>Select Team</em>
+                            </MenuItem>
+                            {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
+                            {this.props.teamNames && teamNameArray}
+                          </Select>
+                        </FormControl>
+                      ) : (
+                          <></>
+                        )}
+                      {activeContest && <Button
+                        type='submit'
+                        className={this.props.classes.contestPlayButton}
+                      // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                      >
+                        <PlayArrow className={this.props.classes.svgIcon} />
+                        CONTEST PLAY!{" "}
+                      </Button>}
+                    </form>
+                      <DialogActions>
+                        <Button onClick={this.handleClose} color="primary">
+                          Cancel
+                        </Button>
+                      </DialogActions>
+                    </Dialog>
+                    </div>
+                  {/* {activeContest && <FormControl className={this.props.classes.formInputs}>
+                    <TextField
+                      required
+                      label='Email Address'
+                      type='email'
+                      value={this.state.email}
+                      onChange={this.handleChange("email")}
+                    />
+                    <TextField
+                      required
+                      label='First Name'
+                      value={this.state.firstName}
+                      onChange={this.handleChange("firstName")}
+                    />
+                    <TextField
+                      required
+                      label='Last Name'
+                      value={this.state.lastName}
+                      onChange={this.handleChange("lastName")}
+                    />
+                  </FormControl>} */}
+                  {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
                   IF THERE ARE TEAM NAMES IN REDUCER */}
-                {activeContest && this.props.teamNames[0] ? (
-                  <FormControl
-                    required
-                    className={this.props.classes.teamSelect}>
-                    <InputLabel>Team Select</InputLabel>
-                    <Select
-                      label='Team Name'
-                      value={this.state.teamName}
-                      onChange={this.handleChange("teamName")}>
-                      <MenuItem default value='None'>
-                        <em>Select Team</em>
-                      </MenuItem>
-                      {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
-                      {this.props.teamNames && teamNameArray}
-                    </Select>
-                  </FormControl>
-                ) : (
-                    <></>
-                  )}
-                {activeContest && <Button
-                  type='submit'
-                  className={this.props.classes.contestPlayButton}
-                // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
-                >
-                  <PlayArrow className={this.props.classes.svgIcon} />
-                  CONTEST PLAY!{" "}
-                </Button>}
-              </form>
-            </Grid>
-          )}
-        </div>
+                  {/* {activeContest && this.props.teamNames[0] ? (
+                    <FormControl
+                      required
+                      className={this.props.classes.teamSelect}>
+                      <InputLabel>Team Select</InputLabel>
+                      <Select
+                        label='Team Name'
+                        value={this.state.teamName}
+                        onChange={this.handleChange("teamName")}>
+                        <MenuItem default value='None'>
+                          <em>Select Team</em>
+                        </MenuItem>
+                        {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
+                        {/* {this.props.teamNames && teamNameArray}
+                      </Select>
+                    </FormControl>
+                  ) : (
+                      <></>
+                    )} */}
+                  {/* {activeContest && <Button
+                    type='submit'
+                    className={this.props.classes.contestPlayButton}
+                  // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                  >
+                    <PlayArrow className={this.props.classes.svgIcon} />
+                    CONTEST PLAY!{" "}
+                  </Button>}
+                </form> */}
+              </Grid>
+            )}
+          </div>
         </div>
         <br></br>
       </div>

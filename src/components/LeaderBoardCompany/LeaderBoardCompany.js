@@ -28,20 +28,27 @@ const styles = theme => ({
 });
 
 class Leaderboard extends Component {
-  componentDidMount = () => {
+  componentDidMount() {
     this.getLeaderboardInfo();
+    console.log(this.props)
   };
-
-  getLeaderboardInfo() {
+  
+  getLeaderboardInfo = () => {
     let contestIdNumber = this.props.history.location.search.split("=").pop();
-    this.props.dispatch({
+    console.log('id numbre is ',contestIdNumber)
+    this.props.history.location.search && this.props.dispatch({
       type: "FETCH_LEADERBOARD",
       payload: this.props.store.contestCompostBooleanReducer[0].id
+      // payload: contestIdNumber
     });
   }
 
-  playAgain= () => {
-    this.props.history.push("/gamelaunch");
+  playAgain = () => {
+    if (this.props.history.location.search) {
+      this.props.history.push(`/gamelaunch${this.props.history.location.search}`)
+    } else {
+      this.props.history.push("/gamelaunch");
+    }
   };
 
   render() {

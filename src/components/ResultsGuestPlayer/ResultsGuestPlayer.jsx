@@ -25,7 +25,22 @@ const styles = {
     },
     playAgainButton: {
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'center',
+    },
+    resultsDiv: {
+        backgroundColor: 'lightgrey',
+        opacity: .8,
+    },
+    leaderboardButton: {
+        display: 'flex',
+        margin: 'auto'
+    },
+    leaderboardview: {
+        textAlign: 'center',
+        marginBottom: 10
+    },
+    playAgain: {
+        marginBottom: '30px'
     }
 };
 
@@ -68,8 +83,14 @@ class ResultsGuestPlayer extends Component {
         })
     }
 
-    playAgain = action => {
-        this.props.history.push("/gamelaunch");
+    playAgain = () => {
+        //if they are a contest player with search params, push to gamelaunch with those params
+        //or push to regular gamelaunch page if not
+        if (this.props.history.location.search) {
+            this.props.history.push(`/gamelaunch${this.props.history.location.search}`)
+        } else {
+            this.props.history.push("/gamelaunch");
+        }
     };
 
     handleLeaderboardClick = () => {
@@ -82,36 +103,50 @@ class ResultsGuestPlayer extends Component {
         console.log(scorePercentage);
         return (
             <div>
-                <Grid
-                    container
-                    justify={"space-evenly"}
-                    spacing={24}
-                    alignItems={"center"}
-                >
+                <div className={this.props.classes.resultsDiv}>
                     <div>
-                        <Typography className={this.props.classes.scoreText} variant='h3'>
-                            SCORE: {this.props.gameWrongAnswers.length === undefined ? 15 : 15 - this.props.gameWrongAnswers.length}/15 - {parseInt(((15 - this.props.gameWrongAnswers.length) / 15) * 100)}%
+                        <Grid
+                            container
+                            justify={"space-evenly"}
+                            spacing={24}
+                            alignItems={"center"}
+                        >
+                            <div>
+                                <Typography className={this.props.classes.scoreText} variant='h3'>
+                                    SCORE: {this.props.gameWrongAnswers.length === undefined ? 15 : 15 - this.props.gameWrongAnswers.length}/15 - {parseInt(((15 - this.props.gameWrongAnswers.length) / 15) * 100)}%
                     </Typography>
+                            </div>
+                            <div>
+                                <Typography className={this.props.classes.scoreText} variant='h3'>
+                                    TIME: {this.props.gameTime}
+                                </Typography>
+                            </div>
+                        </Grid>
                     </div>
                     <div>
-                        <Typography className={this.props.classes.scoreText} variant='h3'>
-                            TIME: {this.props.gameTime}
-                        </Typography>
+                        {this.props.history.location.search &&
+                            <div>
+                                <Typography className={this.props.classes.leaderboardview} variant='h5'>
+                                    VIEW THE CONTEST LEADERBOARD
+                                </Typography>
+                                <Button
+                                    variant='contained'
+                                    color='primary'
+                                    className={this.props.classes.leaderboardButton}
+                                    onClick={() => this.handleLeaderboardClick()}
+                                >CONTEST LEADERBOARD
+                                </Button>
+                            </div>}
                     </div>
-                </Grid>
-                <div>
-                    {this.props.history.location.search && <Button
-                        onClick={() => this.handleLeaderboardClick()}
-                    >CONTEST LEADERBOARD</Button>}
-                </div>
-                <div>
-                    <ResultsItemCard />
-                </div>
-                
-                <div className={this.props.classes.playAgainButton}>
-                    <Button onClick={this.playAgain} variant='contained' color='primary'>
-                        CLICK HERE TO PLAY AGAIN
+                    <div>
+                        <ResultsItemCard />
+                    </div>
+
+                    <div className={this.props.classes.playAgainButton}>
+                        <Button className={this.props.classes.playAgain} onClick={() => this.playAgain()} variant='contained' color='primary'>
+                            CLICK HERE TO PLAY AGAIN
                     </Button>
+                    </div>
                 </div>
             </div>
         );
