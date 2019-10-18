@@ -230,16 +230,17 @@ class Game extends Component {
                         this.props.gameItems[this.props.currentGameValue].id
                       }
                       goToResults={this.goToResults}
+                      gameTime={this.state.time}
                     />
                   )
                 ) : (
                   <DraggableItem
-                    backgroundImageURL={
-                      this.props.gameItems[this.props.currentGameValue].url
-                    }
                     name={
                       this.props.gameItems[this.props.currentGameValue]
                         .receptacle
+                    }
+                    backgroundImageURL={
+                      this.props.gameItems[this.props.currentGameValue].url
                     }
                     itemId={
                       this.props.gameItems &&

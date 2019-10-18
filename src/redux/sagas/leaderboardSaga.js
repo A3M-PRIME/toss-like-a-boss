@@ -4,6 +4,7 @@ import { put, takeEvery } from "redux-saga/effects";
 function* getLeaderboard(action) {
   console.log("client side leaderboard GET", action);
   try {
+    console.log('get leaderboard console log', action.payload)
     let response = yield axios.get(`api/score/leaderboard/${action.payload}`);
     console.log("saga response", response.data);
     yield put({
