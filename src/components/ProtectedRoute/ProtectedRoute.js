@@ -27,6 +27,16 @@ const ProtectedRoute = (props) => {
 
   let ComponentToShow;
 
+  // if(user.id.wastewise_admin) {
+  //   ComponentToShow = ComponentToProtect;
+  // } else if (loginMode === 'login') {
+  //   ComponentToShow = SettingsAdmin
+  // } else {
+  //   ComponentToShow = SettingsOrganization
+  // }
+
+
+
   if(user.id) {
     // if the user is logged in (only logged in users have ids)
     // show the component that is protected
