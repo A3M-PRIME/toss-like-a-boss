@@ -49,6 +49,10 @@ const styles = theme => ({
         height: 100,
         width: 100
     },
+    imageModal: {
+        height: "20%",
+        width: "20%",
+    },
     icon: {
         width: 35,
         height: 35,
@@ -168,12 +172,13 @@ class Items extends Component {
         });
     }
 
-    handleItemEditOpen = (name, receptacle, text, id) => {
+    handleItemEditOpen = (name, receptacle, text, url, id) => {
         this.setState({
             itemEditOpen: !this.state.itemEditOpen,
             itemName: name,
             receptacle: receptacle,
             itemText: text,
+            url: url,
             itemId: id
         })
     };
@@ -275,7 +280,7 @@ class Items extends Component {
             return (
                 <tr>
                     <td className={classes.cardContentIconsLeft}>
-                        <Button onClick={() => this.handleItemEditOpen(item.name, item.receptacle, item.item_text, item.id)}>
+                        <Button onClick={() => this.handleItemEditOpen(item.name, item.receptacle, item.item_text, item.url, item.id)}>
                             <Edit />
                         </Button>
                     </td>
@@ -485,6 +490,10 @@ class Items extends Component {
 
                         {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleEdit}>
+                            <div>
+                                <img className={classes.imageModal} src={this.state.url}/>
+                                <br/><br/>
+                            </div>
                             <div>
                                 <TextField
                                     align="left"

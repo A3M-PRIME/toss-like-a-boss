@@ -7,6 +7,7 @@ import { AccountBalance, People, Settings, VideogameAsset } from '@material-ui/i
 import OrganizationName from './SettingsComponents/OrganizationName';
 import Teams from './SettingsComponents/Teams';
 import Contests from './SettingsComponents/Contests';
+import { Redirect } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -48,7 +49,7 @@ class SettingsOrganization extends Component {
     const { classes } = this.props
 
     return (
-
+      <>{this.props.user.wastewise_admin && <Redirect to="/settingsadmin"/> }
       <div className={classes.root}>
         <h1 className={classes.h1}>Settings<Settings className={classes.icon} /></h1>
         {/* <h2>Organization<AccountBalance className={classes.icon} /></h2> */}
@@ -60,7 +61,7 @@ class SettingsOrganization extends Component {
         {/* <h2>Contests<VideogameAsset className={classes.icon} /></h2> */}
           <Contests/>
       </div>
-
+      </>
     )
 
   }
