@@ -253,6 +253,18 @@ class Contests extends Component {
         this.setState({ snackBarShowOpen: false });
     };
 
+    handlePresoClick = () => {
+        console.log('preso click')
+        this.setState({
+            contestName: 'Earth Day 2020',
+            contestStartDate: '2020-04-22',
+            contestStartTime: 8,
+            contestEndDate: '2020-04-22',
+            contestEndTime: 6,
+            contestCompostBin: 'true',
+        })
+    }
+
     render() {
 
         const { classes } = this.props
@@ -318,7 +330,7 @@ class Contests extends Component {
                                 <Grid item sm={5}>
                                 </Grid>
                                 <Grid item sm={2}>
-                                    <span className={classes.cardHeader} style={{ marginLeft: "auto" }}>Contests</span>
+                                    <span onClick={() => this.handlePresoClick()} className={classes.cardHeader} style={{ marginLeft: "auto" }}>Contests</span>
                                 </Grid>
                                 <Grid item sm={5} style={{ textAlign: "right" }}>
                                     <Button onClick={() => this.handleContestAddOpen()} style={{ marginLeft: "auto", }}>
@@ -365,11 +377,12 @@ class Contests extends Component {
                     }}
                 >
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
-
+                        
                         {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleEdit}>
                             <div>
                                 <TextField
+                                    onClick={() => this.handlePresoClick()}
                                     align="left"
                                     id="outlined-name"
                                     label="contest name"

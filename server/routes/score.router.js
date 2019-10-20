@@ -3,7 +3,7 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/leaderboard/:id", (req, res) => {
-  const queryText = `SELECT "team".team_name, "score".id, "score".score, "score".first_name, "score".last_name, "score".team_id, "score".time FROM score JOIN "team" ON "score".team_id="team".id WHERE "score".contest_id=$1 ORDER BY "score".score LIMIT 10;`;
+  const queryText = `SELECT "team".team_name, "score".id, "score".score, "score".first_name, "score".last_name, "score".team_id, "score".time FROM score JOIN "team" ON "score".team_id="team".id WHERE "score".contest_id=$1 ORDER BY "score".score DESC, "score".time ASC LIMIT 10;`;
   contestId = req.params.id;
   pool
     .query(queryText, [contestId])

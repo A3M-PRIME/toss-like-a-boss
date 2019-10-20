@@ -188,6 +188,13 @@ class Teams extends Component {
         this.handleTeamClose();
     }
 
+    handlePresoClick = () => {
+        console.log('preso click');
+        this.setState({
+            teamName: 'Project Management'
+        })
+    }
+
     render() {
 
         const { classes } = this.props
@@ -223,7 +230,7 @@ class Teams extends Component {
                                 <Grid item sm={5}>
                                 </Grid>
                                 <Grid item sm={2}>
-                                    <span className={classes.cardHeader} style={{ marginLeft: "auto" }}>Teams</span>
+                                    <span onClick={() => this.handlePresoClick()} className={classes.cardHeader} style={{ marginLeft: "auto" }}>Teams</span>
                                 </Grid>
                                 <Grid item sm={5} style={{ textAlign: "right" }}>
                                     <Button onClick={() => this.handleTeamAddOpen()} style={{ marginLeft: "auto", }}>
