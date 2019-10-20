@@ -47,7 +47,11 @@ class HowToPlay extends Component {
   };
 
   toHomeScreen = () => {
-    this.props.history.push("/gamelaunch");
+    if (this.props.history.location.search) {
+      this.props.history.push(`/gamelaunch${this.props.history.location.search}`)
+    } else {
+      this.props.history.push("/gamelaunch");
+    }
   };
 
   nextPage = () => {
@@ -182,12 +186,12 @@ class HowToPlay extends Component {
                 onClick={this.toHomeScreen}>
                 Back to Home Screen
               </Button>
-              <Button
+              {/* <Button
                 className={this.props.classes.button}
                 variant='outlined'
                 onClick={this.toGame}>
                 Play the Game!
-              </Button>
+              </Button> */}
               <img src={fifth} alt='How To Play' height='80%' width='80%' />
             </div>
           </Slide>
