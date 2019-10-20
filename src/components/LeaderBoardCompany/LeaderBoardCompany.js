@@ -68,11 +68,14 @@ class Leaderboard extends Component {
               >
                 PLAY AGAIN
               </Button>
-            </div>
-            <div className={classes.grid}>
-              <h1>"Company Name" Leaderboard</h1>
+              <br />
+              <br />
             </div>
             <Paper>
+            <div className={classes.grid}>
+              <h1>Contest Leaderboard</h1>
+            </div>
+            
               <Table>
                 <TableHead>
                   <TableRow>
