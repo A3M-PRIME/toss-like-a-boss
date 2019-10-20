@@ -7,6 +7,7 @@ import fifth from "../../img/fifthHowToSlide.png";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
+import { connect } from 'react-redux';
 
 const styles = {
   howToDiv: {
@@ -38,8 +39,13 @@ class HowToPlay extends Component {
   }
 
   toGame = () => {
-    this.props.history.push("/game");
+    if (this.props.history.location.search) {
+      this.props.history.push(`/game${this.props.history.location.search}`)
+    } else {
+      this.props.history.push("/game");
+    }
   };
+
   toHomeScreen = () => {
     this.props.history.push("/gamelaunch");
   };
@@ -191,4 +197,9 @@ class HowToPlay extends Component {
   }
 }
 
-export default withStyles(styles)(HowToPlay);
+const mapStateToProps = (reduxStore) => {
+  return {
+    reduxStore
+  }
+}
+export default connect(mapStateToProps)(withStyles(styles)(HowToPlay));

@@ -60,7 +60,7 @@ const styles = {
     backgroundColor: "green",
     color: "white",
     border: "2px solid black",
-    fontSize: "calc(35px + 2vmin)",
+    fontSize: "30px",
     padding: "10px 100px 10px 50px",
     margin: "50px",
     width: "75%",
@@ -74,20 +74,20 @@ const styles = {
   },
 
   contestForm: {
-    backgroundColor: "grey",
+    backgroundColor: "lightgrey",
     borderRadius: "25px",
     margin: "5px",
     maxWidth: "450px",
     display: "inline-block",
-    marginLeft: "10px",
-    marginRight: "auto"
+    margin: 'auto'
   },
   formInputs: {
     padding: 5,
     margin: 5
   },
   teamSelect: {
-    width: 'auto',
+    width: '200px',
+    margin: '10px 0px 0px 0px'
   },
   svgIcon: {
     fontSize: "calc(35px + 2vmin)",
@@ -136,6 +136,10 @@ class GameLaunch extends Component {
         type: "GET_CONTEST_COMPOST_BOOLEAN",
         payload: contestIdNumber
       });
+    this.props.dispatch({
+      type: 'GET_COMPANY_ID',
+      payload: contestIdNumber
+    })
 
     this.handleTeamNames();
     this.getContestInfo(contestIdNumber);
@@ -166,253 +170,271 @@ class GameLaunch extends Component {
 
   // route the user back to the how to play page
   howToPlay = () => {
-    this.props.history.push("/howtoplay");
-  };
-  // route the user back to the gamelaunch page
-  toGame = () => {
-    this.setState({
-      timeToPlay: true
-    });
-    console.log(this.state);
-  };
-
-  handleSubmit = event => {
-    event.preventDefault();
-    MySwal.fire({
-      title: `Are you sure you are ready? You only get one
-      chance to play to record a score!`,
-      text: `You can practice all you want by clicking cancel and then clicking Play.`,
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: `I'm ready to go!`
-    }).then(result => {
-      if (result.value) {
-        this.props.dispatch({
-          type: "SET_SCORE_PERSONAL_INFO",
-          payload: this.state
-        });
-        //hits reducer to remove compost bin from game if contest has no compost
-        if (!this.props.compostBoolean[0].compost) {
-          this.props.dispatch({
-            type: "NO_COMPOST_BIN"
-          });
-        }
-        this.props.history.push(`/game${this.props.history.location.search}`);
-      }
-    });
-  };
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value
-    });
-  };
-
-  handleOpen = () => {
-    this.setState({
-      modalOpen: true
-    })
-  }
-
-  handleClose = () => {
-    this.setState({
-      modalOpen: false
-    })
-  }
-
-  render() {
-    console.log(this.state);
-
-    let teamNameArray = this.props.teamNames.map(name => {
-      return <MenuItem value={name.team_name}>{name.team_name}</MenuItem>;
-    });
-
-    let moment = require('moment');
-    let contestStartDate = this.props.currentContest.start_date
-    let contestStartTime = this.props.currentContest.start_time
-    let contestEndDate = this.props.currentContest.end_date
-    let contestEndTime = this.props.currentContest.end_time
-
-    let convertedStartDate = moment(contestStartDate).valueOf();
-    let convertedEndDate = moment(contestEndDate).valueOf();
-    let convertedStartTime = contestStartTime * 3600000
-    let convertedEndTime = contestEndTime * 3600000
-
-    let start = convertedStartDate + convertedStartTime
-    let end = convertedEndDate + convertedEndTime
-    let current = Date.now();
-
-    let activeContest = false;
-
-    if (current > start && current < end) {
-      activeContest = true;
+    if (this.props.history.location.search) {
+      this.props.history.push(`/howtoplay${this.props.history.location.search}`)
+    } else {
+      this.props.history.push("/howtoplay");
     }
+  };
 
-    return (
-      <div className={this.props.classes.mainDiv}>
-        <Typography classes={this.props.classes.nameHeader} component="div">
-          <Box fontFamily='chunk' fontSize="h1.fontSize" textAlign="center">
-            TOSS LIKE A BOSS
+// route the user back to the gamelaunch page
+toGame = () => {
+  this.setState({
+    timeToPlay: true
+  });
+  console.log(this.state);
+};
+
+handleSubmit = event => {
+  event.preventDefault();
+  this.props.dispatch({
+    type: "SET_SCORE_PERSONAL_INFO",
+    payload: this.state
+  })
+  //hits reducer to remove compost bin from game if contest has no compost
+  if (!this.props.compostBoolean[0].compost) {
+    this.props.dispatch({
+      type: "NO_COMPOST_BIN"
+    });
+  }
+  this.props.history.push(`/game${this.props.history.location.search}`);
+}
+
+handleChange = name => event => {
+  this.setState({
+    [name]: event.target.value
+  });
+};
+
+handleOpen = () => {
+  this.setState({
+    modalOpen: true
+  })
+}
+
+handleClose = () => {
+  this.setState({
+    modalOpen: false
+  })
+}
+
+handleLeaderboardClick = () => {
+  let contestIdParam = this.props.history.location.search
+  this.props.history.push(`/leaderboard${contestIdParam}`)
+}
+
+render() {
+  console.log(this.state);
+
+  let teamNameArray = this.props.teamNames.map(name => {
+    return <MenuItem value={name.team_name}>{name.team_name}</MenuItem>;
+  });
+
+  let moment = require('moment');
+  let contestStartDate = this.props.currentContest.start_date
+  let contestStartTime = this.props.currentContest.start_time
+  let contestEndDate = this.props.currentContest.end_date
+  let contestEndTime = this.props.currentContest.end_time
+
+  let convertedStartDate = moment(contestStartDate).valueOf();
+  let convertedEndDate = moment(contestEndDate).valueOf();
+  let convertedStartTime = contestStartTime * 3600000
+  let convertedEndTime = contestEndTime * 3600000
+
+  let start = convertedStartDate + convertedStartTime
+  let end = convertedEndDate + convertedEndTime
+  let current = Date.now();
+
+  let activeContest = false;
+
+  if (current > start && current < end) {
+    activeContest = true;
+  }
+
+  return (
+    <div className={this.props.classes.mainDiv}>
+      <Typography classes={this.props.classes.nameHeader} component="div">
+        <Box fontFamily='chunk' fontSize="h1.fontSize" textAlign="center">
+          TOSS LIKE A BOSS
                   </Box>
-        </Typography>
-        <div>
+      </Typography>
+      <div>
+        <Grid item xs={12}>
+          <div className={this.props.classes.playButtonDiv}>
+            <Button
+              className={this.props.classes.HowToPlayButton}
+              onClick={this.howToPlay}>
+              <Help />
+              How To Play
+                </Button>
+          </div>
+        </Grid>
+        <Grid
+          container
+          alignItems={"center"}
+          alignContent={"center"}
+          justify="center"
+        >
+          <Grid item xs={12}>
+            <div>
+              <Typography component="div" gutterBottom>
+                <Box fontSize="h5.fontSize" textAlign="center">
+                  Welcome to TOSS LIKE A BOSS, the drag and drop game that tests your recycling skills
+                  </Box>
+              </Typography>
+            </div>
+          </Grid>
+          <div>
+            <Typography component="div" gutterBottom>
+              <Box fontSize={16} textAlign="center">
+                Click PLAY to get started, or HOW TO PLAY to view the tutorial
+                </Box>
+            </Typography>
+            <Typography component="div" gutterBottom>
+              <Box fontSize={16} textAlign="center">
+                If you want to create a contest for your organization, click REGISTER
+                </Box>
+            </Typography>
+
+          </div>
+        </Grid>
+      </div>
+      <div>
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          alignContent="center">
           <Grid item xs={12}>
             <div className={this.props.classes.playButtonDiv}>
               <Button
-                className={this.props.classes.HowToPlayButton}
-                onClick={this.howToPlay}>
-                <Help />
-                How To Play
+                className={this.props.classes.PlayButton}
+                onClick={this.toGame}>
+                <PlayArrow className={this.props.classes.svgIcon} />
+                PLAY!
                 </Button>
             </div>
+            {/* conditionally render CompostBinChoice when play is clicked */}
+            {this.state.timeToPlay && <CompostBinChoice />}
           </Grid>
-          <Grid
-            container
-            alignItems={"center"}
-            alignContent={"center"}
-            justify="center"
-          >
-            <Grid item xs={12}>
-              <div>
-                <Typography component="div" gutterBottom>
-                  <Box fontSize="h5.fontSize" textAlign="center">
-                    Welcome to TOSS LIKE A BOSS, the drag and drop game that tests your recycling skills
-                  </Box>
-                </Typography>
-              </div>
-            </Grid>
-            <div>
-              <Typography component="div" gutterBottom>
-                <Box fontSize={16} textAlign="center">
-                  Click PLAY to get started, or HOW TO PLAY to view the tutorial
-                </Box>
-              </Typography>
-              <Typography component="div" gutterBottom>
-                <Box fontSize={16} textAlign="center">
-                  If you want to create a contest for your organization, click REGISTER
-                </Box>
-              </Typography>
-
-            </div>
+        </Grid>
+        <Grid
+          container
+          spacing={24}>
+          <Grid item xs={6}>
+            {activeContest && <Button
+              onClick={this.handleOpen}
+              className={this.props.classes.contestPlayButton}
+            >
+              <PlayArrow className={this.props.classes.svgIcon} />
+              CONTEST PLAY!{" "}
+            </Button>}
           </Grid>
-        </div>
-        <div>
-          <Grid
-            container
-            justify="center"
-            alignItems="center"
-            alignContent="center">
-            <Grid item xs={12}>
-              <div className={this.props.classes.playButtonDiv}>
-                <Button
-                  className={this.props.classes.PlayButton}
-                  onClick={this.toGame}>
-                  <PlayArrow className={this.props.classes.svgIcon} />
-                  PLAY!
-                </Button>
-              </div>
-              {/* conditionally render CompostBinChoice when play is clicked */}
-              {this.state.timeToPlay && <CompostBinChoice />}
-            </Grid>
+          <Grid item item xs={6}>
+            {activeContest && <Button
+              onClick={this.handleLeaderboardClick}
+              className={this.props.classes.contestPlayButton}
+            >
+              <PlayArrow className={this.props.classes.svgIcon} />
+              CONTEST LEADERBOARD{" "}
+            </Button>}
           </Grid>
-          {activeContest && <Button
-            onClick={this.handleOpen}
-            className={this.props.classes.contestPlayButton}
-          >
-            <PlayArrow className={this.props.classes.svgIcon} />
-            CONTEST PLAY!{" "}
-          </Button>}
-          {!activeContest && this.props.history.location.search &&
-            <Card>
-              <CardContent>
-                <div style={{ fontSize: 18 }}>
-                  The contest you are trying to access has either expired, or has not yet started.
+        </Grid>
+        {!activeContest && this.props.history.location.search &&
+          <Card style={{ margin: 5, width: 'auto' }}>
+            <CardContent>
+              <div style={{ fontSize: 18, textAlign: 'center', }}>
+                The contest you are trying to access has either expired, or has not yet started.
                     <br /><br />
-                  Please feel free to play the game for fun!
+                Please feel free to play the game for fun!
                   </div>
-              </CardContent>
-            </Card>
-          }
-          <div className={this.props.classes.contestDiv}>
-            <Grid item xs={12}></Grid>
+            </CardContent>
+          </Card>
+        }
+        <div className={this.props.classes.contestDiv}>
+          <Grid item xs={12}></Grid>
 
-            {this.props.history.location.search && (
-              <Grid item xs={12}>
-                {/* <form
+          {this.props.history.location.search && (
+            <Grid item xs={12}>
+              {/* <form
                   className={this.props.classes.contestForm}
                   onSubmit={this.handleSubmit}> */}
-                  
-                  {/* <div className={this.props.classes.contestFormHeader}> */}
-                    <div>
-                    <Dialog open={this.state.modalOpen} onClose={this.handleClose}>
-                        <DialogTitle className={this.props.classes.dialogHeader}>
-                          Are you sure you are ready? You only get one 
-                          chance to play to record a score! You can practice 
-                          all you want by clicking cancel and then clicking Play.
+
+              {/* <div className={this.props.classes.contestFormHeader}> */}
+              <div>
+                <Dialog open={this.state.modalOpen} onClose={this.handleClose}>
+                  <DialogTitle className={this.props.classes.dialogHeader}>
+                    Are you sure you are ready? You only get one
+                    chance to play to record a score! You can practice
+                    all you want by clicking cancel and then clicking Play.
                       </DialogTitle>
-                      
-                        <form
-                          className={this.props.classes.contestForm}
-                          onSubmit={this.handleSubmit}>
-                      <FormControl className={this.props.classes.formInputs}>
-                        <TextField
-                          required
-                          label='Email Address'
-                          type='email'
-                          value={this.state.email}
-                          onChange={this.handleChange("email")}
-                        />
-                        <TextField
-                          required
-                          label='First Name'
-                          value={this.state.firstName}
-                          onChange={this.handleChange("firstName")}
-                        />
-                        <TextField
-                          required
-                          label='Last Name'
-                          value={this.state.lastName}
-                          onChange={this.handleChange("lastName")}
-                        />
+
+                  <form
+                    className={this.props.classes.contestForm}
+                    onSubmit={this.handleSubmit}>
+                    <FormControl className={this.props.classes.formInputs}>
+                      <TextField
+                        required
+                        label='Email Address'
+                        type='email'
+                        value={this.state.email}
+                        onChange={this.handleChange("email")}
+                      />
+                      <TextField
+                        required
+                        label='First Name'
+                        value={this.state.firstName}
+                        onChange={this.handleChange("firstName")}
+                      />
+                      <TextField
+                        required
+                        label='Last Name'
+                        value={this.state.lastName}
+                        onChange={this.handleChange("lastName")}
+                      />
+                    </FormControl>
+                    {activeContest && this.props.teamNames[0] ? (
+                      <FormControl
+                        required
+                        className={this.props.classes.teamSelect}>
+                        <InputLabel>Team Select</InputLabel>
+                        <Select
+                          label='Team Name'
+                          value={this.state.teamName}
+                          onChange={this.handleChange("teamName")}>
+                          <MenuItem default value='None'>
+                            <em>Select Team</em>
+                          </MenuItem>
+                          {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
+                          {this.props.teamNames && teamNameArray}
+                        </Select>
                       </FormControl>
-                      {activeContest && this.props.teamNames[0] ? (
-                        <FormControl
-                          required
-                          className={this.props.classes.teamSelect}>
-                          <InputLabel>Team Select</InputLabel>
-                          <Select
-                            label='Team Name'
-                            value={this.state.teamName}
-                            onChange={this.handleChange("teamName")}>
-                            <MenuItem default value='None'>
-                              <em>Select Team</em>
-                            </MenuItem>
-                            {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
-                            {this.props.teamNames && teamNameArray}
-                          </Select>
-                        </FormControl>
-                      ) : (
-                          <></>
-                        )}
-                      {activeContest && <Button
-                        type='submit'
-                        className={this.props.classes.contestPlayButton}
-                      // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
-                      >
-                        <PlayArrow className={this.props.classes.svgIcon} />
-                        CONTEST PLAY!{" "}
-                      </Button>}
-                    </form>
-                      <DialogActions>
-                        <Button onClick={this.handleClose} color="primary">
-                          Cancel
+                    ) : (
+                        <></>
+                      )}
+                    {activeContest && <div><Typography component="div">
+                      <Box fontSize="body1.fontSize" textAlign="center">
+                        Click Contest Play when you are ready - you only get one chance to play for a score!
+                        </Box>
+                      </Typography>
+                    </div>}
+                    {activeContest && <Button
+                      type='submit'
+                      className={this.props.classes.contestPlayButton}
+                    // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
+                    >
+                      <PlayArrow className={this.props.classes.svgIcon} />
+                      CONTEST PLAY!{" "}
+                    </Button>}
+                  </form>
+                  <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">
+                      Cancel
                         </Button>
-                      </DialogActions>
-                    </Dialog>
-                    </div>
-                  {/* {activeContest && <FormControl className={this.props.classes.formInputs}>
+                  </DialogActions>
+                </Dialog>
+              </div>
+              {/* {activeContest && <FormControl className={this.props.classes.formInputs}>
                     <TextField
                       required
                       label='Email Address'
@@ -433,9 +455,9 @@ class GameLaunch extends Component {
                       onChange={this.handleChange("lastName")}
                     />
                   </FormControl>} */}
-                  {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
+              {/* CONDITIONALLY RENDER TEAM NAME SELECTOR
                   IF THERE ARE TEAM NAMES IN REDUCER */}
-                  {/* {activeContest && this.props.teamNames[0] ? (
+              {/* {activeContest && this.props.teamNames[0] ? (
                     <FormControl
                       required
                       className={this.props.classes.teamSelect}>
@@ -448,13 +470,13 @@ class GameLaunch extends Component {
                           <em>Select Team</em>
                         </MenuItem>
                         {/* CONDITIAIONLLY RENDER ARRAY IF THERE ARE TEAM NAMES */}
-                        {/* {this.props.teamNames && teamNameArray}
+              {/* {this.props.teamNames && teamNameArray}
                       </Select>
                     </FormControl>
                   ) : (
                       <></>
                     )} */}
-                  {/* {activeContest && <Button
+              {/* {activeContest && <Button
                     type='submit'
                     className={this.props.classes.contestPlayButton}
                   // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
@@ -463,14 +485,14 @@ class GameLaunch extends Component {
                     CONTEST PLAY!{" "}
                   </Button>}
                 </form> */}
-              </Grid>
-            )}
-          </div>
+            </Grid>
+          )}
         </div>
-        <br></br>
       </div>
-    );
-  }
+      <br></br>
+    </div>
+  );
+}
 }
 
 //mapping the state to props
