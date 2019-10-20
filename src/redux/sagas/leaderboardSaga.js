@@ -25,9 +25,22 @@ function* sendContestGameData(action) {
   }
 }
 
+function* getCompanyId(action) {
+  try {
+    let response = yield axios.get(`api/score/leaderboard/company/${action.payload}`);
+    yield put({
+      type: "SET_COMPANY_ID",
+      payload: response.data
+    });
+  } catch (error) {
+    console.log("error in client side leaderboard GET", error);
+  }
+}
+
 function* watchMe() {
   yield takeEvery("FETCH_LEADERBOARD", getLeaderboard);
   yield takeEvery('SEND_CONTEST_GAME_DATA', sendContestGameData);
+  yield takeEvery('GET_COMPANY_ID', getCompanyId);
 }
 
 export default watchMe;

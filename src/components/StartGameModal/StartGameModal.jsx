@@ -39,7 +39,7 @@ const styles = {
         fontWeight: 800,
         margin: 'auto',
         textAlign: 'center',
-        fontSize: 100,
+        fontSize: 70,
         color: 'black'
     },
     dialogBox: {
@@ -102,7 +102,7 @@ class StartGameModal extends Component {
                             <DialogContentText
                                 className={this.props.classes.dialogText}
                                 id="alert-dialog-slide-description">
-                                START GAME
+                                CLICK TO START GAME
             </DialogContentText>
                         </DialogContent>
                     </div>

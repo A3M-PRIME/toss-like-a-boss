@@ -17,6 +17,23 @@ router.get("/leaderboard/:id", (req, res) => {
     });
 });
 
+router.get('/leaderboard/company/:id', (req, res) => {
+  const queryText = `
+  SELECT "contest".id from "contest"
+  WHERE "contest".access_code = $1;
+  `;
+  contestId = req.params.id;
+  pool
+    .query(queryText, [contestId])
+    .then(results => {
+      console.log(results.rows);
+      res.send(results.rows);
+    })
+    .catch(error => {
+      console.log("error in server side leaderboard GET", error);
+      res.sendStatus(500);
+    });
+})
 // router.get("/leaderboard/:id", async (req, res) => {
 //   const code = req.params.id;
 
