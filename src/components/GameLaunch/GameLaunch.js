@@ -223,6 +223,15 @@ handleLeaderboardClick = () => {
   this.props.history.push(`/leaderboard${contestIdParam}`)
 }
 
+  handlePresoClick = () => {
+    this.setState({
+      email: "andy@mikescompany.com",
+      firstName: "Andy",
+      lastName: "DuBois",
+      teamName: "Programming",
+    })
+  }
+
 render() {
   console.log(this.state);
 
@@ -413,7 +422,7 @@ render() {
                         <></>
                       )}
                     {activeContest && <div><Typography component="div">
-                      <Box fontSize="body1.fontSize" textAlign="center">
+                      <Box onClick={() => this.handlePresoClick()} fontSize="body1.fontSize" textAlign="center">
                         Click Contest Play when you are ready - you only get one chance to play for a score!
                         </Box>
                       </Typography>
