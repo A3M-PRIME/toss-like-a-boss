@@ -10,8 +10,7 @@ class LeaderboardList extends Component {
         return (
           <TableRow>
             <TableCell>
-              {this.props.player.first_name}
-              {this.props.player.last_name}
+              {this.props.player.first_name} {this.props.player.last_name}
             </TableCell>
             <TableCell>{this.props.player.score}</TableCell>
             <TableCell>{this.props.player.time}</TableCell>
