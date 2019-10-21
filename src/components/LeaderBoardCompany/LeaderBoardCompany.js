@@ -36,6 +36,7 @@ class Leaderboard extends Component {
   getLeaderboardInfo() {
     let contestIdNumber = this.props.history.location.search.split("=").pop();
     console.log('id numbre is ', contestIdNumber)
+    console.log('the other id numbre is', this.props.store.companyIdNumberReducer)
     this.props.dispatch({
       type: "FETCH_LEADERBOARD",
       payload: this.props.store.companyIdNumberReducer
@@ -79,6 +80,7 @@ class Leaderboard extends Component {
               <Table>
                 <TableHead>
                   <TableRow>
+                    <TableCell>Rank</TableCell>
                     <TableCell>Name</TableCell>
                     <TableCell>Score</TableCell>
                     <TableCell>Time</TableCell>
@@ -86,8 +88,8 @@ class Leaderboard extends Component {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {this.props.store.leaderboardReducer.map(player => {
-                    return <LeaderboardList player={player} />;
+                  {this.props.store.leaderboardReducer.map((player, i) => {
+                    return <LeaderboardList player={player} i={i} />;
                   })}
                 </TableBody>
               </Table>

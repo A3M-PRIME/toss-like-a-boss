@@ -257,11 +257,11 @@ class Contests extends Component {
         console.log('preso click')
         this.setState({
             contestName: 'Earth Day 2020',
-            contestStartDate: '2020-04-22',
+            contestStartDate: '2020-10-21',
             contestStartTime: 8,
-            contestEndDate: '2020-04-22',
+            contestEndDate: '2020-10-23',
             contestEndTime: 6,
-            contestCompostBin: 'true',
+            contestCompostBin: true,
         })
     }
 
