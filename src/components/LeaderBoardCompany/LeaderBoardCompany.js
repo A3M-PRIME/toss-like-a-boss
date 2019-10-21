@@ -28,20 +28,28 @@ const styles = theme => ({
 });
 
 class Leaderboard extends Component {
-  componentDidMount = () => {
+  componentDidMount() {
     this.getLeaderboardInfo();
+    console.log(this.props)
   };
 
   getLeaderboardInfo() {
     let contestIdNumber = this.props.history.location.search.split("=").pop();
+    console.log('id numbre is ', contestIdNumber)
     this.props.dispatch({
       type: "FETCH_LEADERBOARD",
-      payload: this.props.store.contestCompostBooleanReducer[0].id
+      payload: this.props.store.companyIdNumberReducer
+      // payload: contestIdNumber
     });
+    console.log('ID NUMBER REDUCER', this.props.store.companyIdNumberReducer)
   }
 
-  playAgain= () => {
-    this.props.history.push("/gamelaunch");
+  playAgain = () => {
+    if (this.props.history.location.search) {
+      this.props.history.push(`/gamelaunch${this.props.history.location.search}`)
+    } else {
+      this.props.history.push("/gamelaunch");
+    }
   };
 
   render() {
@@ -60,11 +68,14 @@ class Leaderboard extends Component {
               >
                 PLAY AGAIN
               </Button>
-            </div>
-            <div className={classes.grid}>
-              <h1>"Company Name" Leaderboard</h1>
+              <br />
+              <br />
             </div>
             <Paper>
+            <div className={classes.grid}>
+              <h1>Contest Leaderboard</h1>
+            </div>
+            
               <Table>
                 <TableHead>
                   <TableRow>

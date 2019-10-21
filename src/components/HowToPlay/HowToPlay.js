@@ -7,6 +7,7 @@ import fifth from "../../img/fifthHowToSlide.png";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
+import { connect } from 'react-redux';
 
 const styles = {
   howToDiv: {
@@ -38,10 +39,19 @@ class HowToPlay extends Component {
   }
 
   toGame = () => {
-    this.props.history.push("/game");
+    if (this.props.history.location.search) {
+      this.props.history.push(`/game${this.props.history.location.search}`)
+    } else {
+      this.props.history.push("/game");
+    }
   };
+
   toHomeScreen = () => {
-    this.props.history.push("/gamelaunch");
+    if (this.props.history.location.search) {
+      this.props.history.push(`/gamelaunch${this.props.history.location.search}`)
+    } else {
+      this.props.history.push("/gamelaunch");
+    }
   };
 
   nextPage = () => {
@@ -176,12 +186,12 @@ class HowToPlay extends Component {
                 onClick={this.toHomeScreen}>
                 Back to Home Screen
               </Button>
-              <Button
+              {/* <Button
                 className={this.props.classes.button}
                 variant='outlined'
                 onClick={this.toGame}>
                 Play the Game!
-              </Button>
+              </Button> */}
               <img src={fifth} alt='How To Play' height='80%' width='80%' />
             </div>
           </Slide>
@@ -191,4 +201,9 @@ class HowToPlay extends Component {
   }
 }
 
-export default withStyles(styles)(HowToPlay);
+const mapStateToProps = (reduxStore) => {
+  return {
+    reduxStore
+  }
+}
+export default connect(mapStateToProps)(withStyles(styles)(HowToPlay));

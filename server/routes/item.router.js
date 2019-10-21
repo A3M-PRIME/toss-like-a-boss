@@ -8,6 +8,7 @@ const multer = require('multer');
 const upload = multer();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const { rejectNotAdmin } = require('../modules/authentication-middleware');
+
 router.get('/', (req, res) => {
     //get 15 random items from list for the game
     const queryText = `

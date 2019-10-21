@@ -3,7 +3,7 @@ const pool = require("../modules/pool");
 const router = express.Router();
 
 router.get("/leaderboard/:id", (req, res) => {
-  const queryText = `SELECT "team".team_name, "score".id, "score".score, "score".first_name, "score".last_name, "score".team_id, "score".time FROM score JOIN "team" ON "score".team_id="team".id WHERE "score".contest_id=$1 ORDER BY "score".score LIMIT 10;`;
+  const queryText = `SELECT "team".team_name, "score".id, "score".score, "score".first_name, "score".last_name, "score".team_id, "score".time FROM score JOIN "team" ON "score".team_id="team".id WHERE "score".contest_id=$1 ORDER BY "score".score DESC, "score".time ASC LIMIT 10;`;
   contestId = req.params.id;
   pool
     .query(queryText, [contestId])
@@ -17,6 +17,23 @@ router.get("/leaderboard/:id", (req, res) => {
     });
 });
 
+router.get('/leaderboard/company/:id', (req, res) => {
+  const queryText = `
+  SELECT "contest".id from "contest"
+  WHERE "contest".access_code = $1;
+  `;
+  contestId = req.params.id;
+  pool
+    .query(queryText, [contestId])
+    .then(results => {
+      console.log(results.rows);
+      res.send(results.rows);
+    })
+    .catch(error => {
+      console.log("error in server side leaderboard GET", error);
+      res.sendStatus(500);
+    });
+})
 // router.get("/leaderboard/:id", async (req, res) => {
 //   const code = req.params.id;
 
