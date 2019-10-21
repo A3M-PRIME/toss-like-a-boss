@@ -60,8 +60,8 @@ const styles = {
     backgroundColor: "green",
     color: "white",
     border: "2px solid black",
-    fontSize: "30px",
-    padding: "10px 100px 10px 50px",
+    fontSize: "20px",
+    // padding: "10px 100px 10px 50px",
     margin: "50px",
     width: "75%",
     borderRadius: "20px",
@@ -69,8 +69,27 @@ const styles = {
       // change to both KEY and the
       // textDecoration: "underline",
       backgroundColor: "#009E0A",
-      color: "black"
-    }
+      color: "black",
+      display: 'flex',
+      justifyContent: 'center'
+    },
+  },
+
+    contestPlayButtonDialog: {
+      backgroundColor: "green",
+      color: "white",
+      border: "2px solid black",
+      fontSize: "20px",
+      // padding: "10px 100px 10px 50px",
+      margin: "50px",
+      width: "75%",
+      borderRadius: "20px",
+      "&:hover": {
+        // change to both KEY and the
+        // textDecoration: "underline",
+        backgroundColor: "#009E0A",
+        color: "black"
+      },
   },
 
   contestForm: {
@@ -90,7 +109,7 @@ const styles = {
     margin: '10px 0px 0px 0px'
   },
   svgIcon: {
-    fontSize: "calc(35px + 2vmin)",
+    fontSize: "calc(15px + 2vmin)",
     paddingRight: "-40px"
   },
   mainDiv: {
@@ -345,7 +364,7 @@ render() {
               className={this.props.classes.contestPlayButton}
             >
               <PlayArrow className={this.props.classes.svgIcon} />
-              CONTEST LEADERBOARD{" "}
+              LEADERBOARD{" "}
             </Button>}
           </Grid>
         </Grid>
@@ -429,7 +448,7 @@ render() {
                     </div>}
                     {activeContest && <Button
                       type='submit'
-                      className={this.props.classes.contestPlayButton}
+                      className={this.props.classes.contestPlayButtonDialog}
                     // onClick={() => this.props.history.push(`/game${this.props.history.location.search}`)}
                     >
                       <PlayArrow className={this.props.classes.svgIcon} />
