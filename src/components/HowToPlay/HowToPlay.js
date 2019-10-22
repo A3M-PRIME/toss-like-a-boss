@@ -107,7 +107,7 @@ class HowToPlay extends Component {
             </div>
           </Slide>
         )}
-        {this.state.pageNumber == 3 && (
+        {/* {this.state.pageNumber == 3 && (
           <Slide
             direction='right'
             in={this.state.checked}
@@ -126,16 +126,16 @@ class HowToPlay extends Component {
               <img src={second} alt='How To Play' height='80%' width='80%' />
             </div>
           </Slide>
-        )}
-        {this.state.pageNumber === 4 && (
+        )} */}
+        {this.state.pageNumber === 3 && (
           <Slide
-            direction='left'
+            direction='right'
             in={this.state.checked}
             mountOnEnter
             unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                4. If the player is correct a new item will appear on screen. There
+                3. If the player is correct a new item will appear on screen. There
                 will be fifteen items total
               </h1>
               <Button
@@ -148,15 +148,15 @@ class HowToPlay extends Component {
             </div>
           </Slide>
         )}
-        {this.state.pageNumber === 5 && (
+        {this.state.pageNumber === 4 && (
           <Slide
-            direction='right'
+            direction='left'
             in={this.state.checked}
             mountOnEnter
             unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                5. If the player places an item in the wrong bin, they must place
+                4. If the player places an item in the wrong bin, they must place
                 it in the correct bin to move on.
               </h1>
               <Button
@@ -165,11 +165,11 @@ class HowToPlay extends Component {
                 onClick={this.nextPage}>
                 Next
               </Button>
-              <img src={fourth} alt='How To Play' height='80%' width='80%' />
+              <img src={fifth} alt='How To Play' height='80%' width='80%' />
             </div>
           </Slide>
         )}
-        {this.state.pageNumber === 6 && (
+        {this.state.pageNumber === 5 && (
           <Slide
             direction='right'
             in={this.state.checked}
@@ -177,7 +177,7 @@ class HowToPlay extends Component {
             unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                6. Points are only awarded if the player gets it right on the first
+                5. Points are only awarded if the player gets it right on the first
                 try.
               </h1>
               <Button
