@@ -43,11 +43,12 @@ Steps to get the development environment running.
 
 If you wish to use the image upload feature on the Items portion of this application, AWS S3 will be required.  This involves providing a credit card to AWS, in case you exceed the provided free storage limit.  If this feature is not used, Waste Wise administrators will not be able to upload images for new items, but they will still be able to provide an image URL when maintaining the items inventory.
 
-For detailed instructions, please reference this guide: [AWS S3 Setup Guide](https://passwordsgenerator.net/).  You can stop referencing this guide once you reach the section labeled "Back end."  Please note the following helpful, supplemental information below.  Step 3 especially must be reviewed.
+For detailed instructions, please reference this guide: [AWS S3 Setup Guide](https://medium.com/@khelif96/uploading-files-from-a-react-app-to-aws-s3-the-right-way-541dd6be689).  You can stop referencing this guide once you reach the section labeled "Back end."  Please note the following helpful, supplemental information below.  Step 3 & 4 especially must be reviewed.
 
 1)  Creating an AWS S3 account: [S3 Account Setup](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
 2)  Creating an AWS S3 bucket: [S3 Bucket Setup](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-bucket.html)
-3)  Updating the CORS Configuration.  Instead of the information provided in the AWS S3 Setup Guide, please copy and paste this code instead into the CORS Configuration:
+3)  Adjusting Permissions:  When logged into your AWS S3 account, click on your bucket.  Navigate to the Permissions tab.  Under the "Block Public Access" sub-tab, click Edit and uncheck all the checkboxes on this screen, so that public access is not blocked.
+4)  Updating the CORS Configuration.  Instead of the information provided in the AWS S3 Setup Guide, please copy and paste this code instead into the CORS Configuration:
 
 `<?xml version="1.0" encoding="UTF-8"?>
 <CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
