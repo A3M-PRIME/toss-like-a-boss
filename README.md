@@ -86,10 +86,6 @@ High level list of items completed.
 - [x] Drag-and-Drop Game
 - [x] Leaderboard
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
 ## Authors
 
 [Andy Dubois](https://github.com/andydubois)
