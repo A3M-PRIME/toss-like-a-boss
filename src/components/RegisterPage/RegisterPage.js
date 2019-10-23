@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
+
+//Material UI Components
 import { Button, Box, Card, CardContent, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, MenuItem, Radio, RadioGroup, TextField, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
+
 
 const styles = theme => ({
   root: {
@@ -140,10 +143,6 @@ class RegisterPage extends Component {
   }
 
   registerUser() {
-
-    // event.preventDefault();
-
-    // this.passwordValidation();
 
     this.generateAccessId();
 
@@ -563,36 +562,6 @@ class RegisterPage extends Component {
                       </Button>
                       </div>
                     </div>
-                    {/* <div>
-                      <label htmlFor="username">
-                        Username:
-              <input
-                          type="text"
-                          name="username"
-                          value={this.state.username}
-                          onChange={this.handleInputChangeFor('username')}
-                        />
-                      </label>
-                    </div>
-                    <div>
-                      <label htmlFor="password">
-                        Password:
-              <input
-                          type="password"
-                          name="password"
-                          value={this.state.password}
-                          onChange={this.handleInputChangeFor('password')}
-                        />
-                      </label>
-                    </div>
-                    <div>
-                      <input
-                        className="register"
-                        type="submit"
-                        name="submit"
-                        value="Register"
-                      />
-                    </div> */}
                   </form>
                 </CardContent>
               </Card>

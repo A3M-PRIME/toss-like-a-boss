@@ -1,23 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
+
+//Material UI Components
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
+
+// Icons and Logos for the App. Found on the Nav Bar. 
 import mainlogo from "../../img/mainlogo.png";
 import Icon from "@mdi/react";
 import { mdiDoorOpen } from "@mdi/js";
-// import { mdiAccount } from "@mdi/js";
 import { mdiGamepadSquare } from "@mdi/js";
 import { mdiSettingsBox } from "@mdi/js";
 import { mdiHelpCircle } from "@mdi/js";
-import { mdiClipboardList } from "@mdi/js";
 import { mdiAccountPlus } from "@mdi/js";
 import { mdiDoorClosedLock } from "@mdi/js";
 
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import LogOutButton from "../LogOutButton/LogOutButton";
 import "./Nav.css";
 import { withStyles } from "@material-ui/styles";
 
@@ -53,7 +54,7 @@ class NavGuest extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-
+// conditional rendering the view of the nav bar with the icon tab associated with.
   handleSetDefaultValue() {
     console.log("the url is", window.location.href);
     if (window.location.href.includes("home")) {
@@ -198,8 +199,6 @@ class NavGuest extends React.Component {
               <Tab
                 onClick={() => this.props.dispatch({ type: "LOGOUT" })}
                 label="LOGOUT"
-                // component={Link}
-                // component={LogOutButton}
                 to="/home"
                 icon={
                   <Icon
@@ -237,73 +236,10 @@ class NavGuest extends React.Component {
   }
 }
 
-NavGuest.propTypes = {
+Nav.propTypes = {
   classes: PropTypes.object.isRequired
 };
-//   <div className="nav">
-//     <Link to="/home">
-//       <h2 className="nav-title">Toss Like a Boss</h2>
-//     </Link>
-//     <div className="nav-right">
-//       {!props.user.id && (
-//         <Link className="nav-link" to="/gamelaunch">
-//           Game
-//         </Link>
-//       )}
-//       {!props.user.id && (
-//         <Link className="nav-link" to="/settingsorg">
-//           Host a Contest
-//         </Link>
-//       )}
-//       <Link className="nav-link" to="/home">
-//         {/* Show this link if they are logged in or not,
-//         but call this link 'Home' if they are logged in,
-//         and call this link 'Login / Register' if they are not */}
-//         {props.user.id ? "Home" : "Login"}
-//       </Link>
-//       {/* {!props.user.id && (
-//         <Link className="nav-link" to="/gamelaunch">
-//           Game
-//         </Link>
-//       )}
-//       {!props.user.id && (
-//         <Link className="nav-link" to="/settingsorg">
-//           Host a Contest
-//         </Link>
-//       )} */}
 
-//       {/* Show the link to the info page and the logout button if the user is logged in */}
-//       {props.user.id && (
-//         <>
-//           {/* {props.user.wastewise_admin === true && (
-//             <Link className="nav-link" to="/leaderboard">
-//               Leaderboard
-//             </Link>
-//           )} */}
-//           {props.user.wastewise_admin === true && (
-//             <Link className="nav-link" to="/settingsadmin">
-//               Admin Settings
-//             </Link>
-//           )}
-//           {props.user.wastewise_admin === false && (
-//             <Link className="nav-link" to="/settingsorg">
-//               Organization Settings
-//             </Link>
-//           )}
-//           {/* <Link className="nav-link" to="/info">
-//             Info Page
-//           </Link> */}
-//           <Link className="nav-link" to="/resources">
-//             Resources
-//           </Link>
-//           <LogOutButton className="nav-link" />
-//         </>
-//       )}
-//       {/* Always show this link since the about page is not protected */}
-//       {/* <LogOutButton className="nav-link" /> */}
-//     </div>
-//   </div>
-// );
 
 // // Instead of taking everything from state, we just want the user
 // // object to determine if they are logged in
@@ -315,4 +251,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(NavGuest));
+export default connect(mapStateToProps)(withStyles(styles)(Nav));

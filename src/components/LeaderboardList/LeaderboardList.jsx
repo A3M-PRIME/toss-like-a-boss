@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 
-
+//this component shows the leaderboard and is in a table view. 
 class LeaderboardList extends Component {
     render() {
         return (
