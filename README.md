@@ -93,6 +93,9 @@ Add additional notes about how to deploy this on a live system
 ## Authors
 
 [Andy Dubois](https://github.com/andydubois)
+
 [Max Maher](https://github.com/maxwmaher)
+
 [Miles Lacek](https://github.com/TheHumanCreative)
+
 [Michael O'Donnell](https://github.com/michaelodonnell321)
