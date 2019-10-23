@@ -45,7 +45,7 @@ For detailed instructions, please reference this guide: [AWS S3 Setup Guide](htt
 2)  Creating an AWS S3 bucket: [S3 Bucket Setup](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-bucket.html)
 3)  Updating the CORS Configuration.  Instead of the information provided in the AWS S3 Setup Guide, please copy and paste this code instead into the CORS Configuration:
 
-```<?xml version="1.0" encoding="UTF-8"?>
+`<?xml version="1.0" encoding="UTF-8"?>
 <CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
 <CORSRule>
     <AllowedOrigin>*</AllowedOrigin>
@@ -61,7 +61,7 @@ For detailed instructions, please reference this guide: [AWS S3 Setup Guide](htt
     <ExposeHeader>ETag</ExposeHeader>
     <AllowedHeader>*</AllowedHeader>
 </CORSRule>
-</CORSConfiguration>```
+</CORSConfiguration>`
 
 ## Screen Shot
 
