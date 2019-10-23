@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 //Material UI Components
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
+import "./Nav.css";
+import { withStyles } from "@material-ui/styles";
 
 // Icons and Logos for the App. Found on the Nav Bar. 
 import mainlogo from "../../img/mainlogo.png";
@@ -17,10 +21,6 @@ import { mdiHelpCircle } from "@mdi/js";
 import { mdiAccountPlus } from "@mdi/js";
 import { mdiDoorClosedLock } from "@mdi/js";
 
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import "./Nav.css";
-import { withStyles } from "@material-ui/styles";
 
 function TabContainer(props) {
   return (
@@ -34,6 +34,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+//styling
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -42,7 +43,7 @@ const styles = theme => ({
   }
 });
 
-class NavGuest extends React.Component {
+class Nav extends React.Component {
   state = {
     value: 0
   };
@@ -56,10 +57,9 @@ class NavGuest extends React.Component {
   };
 // conditional rendering the view of the nav bar with the icon tab associated with.
   handleSetDefaultValue() {
-    console.log("the url is", window.location.href);
     if (window.location.href.includes("home")) {
       this.setState({
-        value: 0
+        value: 4
       });
     } else if (window.location.href.includes("login")) {
       this.setState({
@@ -91,7 +91,7 @@ class NavGuest extends React.Component {
       });
     }
   }
-
+// below is the app bar which houses all the navigational choices that a user can see , an admin user can see , and an organization can. 
   render() {
     const { classes } = this.props;
     const { value } = this.state;
