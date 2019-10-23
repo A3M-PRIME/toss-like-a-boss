@@ -7,7 +7,7 @@ import fifth from "../../img/fifthHowToSlide.png";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
 const styles = {
   howToDiv: {
@@ -32,28 +32,17 @@ class HowToPlay extends Component {
     checked: true
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.state.pageNumber !== prevProps.pageNumber) {
-      console.log("props changed");
-    }
-  }
-
-  toGame = () => {
-    if (this.props.history.location.search) {
-      this.props.history.push(`/game${this.props.history.location.search}`)
-    } else {
-      this.props.history.push("/game");
-    }
-  };
-
+//sends player back to home screen
   toHomeScreen = () => {
     if (this.props.history.location.search) {
-      this.props.history.push(`/gamelaunch${this.props.history.location.search}`)
+      this.props.history.push(
+        `/gamelaunch${this.props.history.location.search}`
+      );
     } else {
       this.props.history.push("/gamelaunch");
     }
   };
-
+//increments page number in state up by one
   nextPage = () => {
     this.setState({
       pageNumber: this.state.pageNumber + 1
@@ -63,17 +52,17 @@ class HowToPlay extends Component {
   render() {
     return (
       <div>
+        {/* First page of how to */}
         {this.state.pageNumber === 1 && (
           <Slide
             direction='right'
             in={this.state.checked}
             mountOnEnter
-            unmountOnExit
-          >
+            unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                1. The game will start with a piece of trash on screen that needs
-                to be sorted
+                1. The game will start with a piece of trash on screen that
+                needs to be sorted
               </h1>
               <Button
                 className={this.props.classes.button}
@@ -86,7 +75,7 @@ class HowToPlay extends Component {
             </div>
           </Slide>
         )}
-
+        {/* Second page of how to */}
         {this.state.pageNumber === 2 && (
           <Slide
             direction='left'
@@ -95,7 +84,8 @@ class HowToPlay extends Component {
             unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                2. The player must select the correct bin to place the trash into
+                2. The player must select the correct bin to place the trash
+                into
               </h1>
               <Button
                 className={this.props.classes.button}
@@ -107,26 +97,7 @@ class HowToPlay extends Component {
             </div>
           </Slide>
         )}
-        {/* {this.state.pageNumber == 3 && (
-          <Slide
-            direction='right'
-            in={this.state.checked}
-            mountOnEnter
-            unmountOnExit>
-            <div className={this.props.classes.howToDiv}>
-              <h1 className={this.props.classes.header}>
-                3. The player must select the correct bin to place the trash into
-              </h1>
-              <Button
-                className={this.props.classes.button}
-                variant='outlined'
-                onClick={this.nextPage}>
-                Next
-              </Button>
-              <img src={second} alt='How To Play' height='80%' width='80%' />
-            </div>
-          </Slide>
-        )} */}
+        {/* Third page of how to */}
         {this.state.pageNumber === 3 && (
           <Slide
             direction='right'
@@ -135,8 +106,8 @@ class HowToPlay extends Component {
             unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                3. If the player is correct a new item will appear on screen. There
-                will be fifteen items total
+                3. If the player is correct a new item will appear on screen.
+                There will be fifteen items total
               </h1>
               <Button
                 className={this.props.classes.button}
@@ -148,6 +119,7 @@ class HowToPlay extends Component {
             </div>
           </Slide>
         )}
+        {/* Fourth page of how to */}
         {this.state.pageNumber === 4 && (
           <Slide
             direction='left'
@@ -156,8 +128,8 @@ class HowToPlay extends Component {
             unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                4. If the player places an item in the wrong bin, they must place
-                it in the correct bin to move on.
+                4. If the player places an item in the wrong bin, they must
+                place it in the correct bin to move on.
               </h1>
               <Button
                 className={this.props.classes.button}
@@ -169,6 +141,7 @@ class HowToPlay extends Component {
             </div>
           </Slide>
         )}
+        {/* Fifth page of how to */}
         {this.state.pageNumber === 5 && (
           <Slide
             direction='right'
@@ -177,8 +150,8 @@ class HowToPlay extends Component {
             unmountOnExit>
             <div className={this.props.classes.howToDiv}>
               <h1 className={this.props.classes.header}>
-                5. Points are only awarded if the player gets it right on the first
-                try.
+                5. Points are only awarded if the player gets it right on the
+                first try.
               </h1>
               <Button
                 className={this.props.classes.button}
@@ -186,12 +159,6 @@ class HowToPlay extends Component {
                 onClick={this.toHomeScreen}>
                 Back to Home Screen
               </Button>
-              {/* <Button
-                className={this.props.classes.button}
-                variant='outlined'
-                onClick={this.toGame}>
-                Play the Game!
-              </Button> */}
               <img src={fifth} alt='How To Play' height='80%' width='80%' />
             </div>
           </Slide>
@@ -201,9 +168,9 @@ class HowToPlay extends Component {
   }
 }
 
-const mapStateToProps = (reduxStore) => {
+const mapStateToProps = reduxStore => {
   return {
     reduxStore
-  }
-}
+  };
+};
 export default connect(mapStateToProps)(withStyles(styles)(HowToPlay));
