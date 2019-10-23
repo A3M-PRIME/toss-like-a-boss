@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ItemTypes from "../ItemTypes/ItemTypes";
 import { DragSource } from "react-dnd";
 import { connect } from "react-redux";
@@ -20,6 +20,7 @@ const style = {
   borderRadius: 50
 };
 
+//value that determines if score is awarded.  If true and the player is correct a point is awarded, if false no points are awarded.
 let firstTry = true;
 
 const DraggableItem = ({
@@ -30,8 +31,8 @@ const DraggableItem = ({
   backgroundImageURL
 }) => {
   const opacity = isDragging ? 0 : 1;
-  console.log("imgurl is", backgroundImageURL);
   return (
+    //disposable item draggable div that is displayed on screen
     <div
       ref={connectDragSource}
       style={{
@@ -59,12 +60,15 @@ let DragNDrop = withRouter(
       {
         beginDrag: props => ({ name: props.name }),
         endDrag(props, monitor) {
-          console.log("drop result name", dropResult);
-          console.log(props.currentGameValue);
           const item = monitor.getItem();
           const dropResult = monitor.getDropResult();
           //check to see if game is over, if so, push to results
-          if (props.currentGameValue === props.items.length - 1 && dropResult && dropResult.name === item.name) {
+          if (
+            props.currentGameValue === props.items.length - 1 &&
+            dropResult &&
+            dropResult.name === item.name
+          ) {
+            //records how long it took player to finish game
             props.dispatch({
               type: "SET_GAME_END_TIME",
               payload: props.gameTime
@@ -83,10 +87,12 @@ let DragNDrop = withRouter(
               dropResult.name == item.name &&
               firstTry === true
             ) {
+              //increments score up by one on first attempt correct
               props.dispatch({
                 type: "FIRST_TRY_CORRECT",
                 payload: { id: props.items[props.currentGameValue].id }
               });
+              //increments game value so the next item in the reducer is displayed
               props.dispatch({
                 type: "INCREMENT_CURRENT_GAME_VALUE"
               });
@@ -99,19 +105,15 @@ let DragNDrop = withRouter(
               firstTry === true
             ) {
               firstTry = false;
-              console.log(firstTry);
               props.dispatch({
                 type: "FIRST_TRY_INCORRECT",
                 payload: { id: props.items[props.currentGameValue].id }
               });
+              //puts item into the wrong answer reducer to be displayed on results screen after game is over
               props.dispatch({
                 type: "ADD_WRONG_ANSWER",
                 payload: props.items[props.currentGameValue]
               });
-              console.log(
-                "object being sent to wrong answer arrray",
-                props.items[props.currentGameValue]
-              );
               //will tell you to keep trying until you get it correct to move onto the next item
             } else if (
               dropResult &&
@@ -126,13 +128,16 @@ let DragNDrop = withRouter(
               dropResult.name == item.name &&
               firstTry === false
             ) {
+              //increments game value so the next item in the reducer is displayed
               props.dispatch({
                 type: "INCREMENT_CURRENT_GAME_VALUE"
               });
               firstTry = true;
             }
           }
+          //if block for receptacle animations
 
+          //animates garbage can if the player is correct
           if (
             dropResult &&
             dropResult.name == item.name &&
@@ -140,18 +145,21 @@ let DragNDrop = withRouter(
           ) {
             props.dispatch({ type: "ANIMATE_GARBAGE_CORRECT" });
             setTimeout(() => {
+              //resets animation value after 2 seconds
               props.dispatch({ type: "DEANIMATE_GARBAGE" });
             }, 2000);
+            //animates garbage if player is wrong
           } else if (
             dropResult &&
             dropResult.name !== item.name &&
             dropResult.name === "garbage"
           ) {
-            console.log("DROP RESULT NAME!!!!!!", dropResult.name);
             props.dispatch({ type: "ANIMATE_GARBAGE_INCORRECT" });
             setTimeout(() => {
+              //resets animation value after 2 seconds
               props.dispatch({ type: "DEANIMATE_GARBAGE" });
             }, 2000);
+            //animates recycling if player is correct
           } else if (
             dropResult &&
             dropResult.name == item.name &&
@@ -159,8 +167,10 @@ let DragNDrop = withRouter(
           ) {
             props.dispatch({ type: "ANIMATE_RECYCLE_CORRECT" });
             setTimeout(() => {
+              //resets animation value after 2 seconds
               props.dispatch({ type: "DEANIMATE_RECYCLE" });
             }, 2000);
+            //animates recycling if player is incorrect
           } else if (
             dropResult &&
             dropResult.name !== item.name &&
@@ -168,8 +178,10 @@ let DragNDrop = withRouter(
           ) {
             props.dispatch({ type: "ANIMATE_RECYCLE_INCORRECT" });
             setTimeout(() => {
+              //resets animation value after 2 seconds
               props.dispatch({ type: "DEANIMATE_RECYCLE" });
             }, 2000);
+            //animates compost if player is correct
           } else if (
             dropResult &&
             dropResult.name == item.name &&
@@ -177,8 +189,10 @@ let DragNDrop = withRouter(
           ) {
             props.dispatch({ type: "ANIMATE_COMPOST_CORRECT" });
             setTimeout(() => {
+              //resets animation value after 2 seconds
               props.dispatch({ type: "DEANIMATE_COMPOST" });
             }, 2000);
+            //animates compost if player is incorrect
           } else if (
             dropResult &&
             dropResult.name !== item.name &&
@@ -186,6 +200,7 @@ let DragNDrop = withRouter(
           ) {
             props.dispatch({ type: "ANIMATE_COMPOST_INCORRECT" });
             setTimeout(() => {
+              //resets animation value after 2 seconds
               props.dispatch({ type: "DEANIMATE_COMPOST" });
             }, 2000);
           } else {

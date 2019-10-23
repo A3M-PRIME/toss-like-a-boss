@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from "react-router-dom";
+
+//Material UI Components
 import { Box, Card, CardContent, Grid, TextField, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
 
-
+//styling 
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -162,9 +164,6 @@ class LoginPage extends Component {
   }
 }
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   errors: state.errors,
 });
