@@ -102,9 +102,11 @@ const styles = {
   }
 };
 
+//animation for incorrect guess
 const Shake = styled.div`
   animation: 0.75s ${keyframes`${shake}`};
 `;
+//animation for correct guess
 const Bounce = styled.div`
   animation: 0.75s ${keyframes`${bounce}`};
 `;
@@ -130,11 +132,10 @@ class Game extends Component {
   }
 
   handleTimerStart = () => {
-    console.log("start a timer");
     this.setState({
       gameStarted: true
     });
-
+    //increases time 1 second, every second
     this.timer = setInterval(
       () =>
         this.setState({
@@ -145,7 +146,7 @@ class Game extends Component {
   };
 
 
-
+//send user to results screen after finishing with last item
   goToResults = () => {
     if (this.props.currentGameValue > this.props.gameItemsReducer.length - 1) {
       this.props.history.push("/results");
@@ -167,11 +168,6 @@ class Game extends Component {
   };
 
   render() {
-    console.log('image url', this.props.gameItems[this.props.currentGameValue].url)
-    console.log('game items', this.props.gameItems)
-    console.log('current game value', this.props.currentGameValue)
-
-
     return (
       <div className={this.props.classes.background}>
         <div className={this.props.classes.scoreboardHolder}>
@@ -215,7 +211,7 @@ class Game extends Component {
             alignItems={"center"}
           >
             <div className={this.props.classes.gameItem}>
-              {/* id={this.props.gameItems[0].id} */}
+              {/* Checks to see if the player is using a compost bin or not and conditionally renders it based on the value in the compostBin reducer */}
               {this.props.gameItems[this.props.currentGameValue]
                 .receptacle === "compost" && !this.props.compostBin ? (
                   this.props.gameItems[this.props.currentGameValue]
@@ -259,6 +255,7 @@ class Game extends Component {
             justify={"space-evenly"}
             spacing={48}
             alignItems={"center"}>
+            {/* 1 is the resting state of the receptacles, 2 is the correct state and causes receptacles to bounce, 3 is the incorrect state and causes the receptacles to shake */}
             {this.props.garbageAnimate === 1 ? <GarbageBin /> : null}
             {this.props.garbageAnimate === 2 ? (
               <Bounce>
