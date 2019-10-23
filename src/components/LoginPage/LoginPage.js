@@ -46,6 +46,8 @@ const styles = theme => ({
   }
 });
 
+//login page for a user who has registered and now will be able to access the further settings pages of their organization
+//if the user is an admin then they will be shown their admin settings.
 class LoginPage extends Component {
 
   state = {
