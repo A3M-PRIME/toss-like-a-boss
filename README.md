@@ -30,16 +30,20 @@ Steps to get the development environment running.
 4) `npm run server`
 5) `npm run client`
 6)  Add a .env file from the root folder.  For parts b through d, please reference the AWS S3 section of this document.
+    
     a) Line 1 of your .env should be: `SERVER_SESSION_SECRET=YOURACCESSKEY`.  Replace "YOURACCESSKEY" with a strong password.  You may wish to visit [Secure Password Generator](https://passwordsgenerator.net/) for help selecting any strong password for this first line.
+   
     b) Line 2 of your .env should be: `AWS_ACCESS_KEY_ID=YOURACCESSKEYID`.  Replace "YOURACCESSKEYID" with the ID that AWS S3 provides you.
+    
     c) Line 3 of your .env should be: `AWS_SECRET_KEY=YOURSECRETKEY`.  Replace "YOURSECRETKEY" with the key that AWS S3 provides you.
+   
     d) Line 4 of your .env should be: `AWS_BUCKET=YOURBUCKETNAME`.  Replace "YOURBUCKETNAME" with the name you provided for your bucket on AWS S3.
 
 ### AWS S3
 
 If you wish to use the image upload feature on the Items portion of this application, AWS S3 will be required.  This involves providing a credit card to AWS, in case you exceed the provided free storage limit.  If this feature is not used, Waste Wise administrators will not be able to upload images for new items, but they will still be able to provide an image URL when maintaining the items inventory.
 
-For detailed instructions, please reference this guide: [AWS S3 Setup Guide](https://passwordsgenerator.net/).  You can stop referencing this guide once your reach the section labeled "Back end."  Please note the following helpful, supplemental information below.  Step 3 especially must be reviewed.
+For detailed instructions, please reference this guide: [AWS S3 Setup Guide](https://passwordsgenerator.net/).  You can stop referencing this guide once you reach the section labeled "Back end."  Please note the following helpful, supplemental information below.  Step 3 especially must be reviewed.
 
 1)  Creating an AWS S3 account: [S3 Account Setup](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
 2)  Creating an AWS S3 bucket: [S3 Bucket Setup](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-bucket.html)
