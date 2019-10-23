@@ -17,10 +17,12 @@ const style = {
   borderRadius: "20px",
   fontFamily: "truckin"
 };
+//sets attributes so compost div is draggable
 const CompostBin = ({ canDrop, isOver, connectDropTarget }) => {
   const isActive = canDrop && isOver;
   let backgroundColor = "rgb(189,183,107,.6)";
   if (isActive) {
+    //changes background color to darkgreen when being dragged
     backgroundColor = "darkgreen";
   } else if (canDrop) {
     backgroundColor = "darkkhaki";
