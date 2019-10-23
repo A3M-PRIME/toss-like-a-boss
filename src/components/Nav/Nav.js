@@ -236,7 +236,7 @@ class NavGuest extends React.Component {
   }
 }
 
-Nav.propTypes = {
+NavGuest.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
@@ -251,4 +251,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(withStyles(styles)(Nav));
+export default connect(mapStateToProps)(withStyles(styles)(NavGuest));

@@ -1,15 +1,17 @@
+//Imports (React, Material-UI, Redux, SweetAlert)
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { Backdrop, Card, CardActions, CardContent, Grid, Modal, TextField } from "@material-ui/core";
 import { AddCircle, Edit, Cancel, Save, Delete } from '@material-ui/icons';
-import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
+//Declaring SweetAlert for use later in this file
 const MySwal = withReactContent(Swal)
 
+//Styles for Material-UI Components
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -99,29 +101,34 @@ class Teams extends Component {
         teamAddOpen: false,
     }
 
+    //Fetches team and organization info and loads to the DOM
     componentDidMount() {
         this.getTeams();
         this.getOrganization();
     }
 
+    //Gets teams from database
     getTeams() {
         this.props.dispatch({
             type: 'FETCH_TEAMS'
         })
     }
 
+    //Gets current user's organization from the database
     getOrganization() {
         this.props.dispatch({
             type: 'FETCH_ORGANIZATION'
         })
     }
 
+    //Saves any changes to form fields to state as users make edits
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
             [propertyName]: event.target.value
         });
     }
 
+    //Initializes team fields with its saved values upon edit
     handleTeamEditOpen = (name, id) => {
         this.setState({
             teamEditOpen: !this.state.teamEditOpen,
@@ -130,12 +137,14 @@ class Teams extends Component {
         })
     };
 
+    //Triggers open of Add New Team open
     handleTeamAddOpen = () => {
         this.setState({
             teamAddOpen: !this.state.teamAddOpen,
         })
     };
 
+    //Closes the team modal upon save or cancel
     handleTeamClose = () => {
         this.setState({
             teamEditOpen: false,
@@ -144,6 +153,7 @@ class Teams extends Component {
         })
     };
 
+    //Performs a PUT (edit) request to change the team name
     handleEdit = (event) => {
         event.preventDefault();
         this.props.dispatch({
@@ -154,6 +164,7 @@ class Teams extends Component {
         this.handleTeamClose();
     }
 
+    //Allows for the delete of a team.  User is asked to confirm this first.
     handleDelete = (name, id) => {
         MySwal.fire({
             title: `Delete the ${name} team?`,
@@ -178,6 +189,7 @@ class Teams extends Component {
         })
     }
 
+    //Adds new teams to the database
     handleTeamAdd = (event) => {
         event.preventDefault();
         this.props.dispatch({
@@ -188,17 +200,12 @@ class Teams extends Component {
         this.handleTeamClose();
     }
 
-    handlePresoClick = () => {
-        console.log('preso click');
-        this.setState({
-            teamName: 'Project Management'
-        })
-    }
-
     render() {
 
+        //Allows for classes when using Material-UI styling.
         const { classes } = this.props
 
+        //Team list variable, containing a loop to display all teams in the database to the DOM in a table format.
         let teamList = this.props.team.map(team => {
             return (
                 <tr>
@@ -230,7 +237,7 @@ class Teams extends Component {
                                 <Grid item sm={5}>
                                 </Grid>
                                 <Grid item sm={2}>
-                                    <span onClick={() => this.handlePresoClick()} className={classes.cardHeader} style={{ marginLeft: "auto" }}>Teams</span>
+                                    <span className={classes.cardHeader} style={{ marginLeft: "auto" }}>Teams</span>
                                 </Grid>
                                 <Grid item sm={5} style={{ textAlign: "right" }}>
                                     <Button onClick={() => this.handleTeamAddOpen()} style={{ marginLeft: "auto", }}>
@@ -275,7 +282,6 @@ class Teams extends Component {
                 >
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
 
-                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleEdit}>
                             <div>
                                 <TextField
@@ -340,7 +346,6 @@ class Teams extends Component {
                 >
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
 
-                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleTeamAdd}>
                             <div>
                                 <TextField

@@ -1,11 +1,12 @@
+//Imports (React, Material-UI, Redux)
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { Card, CardActions, CardContent, Grid, TextField } from "@material-ui/core";
 import { Edit, Cancel, Save } from '@material-ui/icons';
-import { withRouter } from 'react-router-dom';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 
+//Styles for Material-UI Components
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -64,16 +65,19 @@ class OrganizationName extends Component {
         organizationName: ''
     }
 
+    //Fetches organization info and loads to the DOM
     componentDidMount() {
         this.getOrganization();
     }
 
+    //Gets current user's organization from the database
     getOrganization() {
         this.props.dispatch({
             type: 'FETCH_ORGANIZATION'
         })
     }
 
+    //Conditionally renders the Organization Name field for edits
     toggleOrganizationNameEdit = () => {
         this.setState({
             organizationName: this.props.organization.organization_name
@@ -83,12 +87,14 @@ class OrganizationName extends Component {
         })
     }
 
+    //Saves any changes to form fields to state as users make edits
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
             [propertyName]: event.target.value
         });
     }
 
+    //Handles PUT request to save a name change to the Organization Name
     handleOrganizationNameSave = () => {
         this.props.dispatch({
             type: 'UPDATE_ORGANIZATION_NAME',
@@ -99,6 +105,7 @@ class OrganizationName extends Component {
 
     render() {
 
+        //Allows for classes when using Material-UI styling.
         const { classes } = this.props
 
         return (

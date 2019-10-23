@@ -1,16 +1,17 @@
+//Imports (React, Material-UI, Redux, SweetAlert)
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
-import { Backdrop, Card, CardActions, CardContent, Fab, FormControl, FormControlLabel, FormLabel, Grid, MenuItem, Modal, Radio, RadioGroup, TextField } from "@material-ui/core";
-import { Add, AddCircle, Edit, Cancel, Save, Delete, Remove } from '@material-ui/icons';
-import { withRouter } from 'react-router-dom';
+import { Backdrop, Card, CardActions, CardContent, Fab, Grid, Modal, TextField } from "@material-ui/core";
+import { Add, Edit, Cancel, Save, Delete, Remove } from '@material-ui/icons';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
+//Declaring SweetAlert for use later in this file
 const MySwal = withReactContent(Swal)
 
+//Styles for Material-UI Components
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -124,28 +125,33 @@ class Users extends Component {
         userId: 0
     }
 
+    //Load users to the DOM
     componentDidMount() {
         this.getUsers();
     }
 
+    //Function to retrieve users from the database
     getUsers() {
         this.props.dispatch({
             type: 'FETCH_WASTE_WISE_USERS'
         })
     }
 
+    //Indicates whether the fields for the add user form should display
     handleAddClick = () => {
         this.setState({
             toggleAdd: !this.state.toggleAdd
         })
     }
 
+    //Saves any changes to form fields to state as users make edits
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
             [propertyName]: event.target.value
         });
     }
 
+    //Validation to ensure all required user fields are entered by the user
     addFieldValidation() {
 
         if (!this.state.firstName) {
@@ -180,6 +186,7 @@ class Users extends Component {
         this.handleUserAdd();
     }
 
+    //Validation to require all fields are filled out when editing a user
     editFieldValidation = (event) => {
 
         event.preventDefault();
@@ -213,6 +220,7 @@ class Users extends Component {
 
     }
 
+    //Handles save of a new users and sends a POST request to the database
     handleUserAdd() {
         this.props.dispatch({
             type: 'ADD_WASTE_WISE_USER',
@@ -228,6 +236,7 @@ class Users extends Component {
         })
     }
 
+    //Handles delete of a user from the database.  SweetAlert triggers first to verify the selection being made.
     handleDelete = (name, id) => {
         MySwal.fire({
             title: `Delete ${name} as a Waste Wise user?`,
@@ -252,6 +261,7 @@ class Users extends Component {
         })
     }
 
+    //Handles PUT (edit) request of user and dispatches to the database.
     handleEdit() {
         this.props.dispatch({
             type: 'UPDATE_USER',
@@ -260,6 +270,7 @@ class Users extends Component {
         this.handleUserClose();
     }
 
+    //Ensures user is editing without resetting their password, if no password change was provided during edit process.
     handleEditWithoutPassword() {
         this.props.dispatch({
             type: 'UPDATE_USER_WITHOUT_PASSWORD',
@@ -268,6 +279,7 @@ class Users extends Component {
         this.handleUserClose();
     }
 
+    //Ensure's a user's information defaults correctly upon edit.
     handleUserEditOpen = (userId, firstName, lastName, username) => {
         this.setState({
             userEditOpen: !this.state.userEditOpen,
@@ -280,6 +292,7 @@ class Users extends Component {
         })
     };
 
+    //Allows user to cancel the edit of a user.
     handleUserClose = () => {
         this.setState({
             userEditOpen: false,
@@ -292,20 +305,12 @@ class Users extends Component {
         })
     };
 
-    setDefaultUser = () => {
-        this.setState({
-            firstName: 'Patrick',
-            lastName: `O'Malley`,
-            username: 'patricko@gmail.com',
-            password: 'testtest',
-            confirmPassword: 'testtest',
-        })
-    }
-
     render() {
 
+        //Allows for classes when using Material-UI styling.
         const { classes } = this.props
 
+        //User list variable, containing a loop to display all users in the database to the DOM in a table format.
         let userList = this.props.admin.map(user => {
             return (
                 <tr>
@@ -334,7 +339,7 @@ class Users extends Component {
 
         return (
             <div>
-                <span onClick={() => this.setDefaultUser()} className={classes.addItem}>Add Waste Wise Admin User</span>
+                <span className={classes.addItem}>Add Waste Wise Admin User</span>
                 <br />
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" style={{ marginTop: 15 }} onClick={this.handleAddClick}>
                     <Add />
@@ -514,7 +519,6 @@ class Users extends Component {
                 >
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
 
-                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.editFieldValidation}>
                             <div>
                                 <TextField

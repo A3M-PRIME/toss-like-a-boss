@@ -1,18 +1,17 @@
+//Imports (React, Material-UI, Redux, SweetAlert)
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
-import { Backdrop, Card, CardActions, CardContent, Fab, FormControl, FormControlLabel, FormLabel, Grid, MenuItem, Modal, Radio, RadioGroup, TextField } from "@material-ui/core";
-import { Add, AddCircle, Edit, Cancel, Save, Delete, Remove } from '@material-ui/icons';
-import { withRouter } from 'react-router-dom';
+import { Backdrop, Card, CardActions, CardContent, Fab, Grid, MenuItem, Modal, TextField } from "@material-ui/core";
+import { Add, Edit, Cancel, Save, Delete, Remove } from '@material-ui/icons';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import Upload from './Upload'
-// import ImageUpload from './ImageUpload';
 
+//Declaring SweetAlert for use later in this file
 const MySwal = withReactContent(Swal)
 
+//Styles for Material-UI Components
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -140,13 +139,14 @@ class Items extends Component {
         pleaseWait: false
     }
 
+    //Load items to the DOM
     componentDidMount() {
         this.getItems();
     }
 
+    //When an image is detected in props, load these images
     componentDidUpdate(prevProps) {
         if (this.props.image !== prevProps.image) {
-            console.log('there has been a change in props!')
             this.setState({
                 url: this.props.image,
                 pleaseWait: false
@@ -154,24 +154,28 @@ class Items extends Component {
         }
     }
 
+    //Function to get the items, included in componentDidMount
     getItems() {
         this.props.dispatch({
             type: 'FETCH_ITEMS'
         })
     }
     
+    //Toggles display of form for a new item
     handleAddClick = () => {
         this.setState({
             toggleAdd: !this.state.toggleAdd
         })
     }
 
+    //Saves any changes to form fields to state as users make edits
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
             [propertyName]: event.target.value
         });
     }
 
+    //Initializes item fields with its saved values upon edit
     handleItemEditOpen = (name, receptacle, text, url, id) => {
         this.setState({
             itemEditOpen: !this.state.itemEditOpen,
@@ -183,6 +187,7 @@ class Items extends Component {
         })
     };
 
+    //Posts a new item to the database
     handleItemAdd = () => {
         this.props.dispatch({
             type: 'ADD_ITEM',
@@ -198,6 +203,7 @@ class Items extends Component {
         })
     }
 
+    //Deletes an item from the database.  Uses a SweetAlert, so user must confirm the change.
     handleDelete = (name, id) => {
         MySwal.fire({
             title: `Delete the ${name} item?`,
@@ -222,16 +228,12 @@ class Items extends Component {
         })
     }
 
-    fileSelectedHandler = event => {
-        this.setState({
-            selectedFile: event.target.files[0]
-        })
-    }
-
+    //Grabs the image file information upon selecting an image file
     handleUploadInputChange = e => {
         this.setState({ file: e.target.files[0] });
     };
 
+    //Posts the image to Amazon Web Services S3 storage and retrieves the image URL.
     handleUpload = event => {
         event.preventDefault();
 
@@ -245,6 +247,7 @@ class Items extends Component {
         })
     };
 
+    //Handes PUT request to change then information about an item.
     handleEdit = (event) => {
         event.preventDefault();
         this.props.dispatch({
@@ -254,6 +257,7 @@ class Items extends Component {
         this.handleItemClose();
     }
 
+    //Allows a user to cancel an item change.
     handleItemClose = () => {
         this.setState({
             itemEditOpen: false,
@@ -264,18 +268,12 @@ class Items extends Component {
         })
     };
 
-    setDefaultItem = () => {
-        this.setState({
-            itemName: 'Laundry Detergent',
-            receptacle: 'recycle',
-            itemText: 'These can be recycled!  Put the lid back on.',
-        })
-    }
-
     render() {
 
+        //Allows for classes when using Material-UI styling.
         const { classes } = this.props
 
+        //Item list variable, containing a loop to display all items in the database to the DOM in a table format.
         let itemList = this.props.item.map(item => {
             return (
                 <tr>
@@ -303,8 +301,9 @@ class Items extends Component {
         })
 
         return (
+
             <div>
-                <span onClick={() => this.setDefaultItem()} className={classes.addItem}>Add Item</span>
+                <span className={classes.addItem}>Add Item</span>
                 <br />
                 {!this.state.toggleAdd ? <Fab color="primary" aria-label="add" style={{ marginTop: 15 }} onClick={this.handleAddClick}>
                     <Add />

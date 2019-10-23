@@ -1,115 +1,98 @@
-# Prime Project
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+# Toss Like a Boss
 
-We **STRONGLY** recommend following these instructions carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+A drag-and-drop game designed to teach users the appropriate receptacle (garbage, recycling, or compost) that should be used for disposal of common items.  The application allows for organizations to register for their own accounts, schedule contests, create teams, and invite their employees to compete against one another and see how they rank in a company leaderboard.
 
-## Download (Don't Clone) This Repository
+Link to Application: Coming Soon
 
-* Don't Fork or Clone. Instead, click the `Clone or Download` button and select `Download Zip`.
-* Unzip the project and start with the code in that folder.
-* Create a new GitHub project and push this code to the new repository.
+## Built With
 
-## Prerequisites
+React, React Drag-and-Drop, Redux, Redux-Sagas, Node, Express, PostgreSQL, Material-UI, Passport, AWS S3, and MomentJS.
 
-Before you get started, make sure you have the following software installed on your computer:
+## Getting Started
+
+Please review the Prerequisites and Installation sections for steps to get this application working on a local machine.
+
+### Prerequisites
+
+This software is required prior to starting the application.
 
 - [Node.js](https://nodejs.org/en/)
-- [PostrgeSQL](https://www.postgresql.org/)
+- [PostgreSQL](https://www.postgresql.org/)
 - [Nodemon](https://nodemon.io/)
 
-## Create database and table
+### Installation
 
-Create a new database called `prime_app` and create a `user` table:
+Steps to get the development environment running.
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+1) Download this project and open in your preferred IDE.
+2) Create a SQL database and tables by referencing the provided database.sql file.
+3) `npm install`
+4) `npm run server`
+5) `npm run client`
+6)  Add a .env file from the root folder.  For parts b through d, please reference the AWS S3 section of this document.
+    a) Line 1 of your .env should be: `SERVER_SESSION_SECRET=YOURACCESSKEY`.  Replace "YOURACCESSKEY" with a strong password.  You may wish to visit [Secure Password Generator](https://passwordsgenerator.net/) for help selecting any strong password for this first line.
+    b) Line 2 of your .env should be: `AWS_ACCESS_KEY_ID=YOURACCESSKEYID`.  Replace "YOURACCESSKEYID" with the ID that AWS S3 provides you.
+    c) Line 3 of your .env should be: `AWS_SECRET_KEY=YOURSECRETKEY`.  Replace "YOURSECRETKEY" with the key that AWS S3 provides you.
+    d) Line 4 of your .env should be: `AWS_BUCKET=YOURBUCKETNAME`.  Replace "YOURBUCKETNAME" with the name you provided for your bucket on AWS S3.
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+### AWS S3
 
-## Development Setup Instructions
+If you wish to use the image upload feature on the Items portion of this application, AWS S3 will be required.  This involves providing a credit card to AWS, in case you exceed the provided free storage limit.  If this feature is not used, Waste Wise administrators will not be able to upload images for new items, but they will still be able to provide an image URL when maintaining the items inventory.
 
-* Run `npm install`
-* Create a `.env` file at the root of the project and paste this line into the file:
-    ```
-    SERVER_SESSION_SECRET=superDuperSecret
-    ```
-    While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-* Start postgres if not running already by using `brew services start postgresql`
-* Run `npm run server`
-* Run `npm run client`
-* Navigate to `localhost:3000`
+For detailed instructions, please reference this guide: [AWS S3 Setup Guide](https://passwordsgenerator.net/).  You can stop referencing this guide once your reach the section labeled "Back end."  Please note the following helpful, supplemental information below.  Step 3 especially must be reviewed.
 
-## Debugging
+1)  Creating an AWS S3 account: [S3 Account Setup](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account/)
+2)  Creating an AWS S3 bucket: [S3 Bucket Setup](https://docs.aws.amazon.com/AmazonS3/latest/user-guide/create-bucket.html)
+3)  Updating the CORS Configuration.  Instead of the information provided in the AWS S3 Setup Guide, please copy and paste this code instead into the CORS Configuration:
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+```<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <MaxAgeSeconds>3000</MaxAgeSeconds>
+</CORSRule>
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowedMethod>HEAD</AllowedMethod>
+    <ExposeHeader>ETag</ExposeHeader>
+    <AllowedHeader>*</AllowedHeader>
+</CORSRule>
+</CORSConfiguration>```
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+## Screen Shot
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+Include one or two screen shots of your project here (optional). Remove if unused.
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+![screenshot1](/screenshots/screenshot1.png)
+![screenshot2](/screenshots/screenshot2.png)
+![screenshot3](/screenshots/screenshot3.png)
+![screenshot4](/screenshots/screenshot4.png)
+![screenshot5](/screenshots/screenshot5.png)
 
+## Documentation
 
-## Testing Routes with Postman
+[Original Scope Document](https://docs.google.com/document/d/15kyh2RjnZemqwrpsxLzq4MJ_zEyQrItEyBs-gnUVn5k/edit?usp=sharing)
 
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum. 
+### Completed Features
 
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
+High level list of items completed.
 
-1. Start the server - `npm run server`
-2. [Import the sample routes JSON file](./PostmanPrimeSoloRoutes.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-    1. `POST /api/user/register` registers a new user, see body to change username/password
-    2. `POST /api/user/login` will login a user, see body to change username/password
-    3. `GET /api/user` will get user information, by default it's not very much
-
-After running the login route above, you can try any other route you've created that requires a logged in user!
-
-
-## Production Build
-
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
-
-* Start postgres if not running already by using `brew services start postgresql`
-* Run `npm start`
-* Navigate to `localhost:5000`
-
-## Lay of the Land
-
-* `src/` contains the React application
-* `public/` contains static assets for the client-side
-* `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-* `server/` contains the Express App
-
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
-
-* src/components
-  * App/App
-  * Footer/Footer
-  * Nav/Nav
-  * AboutPage/AboutPage
-  * InfoPage/InfoPage
-  * UserPage/UserPage
-  * LoginPage/LoginPage
-  * RegisterPage/RegisterPage
-  * LogOutButton/LogOutButton
-  * ProtectedRoute/ProtectedRoute
+- [x] Waste Wise - Administrator Settings (Items/User Maintenance)
+- [x] Organization Settings (Team/Contest Settings)
+- [x] Drag-and-Drop Game
+- [x] Leaderboard
 
 ## Deployment
 
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
+Add additional notes about how to deploy this on a live system
 
-## Update Documentation
+## Authors
 
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+[Andy Dubois](https://github.com/andydubois)
+[Max Maher](https://github.com/maxwmaher)
+[Miles Lacek](https://github.com/TheHumanCreative)
+[Michael O'Donnell](https://github.com/michaelodonnell321)

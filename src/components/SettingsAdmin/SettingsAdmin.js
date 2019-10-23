@@ -1,13 +1,14 @@
+//Import for React, Redux, Material-UI, and the Items and Users components
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import { AccountBalance, Fastfood, NaturePeople, Settings } from '@material-ui/icons';
+import { Fastfood, NaturePeople, Settings } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
 import Items from './Components/Items';
 import Users from './Components/Users';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
+//Styles for Material-UI Components
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -48,7 +49,8 @@ class SettingsAdmin extends Component {
     state = {
         items: 'true'
     }
-
+    
+    //Determines whether the Items or Users button should be highlighted green, and conditionally renders the appropriate content
     handleDisplay = () => {
         this.setState({
           items: !this.state.items  
