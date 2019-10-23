@@ -78,7 +78,8 @@ class ResultsGuestPlayer extends Component {
                 score: this.props.gameScore,
                 time: this.props.gameTime,
                 contestIdNumber: this.props.organizationInfo[0].id,
-                organizationIdNumber: this.props.organizationInfo[0].organization_id
+                organizationIdNumber: this.props.organizationInfo[0].organization_id,
+                teamIdNumber: this.props.teamIdNumber.id
             }
         })
     }
@@ -161,6 +162,7 @@ const mapStateToProps = reduxStore => {
         contestUserInfo: reduxStore.contestUserInfoReducer,
         organizationInfo: reduxStore.organizationTeamNameReducer,
         contestInfo: reduxStore.contestCompostBooleanReducer,
+        teamIdNumber: reduxStore.teamIdNumberReducer
     };
 };
 

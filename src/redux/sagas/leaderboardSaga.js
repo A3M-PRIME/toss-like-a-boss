@@ -37,10 +37,28 @@ function* getCompanyId(action) {
   }
 }
 
+function* fetchTeamIdNumber(action) {
+  console.log('fetcth team id', action.payload)
+  // const params = `organizationId=${action.payload.organizationId}teamName=${action.payload.teamName}`
+  const params = Object.keys(action.payload).map(key => key + '=' + action.payload[key]).join('&');
+  console.log('params are', params)
+  console.log('params for fetch', params)
+  try {
+    const response = yield axios.get(`api/team/idnumber/${params}`);
+    yield put({
+      type: 'SET_TEAM_ID_NUMBER',
+      payload: response.data
+    });
+  } catch (error) {
+    console.log('error in fetch team id number', error);
+  }
+}
+
 function* watchMe() {
   yield takeEvery("FETCH_LEADERBOARD", getLeaderboard);
   yield takeEvery('SEND_CONTEST_GAME_DATA', sendContestGameData);
   yield takeEvery('GET_COMPANY_ID', getCompanyId);
+  yield takeEvery('FETCH_TEAM_ID_NUMBER', fetchTeamIdNumber)
 }
 
 export default watchMe;
