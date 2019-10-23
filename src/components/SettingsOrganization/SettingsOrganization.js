@@ -1,14 +1,14 @@
+//Imports (React, Material-UI, Redux, Router, and components for Organization, Teams, and Contests)
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
-import { Card, CardContent, Grid } from "@material-ui/core";
-import { AccountBalance, People, Settings, VideogameAsset } from '@material-ui/icons';
+import { Settings } from '@material-ui/icons';
 import OrganizationName from './SettingsComponents/OrganizationName';
 import Teams from './SettingsComponents/Teams';
 import Contests from './SettingsComponents/Contests';
 import { Redirect } from 'react-router-dom';
 
+//Styles for Material-UI Components
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -46,19 +46,17 @@ class SettingsOrganization extends Component {
 
   render() {
 
+    //Allows for classes when using Material-UI styling.
     const { classes } = this.props
 
     return (
       <>{this.props.user.wastewise_admin && <Redirect to="/settingsadmin"/> }
       <div className={classes.root}>
         <h1 className={classes.h1}>Settings<Settings className={classes.icon} /></h1>
-        {/* <h2>Organization<AccountBalance className={classes.icon} /></h2> */}
           <OrganizationName/>
           <br/><br/>
-        {/* <h2>Teams<People className={classes.icon} /></h2> */}
           <Teams/>
         <br /><br />
-        {/* <h2>Contests<VideogameAsset className={classes.icon} /></h2> */}
           <Contests/>
       </div>
       </>

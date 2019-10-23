@@ -1,8 +1,8 @@
+//Imports (React, Material-UI, Redux, SweetAlert)
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import { Backdrop, Card, CardActions, CardContent, FormControl, FormControlLabel, FormLabel, Grid, MenuItem, Modal, Radio, RadioGroup, TextField } from "@material-ui/core";
-import { AddCircle, Edit, Cancel, Save, Delete, Link, InfoIcon, Close } from '@material-ui/icons';
-import { withRouter } from 'react-router-dom';
+import { AddCircle, Edit, Cancel, Save, Delete, Link, Close } from '@material-ui/icons';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -10,8 +10,10 @@ import withReactContent from 'sweetalert2-react-content';
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 
+//Declaring SweetAlert for use later in this file
 const MySwal = withReactContent(Swal)
 
+//Styles for Material-UI Components
 const styles = theme => ({
     root: {
         flexGrow: 1,
@@ -128,22 +130,26 @@ class Contests extends Component {
         snackBarShowOpen: false,
     }
 
+    //Load contests to the DOM
     componentDidMount() {
         this.getContests();
     }
 
+    //Function to get the contests, included in componentDidMount
     getContests() {
         this.props.dispatch({
             type: 'FETCH_CONTESTS'
         })
     }
 
+    //Saves any changes to form fields to state as users make edits
     handleChangeFor = (propertyName) => (event) => {
         this.setState({
             [propertyName]: event.target.value
         });
     }
 
+    //Initializes contest fields with its saved values upon edit
     handleContestEditOpen = (name, startDate, startTime, endDate, endTime, compost, id) => {
         this.setState({
             contestEditOpen: !this.state.contestEditOpen,
@@ -157,12 +163,14 @@ class Contests extends Component {
         })
     };
 
+    //Triggers display of modal with form to enter new contest information
     handleContestAddOpen = () => {
         this.setState({
             contestAddOpen: !this.state.contestAddOpen,
         })
     };
 
+    //Closes the modal for the contest
     handleContestClose = () => {
         this.setState({
             contestEditOpen: false,
@@ -177,6 +185,7 @@ class Contests extends Component {
         })
     };
 
+    //Handles PUT request (edit) of contest details for a specific contest
     handleEdit = (event) => {
         event.preventDefault();
         this.props.dispatch({
@@ -186,6 +195,7 @@ class Contests extends Component {
         this.handleContestClose();
     }
 
+    //Handles POST request of contest details to enter a brand new contest
     handleAdd = (event) => {
         event.preventDefault();
         this.generateAccessId();
@@ -197,10 +207,12 @@ class Contests extends Component {
         this.handleContestClose();
     }
 
+    //Generates a random, nine-digit number to be used as the Contest ID
     generateAccessId() {
         this.state.contestAccessCode = Math.floor(Math.random() * 900000000) + 100000000;
     }
 
+    //Handles the delete for a contest from the database, with a SweetAlert requiring users to confirm their decisions
     handleDelete = (name, id) => {
         MySwal.fire({
             title: `Delete the ${name} contest?`,
@@ -225,6 +237,7 @@ class Contests extends Component {
         })
     }
 
+    //Allows the link with the generated contest access code to be copied to the user's clipboard
     copyLink = (code) => {
         this.setState({ snackBarShowOpen: true });
         let dummy = document.createElement("textarea");
@@ -246,6 +259,7 @@ class Contests extends Component {
         document.body.removeChild(dummy);
     }
 
+    //Allows users to close the "copied link to clipboard" snackbar
     handleSnackShowClose = (event, reason) => {
         if (reason === "clickaway") {
             return;
@@ -253,22 +267,12 @@ class Contests extends Component {
         this.setState({ snackBarShowOpen: false });
     };
 
-    handlePresoClick = () => {
-        console.log('preso click')
-        this.setState({
-            contestName: 'Earth Day 2020',
-            contestStartDate: '2020-10-21',
-            contestStartTime: 8,
-            contestEndDate: '2020-10-23',
-            contestEndTime: 6,
-            contestCompostBin: true,
-        })
-    }
-
     render() {
 
+        //Allows for classes when using Material-UI styling.
         const { classes } = this.props
 
+        //Contest list variable, containing a loop to display all contests in the database to the DOM in a table format.
         let contestList = this.props.contest.map(contest => {
             console.log('the mapped over contest is', contest)
             return (
@@ -330,7 +334,7 @@ class Contests extends Component {
                                 <Grid item sm={5}>
                                 </Grid>
                                 <Grid item sm={2}>
-                                    <span onClick={() => this.handlePresoClick()} className={classes.cardHeader} style={{ marginLeft: "auto" }}>Contests</span>
+                                    <span className={classes.cardHeader} style={{ marginLeft: "auto" }}>Contests</span>
                                 </Grid>
                                 <Grid item sm={5} style={{ textAlign: "right" }}>
                                     <Button onClick={() => this.handleContestAddOpen()} style={{ marginLeft: "auto", }}>
@@ -378,11 +382,9 @@ class Contests extends Component {
                 >
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
                         
-                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleEdit}>
                             <div>
                                 <TextField
-                                    onClick={() => this.handlePresoClick()}
                                     align="left"
                                     id="outlined-name"
                                     label="contest name"
@@ -570,7 +572,6 @@ class Contests extends Component {
                 >
                     <CardContent className={classes.form} style={{ backgroundColor: "#EEF1F1" }}>
 
-                        {/* <h1 className={classes.h1} style={{ color: this.props.user.color }}>Enter Contest Details</h1> */}
                         <form onSubmit={this.handleAdd}>
                             <div>
                                 <TextField

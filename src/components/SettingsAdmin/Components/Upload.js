@@ -1,3 +1,4 @@
+//Import React and Axios for image upload to AWS S3
 import React, { Component } from 'react';
 import axios from 'axios';
 
@@ -12,8 +13,8 @@ class Upload extends Component {
 
     handleChange = (ev) => {
         this.setState({ success: false, url: "" });
-
     }
+    
     // Perform the upload
     handleUpload = (ev) => {
         let file = this.uploadInput.files[0];
