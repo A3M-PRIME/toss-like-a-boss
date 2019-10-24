@@ -164,6 +164,17 @@ class GameLaunch extends Component {
     this.getContestInfo(contestIdNumber);
   }
 
+  componentWillUnmount() {
+    console.log('UMOUNTED, TEAM NAME IS', this.state.teamName)
+    this.props.dispatch({
+      type: 'FETCH_TEAM_ID_NUMBER',
+      payload: {
+        teamName: this.state.teamName,
+        organizationId: this.props.compostBoolean[0].organization_id
+      }
+    })
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.currentContest !== prevProps.currentContest) {
       console.log('there has been a change in props!')
@@ -529,7 +540,8 @@ const mapStateToProps = reduxStore => {
     reduxStore,
     compostBoolean: reduxStore.contestCompostBooleanReducer,
     teamNames: reduxStore.organizationTeamNameReducer,
-    currentContest: reduxStore.currentContestInfo
+    currentContest: reduxStore.currentContestInfo,
+    contestUser: reduxStore.contestUserInfoReducer
   };
 };
 

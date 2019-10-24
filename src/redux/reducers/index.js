@@ -25,6 +25,7 @@ import animateCompostReducer from './animateCompostReducer';
 import imageUrlReducer from './imageUrlReducer';
 import currentContestInfo from './currentContestInfoReducer';
 import companyIdNumberReducer from './companyIdNumberReducer';
+import teamIdNumberReducer from './teamIdNumberReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -59,6 +60,7 @@ const rootReducer = combineReducers({
   imageUrlReducer, //returns image url from AWS
   currentContestInfo, //grabs current contest info for date/time validation
   companyIdNumberReducer, //grabs company ID number
+  teamIdNumberReducer, //holds team id number for current player
 });
 
 export default rootReducer;
