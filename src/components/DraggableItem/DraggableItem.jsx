@@ -73,6 +73,15 @@ let DragNDrop = withRouter(
               type: "SET_GAME_END_TIME",
               payload: props.gameTime
             });
+            if (
+              firstTry === true
+            ) {
+              props.dispatch({
+                type: "FIRST_TRY_CORRECT",
+                payload: { id: props.items[props.currentGameValue].id}
+              });
+              firstTry = true;
+            }
             //check to see if playing contest game, if so, push to results page
             //with contest ID in URL
             if (props.history.location.search) {

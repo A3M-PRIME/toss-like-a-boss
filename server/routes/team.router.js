@@ -76,4 +76,27 @@ router.get('/names/:id', (req, res) => {
     })
 })
 
+router.get('/idnumber/:id', (req, res) => {
+    console.log('team/idnumber', req.params.id)
+    let search = req.params.id.split('&')
+    console.log('search turned out as', search)
+    let teamName = search[0].split('=').pop()
+    let organizationId = search[1].split('=').pop()
+    console.log('team name is', teamName)
+    console.log('org id is', organizationId);
+    const sqlText = `
+   SELECT "team".id from "team"
+   WHERE "team".team_name = $1 and "team".organization_id = $2;
+   `;
+    pool.query(sqlText, [teamName, organizationId])
+        .then(result => {
+            console.log('team id number is', result.rows[0].id)
+            res.send(result.rows[0])
+        })
+        .catch(error => {
+            console.log('error in get team/idnumber/id', error);
+            res.sendStatus(500);
+        })
+})
+
 module.exports = router
