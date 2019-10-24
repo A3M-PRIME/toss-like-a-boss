@@ -41,7 +41,7 @@ class Leaderboard extends Component {
       // payload: contestIdNumber
     });
   }
-
+//playAgain brings the user back to the gamelaunch page where they can choose to continue playing or if they want to register for a contest then they can play in a contest.
   playAgain = () => {
     if (this.props.history.location.search) {
       this.props.history.push(`/gamelaunch${this.props.history.location.search}`)
@@ -49,7 +49,7 @@ class Leaderboard extends Component {
       this.props.history.push("/gamelaunch");
     }
   };
-
+//below is the leaderboard which is able to show the user's rank, name, score, time, and which department they are from.
   render() {
     const { classes } = this.props;
     return (

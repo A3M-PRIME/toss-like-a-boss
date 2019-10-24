@@ -1,6 +1,8 @@
 //Import for React, Redux, Material-UI, and the Items and Users components
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+//Material UI Components
 import Button from '@material-ui/core/Button';
 import { Fastfood, NaturePeople, Settings } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
@@ -80,7 +82,6 @@ class SettingsAdmin extends Component {
     }
 }
 
-//exports the component
 const mapStateToProps = (reduxStore) => {
     return {
         user: reduxStore.user,

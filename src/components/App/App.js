@@ -40,6 +40,9 @@ class App extends Component {
     this.props.dispatch({ type: "FETCH_USER" });
   }
 
+  //protected routes = have to be logged in to see
+  //routes = non logged in users are able to see
+  //all routes go to a component which is referenced as the component={}
   render() {
     return (
       <DndProvider backend={HTML5Backend}>
