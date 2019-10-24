@@ -67,7 +67,7 @@ router.post('/', (req, res) => {
   VALUES ($1, $2, $3, $4, $5, $6, $7);
   `;
   pool.query(queryText, [req.body.firstName, req.body.lastName, req.body.email, req.body.score, req.body.time,
-  req.body.contestIdNumber, req.body.organizationIdNumber])
+  req.body.contestIdNumber, req.body.teamIdNumber])
     .then(() => {
       res.sendStatus(200);
     })

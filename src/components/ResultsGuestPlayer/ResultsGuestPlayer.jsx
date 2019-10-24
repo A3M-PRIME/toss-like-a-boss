@@ -46,14 +46,8 @@ const styles = {
 
 class ResultsGuestPlayer extends Component {
 
-    componentDidMount() {
-        console.log(this.props)
-        //if you are playing a contest game, send game data to saga
-        this.props.history.location.search && this.sendContestGameData()
-    }
-
     componentWillUnmount() {
-        console.log('UNMOUNTEDDDDD')
+        this.props.history.location.search && this.sendContestGameData()
         this.props.dispatch({
             type: "RESET_CURRENT_GAME_VALUE"
         });
@@ -78,7 +72,8 @@ class ResultsGuestPlayer extends Component {
                 score: this.props.gameScore,
                 time: this.props.gameTime,
                 contestIdNumber: this.props.organizationInfo[0].id,
-                organizationIdNumber: this.props.organizationInfo[0].organization_id
+                organizationIdNumber: this.props.organizationInfo[0].organization_id,
+                teamIdNumber: this.props.teamIdNumber.id
             }
         })
     }
@@ -161,6 +156,7 @@ const mapStateToProps = reduxStore => {
         contestUserInfo: reduxStore.contestUserInfoReducer,
         organizationInfo: reduxStore.organizationTeamNameReducer,
         contestInfo: reduxStore.contestCompostBooleanReducer,
+        teamIdNumber: reduxStore.teamIdNumberReducer
     };
 };
 
