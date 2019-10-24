@@ -97,6 +97,6 @@ High level list of items completed.
 
 [Max Maher](https://github.com/maxwmaher)
 
-[Miles Lacek](https://github.com/TheHumanCreative)
-
 [Michael O'Donnell](https://github.com/michaelodonnell321)
+
+[Miles Lacek](https://github.com/TheHumanCreative)
