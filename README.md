@@ -91,6 +91,9 @@ High level list of items completed.
 - [x] Drag-and-Drop Game
 - [x] Leaderboard
 
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
 ## Authors
 
 [Andy Dubois](https://github.com/andydubois)
